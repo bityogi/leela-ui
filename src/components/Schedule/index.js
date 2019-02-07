@@ -16,81 +16,17 @@ import Checkbox from '@material-ui/core/Checkbox';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Back from './common/Back'
+import qs from 'query-string';
 
-const qs = require('query-string');
-const backgroundShape = require('../images/shape.svg');
+import Back from 'components/common/Back';
+
+import styles from './styles';
+import Info from './info';
 
 const numeral = require('numeral');
 numeral.defaultFormat('0,000');
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.primary['A100'],
-    overflow: 'hidden',
-    background: `url(${backgroundShape}) no-repeat`,
-    backgroundSize: 'cover',
-    backgroundPosition: '0 400px',
-    marginTop: 10,
-    padding: 20,
-    paddingBottom: 200
-  },
-  grid: {
-    margin: `0 ${theme.spacing.unit * 2}px`
-  },
-  smallContainer: {
-    width: '60%'
-  },
-  bigContainer: {
-    width: '80%'
-  },
-  stepContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  stepGrid: {
-    width: '80%'
-  },
-  backButton: {
-    marginRight: theme.spacing.unit,
-  },
-  outlinedButtom: {
-    textTransform: 'uppercase',
-    margin: theme.spacing.unit
-  },
-  stepper: {
-    backgroundColor: 'transparent'
-  },
-  paper: {
-    padding: theme.spacing.unit * 3,
-    textAlign: 'left',
-    color: theme.palette.text.secondary
-  },
-  topInfo: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 42
-  },
-  formControl: {
-    width: '100%'
-  },
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2,
-  },
-  borderColumn: {
-    borderBottom: `1px solid ${theme.palette.grey['100']}`,
-    paddingBottom: 24,
-    marginBottom: 24
-  },
-  flexBar: {
-    marginTop: 32,
-    display: 'flex',
-    justifyContent: 'center'
-  }
-})
+
 
 const getSteps = () => {
   return [
@@ -193,43 +129,7 @@ class Wizard extends Component {
                     </Stepper>
                   </div>
                   { activeStep === 0 && (
-                  <div className={classes.bigContainer}>
-                    <Paper className={classes.paper}>
-                      <div className={classes.topInfo}>
-                        <div>
-                          <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            Information
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                            General information about the service
-                          </Typography>
-                        </div>
-                        <div>
-                        <Button variant="outlined" size="large" className={classes.outlinedButtom}>
-                          Edit
-                        </Button>
-                        </div>
-                      </div>
-                      <Grid item container xs={12}>
-                        <Grid item xs={6}>
-                          <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            User
-                          </Typography>
-                          <Typography variant="h5" gutterBottom>
-                            John Doe
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            City
-                          </Typography>
-                          <Typography variant="h5" gutterBottom>
-                            Tokyo
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Paper>
-                    </div>
+                    <Info />
                   )}
                   { activeStep === 1 && (
                   <div className={classes.smallContainer}>
