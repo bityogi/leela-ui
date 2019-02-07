@@ -12,8 +12,8 @@ const Menu = [
     pathname: "/signup"
   },
   {
-    label: "Wizard",
-    pathname: "/wizard"
+    label: "Schedule",
+    pathname: "/schedule"
   },
   {
     label: "Cards",
