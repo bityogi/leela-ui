@@ -144,11 +144,11 @@ class Topbar extends Component {
                         </IconButton>
                       </div>
                       <div className={classes.tabContainer}>
-                        <SwipeableDrawer anchor="right" open={this.state.menuDrawer} onClose={this.mobileMenuClose} >
+                        <SwipeableDrawer anchor="right" open={this.state.menuDrawer} onClose={this.mobileMenuClose} onOpen={() => {}} >
                           <AppBar title="Menu" />
                           <List>
-                            {Menu.map((item, index) => (
-                              <ListItem component={Link} to={{pathname: item.pathname, search: this.props.location.search}} button key={item.index}>
+                            {Menu.map((item) => (
+                              <ListItem component={Link} to={{pathname: item.pathname, search: this.props.location.search}} button key={item.id}>
                                 <ListItemText primary={item.label} />
                               </ListItem>
                             ))}
@@ -160,8 +160,8 @@ class Topbar extends Component {
                           textColor="primary"
                           onChange={this.handleChange}
                         >
-                          {Menu.map((item, index) => (
-                            <Tab key={index} component={Link} to={{pathname: item.pathname, search: this.props.location.search}} classes={{root: classes.tabItem}} label={item.label} />
+                          {Menu.map((item) => (
+                            <Tab key={item.id} component={Link} to={{pathname: item.pathname, search: this.props.location.search}} classes={{root: classes.tabItem}} label={item.label} />
                           ))}
                         </Tabs>
                       </div>

@@ -305,7 +305,7 @@ class Dashboard extends Component {
                   </div>
                 </Paper>
               </Grid>
-              <Grid container spacing={24} xs={12} justify="center">
+              <Grid container spacing={24} justify="center">
                 <Grid item xs={12} md={8} >
                   <Paper className={classes.paper} style={{position: 'relative'}}>
                     <Loading loading={loading} />
@@ -351,7 +351,7 @@ class Dashboard extends Component {
                     </Typography>
                     <div className={classes.mainBadge}>
                       <VerifiedUserIcon style={{fontSize: 72}} fontSize={'large'} color={'secondary'} />
-                      <Typography variant="headline" color={'secondary'} gutterBottom>
+                      <Typography variant="h2" color={'secondary'} gutterBottom>
                         Verified
                       </Typography>
                     </div>
