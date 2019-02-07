@@ -95,7 +95,7 @@ class SwipeDialog extends Component {
       <BaseDialog {...this.props}>
         <div className={classes.container}>
           <div className={classes.gutterBottom}>
-            <img width={100} src={logo} />
+            <img width={100} src={logo} alt='logo' />
           </div>
           <div>
             <AutoPlaySwipeableViews

@@ -459,7 +459,7 @@ PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or 
                       <Grid item container xs={12}>
                         <Grid item xs={12}>
                           <Typography variant="subtitle1" gutterBottom>
-                            Congratulations 🎉
+                            Congratulations <span role="img" aria-label="Congratulations">🎉</span>
                           </Typography>
                           <Typography variant="body2" gutterBottom>
                             We have now a positive response

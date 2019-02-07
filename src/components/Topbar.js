@@ -126,7 +126,7 @@ class Topbar extends Component {
                   <div className={classes.inline}>
                     <Typography variant="h6" color="inherit" noWrap>
                       <Link to='/' className={classes.link}>
-                        <img width={20} src={logo} />
+                        <img width={20} src={logo} alt='logo' />
                         <span className={classes.tagline}>Balanced Breath</span>
                       </Link>
                     </Typography>
