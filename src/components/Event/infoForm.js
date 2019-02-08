@@ -50,9 +50,7 @@ class InfoForm extends Component {
                                 style={{ width:'80%', fontSize: '.9em' }}
                                 name="location"
                                 component={Select}
-                                hintText="Type"
                                 autoWidth={true}
-                                iconStyle={{ padding: 0, margin: 0, border: '2px', width: '15px' }}
                                 >
                                 <MenuItem key={'Location 1'} value={1}>Location 1</MenuItem>
                                 <MenuItem key={'Location 2'} value={2}>Location 2</MenuItem>
@@ -69,7 +67,7 @@ class InfoForm extends Component {
                         </Typography>
 
                         <Typography variant="h5" gutterBottom>
-                            <Field name="description" component={TextField} rows="4" fullWidth  />
+                            <Field name="description" component={TextField} rows="4" multiline className={classes.multiLineField}  />
                         </Typography>
                     </Grid>
 

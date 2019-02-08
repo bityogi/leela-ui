@@ -69,5 +69,8 @@ export default theme => ({
       marginTop: 32,
       display: 'flex',
       justifyContent: 'center'
+    },
+    multiLineField: {
+      width: '80%'
     }
   })
