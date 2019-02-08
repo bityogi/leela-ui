@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
+import { history } from 'store';
 
 const validate = values => {
     const errors = {}
@@ -56,7 +56,7 @@ class InfoForm extends Component {
                                 <MenuItem key={'Location 2'} value={2}>Location 2</MenuItem>
                             
                             </Field>
-                            <Button variant="outlined" size="large" className={classes.inlineButton}>
+                            <Button variant="outlined" size="large" className={classes.inlineButton} onClick={() => history.push('/location')}>
                                 Add
                             </Button>
                         </Typography>
