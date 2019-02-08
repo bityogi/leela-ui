@@ -13,7 +13,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import styles from './styles';
 
-class Schedule extends Component {
+class PreReqs extends Component {
 
     render() {
         const { classes } = this.props;
@@ -24,26 +24,26 @@ class Schedule extends Component {
                 <div>
                   <div style={{marginBottom: 32}}>
                     <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                      Schedule
+                      Pre Requisites
                     </Typography>
                     <Typography variant="body2" gutterBottom>
-                      Set your event schedule
+                      Set up any pre-requisites you may require for this event registration
                     </Typography>
                   </div>
                   <div style={{marginBottom: 32}}>
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      Start Date
+                      Are you a human?
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                      1/1/2019
+                      Yes
                     </Typography>
                   </div>
                   <div>
                     <Typography style={{textTransform: 'uppercase', marginBottom: 20}} color='secondary' gutterBottom>
-                      End Date
+                      Would you like to take this class?
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                      1/1/2019
+                      Yes
                     </Typography>
                   </div>
                 </div>
@@ -53,4 +53,4 @@ class Schedule extends Component {
     }
 }
 
-export default withStyles(styles)(Schedule);
+export default withStyles(styles)(PreReqs);

@@ -24,11 +24,10 @@ import styles from './styles';
 import Info from './info';
 import Media from './media';
 import Schedule from './schedule';
+import PreReqs from './prereqs';
 
 const numeral = require('numeral');
 numeral.defaultFormat('0,000');
-
-
 
 const getSteps = () => {
   return [
@@ -139,120 +138,10 @@ class Wizard extends Component {
                    { activeStep === 2 && (
                     <Schedule />
                   )}
-                  { activeStep === 2 && (
-                  <div className={classes.bigContainer}>
-                    <Paper className={classes.paper}>
-                      <div className={classes.topInfo}>
-                        <div>
-                          <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            Details
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                            We need some details about any information
-                          </Typography>
-                        </div>
-                        <div>
-                          <Button variant="outlined" size="large" className={classes.outlinedButtom}>
-                            Edit
-                          </Button>
-                        </div>
-                      </div>
-                      <div className={classes.borderColumn}>
-                        <Grid item container xs={12} style={{marginBottom: 32}}>
-                          <Grid item xs={6}>
-                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                              Amount
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              { parsed ? numeral(parsed.amount).format() : '75,000'} DKK
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                              Total fees
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              0 DKK
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        <Grid item container xs={12}>
-                          <Grid item xs={6}>
-                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                              Total price
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              { parsed ? numeral(parsed.interest).format() : '6,600'} USD
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                              Total cost
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              { parsed ? numeral(parsed.cost).format() : '81,600'} USD
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </div>
-                      <Grid item container xs={12}>
-                        <Grid item container xs={12} style={{marginBottom: 32}}>
-                          <Grid item xs={6}>
-                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                              How often
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              Once a month
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            When to start
-                          </Typography>
-                          <Typography variant="h5" gutterBottom>
-                            01 February 2019
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            When it ends?
-                          </Typography>
-                          <Typography variant="h5" gutterBottom>
-                            01 May 2019
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item container xs={12} style={{marginTop: 24}}>
-                        <Grid item xs={6}>
-                          <Typography style={{textTransform: 'uppercase', marginBottom: 20}} color='secondary' gutterBottom>
-                            Destination account
-                          </Typography>
-                          <FormControl variant="outlined" className={classes.formControl}>
-                            <Select
-                              value={this.state.repaimentAccount}
-                              onChange={this.handleChange}
-                              input={
-                                <OutlinedInput
-                                  labelWidth={this.state.labelWidth}
-                                  name="repaimentAccount"
-                                />
-                              }
-                            >
-                              <MenuItem value="">
-                                <em></em>
-                              </MenuItem>
-                              <MenuItem value={'0297 00988200918'}>Account one</MenuItem>
-                              <MenuItem value={'0235 00235233332'}>Account two</MenuItem>
-                              <MenuItem value={'1256 00864222212'}>Other account</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </Grid>
-                      </Grid>
-                    </Paper>
-                    </div>
-                  )}
                   { activeStep === 3 && (
+                   <PreReqs />
+                  )}
+                  { activeStep === 4 && (
                     <div className={classes.bigContainer}>
                       <Paper className={classes.paper}>
                         <div style={{marginBottom: 24}}>
@@ -297,7 +186,7 @@ PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or 
                       </Paper>
                     </div>
                   )}
-                  { activeStep === 4 && (
+                  { activeStep === 5 && (
                   <div className={classes.smallContainer}>
                     <Paper className={classes.paper}>
                       <Grid item container xs={12}>
