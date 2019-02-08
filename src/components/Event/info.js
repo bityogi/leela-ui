@@ -5,7 +5,11 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 
+import { Field, reduxForm } from 'redux-form';
+import { TextField } from 'redux-form-material-ui';
+
 import styles from './styles';
+import infoForm from './infoForm';
 
 class Info extends Component {
 
@@ -21,7 +25,7 @@ class Info extends Component {
                             Information
                           </Typography>
                           <Typography variant="body2" gutterBottom>
-                            General information about the service
+                            General information about this event
                           </Typography>
                         </div>
                         <div>
@@ -31,12 +35,13 @@ class Info extends Component {
                         </div>
                       </div>
                       <Grid item container xs={12}>
-                        <Grid item xs={6}>
+                      <form>
+                      <Grid item xs={6}>
                           <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                             User
                           </Typography>
                           <Typography variant="h5" gutterBottom>
-                            John Doe
+                            <Field name="title" component={TextField}  />
                           </Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -47,11 +52,19 @@ class Info extends Component {
                             Tokyo
                           </Typography>
                         </Grid>
+
+                      </form>
+                        
                       </Grid>
                     </Paper>
                     </div>
         );
     }
 }
+
+Info = reduxForm({
+  form: infoForm,
+  
+})(Info);
 
 export default withStyles(styles)(Info);

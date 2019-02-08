@@ -22,6 +22,7 @@ import Back from 'components/common/Back';
 
 import styles from './styles';
 import Info from './info';
+import Schedule from './schedule';
 
 const numeral = require('numeral');
 numeral.defaultFormat('0,000');
@@ -31,7 +32,7 @@ numeral.defaultFormat('0,000');
 const getSteps = () => {
   return [
     'Info',
-    'Bank',
+    'Schedule',
     'Loan details',
     'Terms',
     'Confirm',
@@ -132,52 +133,7 @@ class Wizard extends Component {
                     <Info />
                   )}
                   { activeStep === 1 && (
-                  <div className={classes.smallContainer}>
-                    <Paper className={classes.paper}>
-                      <div>
-                        <div style={{marginBottom: 32}}>
-                          <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            Bank information
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                            Select account to receive the money
-                          </Typography>
-                        </div>
-                        <div style={{marginBottom: 32}}>
-                          <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            Bank
-                          </Typography>
-                          <Typography variant="h5" gutterBottom>
-                            N26
-                          </Typography>
-                        </div>
-                        <div>
-                          <Typography style={{textTransform: 'uppercase', marginBottom: 20}} color='secondary' gutterBottom>
-                            Receiving account
-                          </Typography>
-                          <FormControl variant="outlined" className={classes.formControl}>
-                            <Select
-                              value={this.state.receivingAccount}
-                              onChange={this.handleChange}
-                              input={
-                                <OutlinedInput
-                                  labelWidth={this.state.labelWidth}
-                                  name="receivingAccount"
-                                />
-                              }
-                            >
-                              <MenuItem value="">
-                                <em></em>
-                              </MenuItem>
-                              <MenuItem value={'0297 00988200918'}>First account</MenuItem>
-                              <MenuItem value={'0235 00235233332'}>Second account</MenuItem>
-                              <MenuItem value={'1256 00864222212'}>Third account</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </div>
-                      </div>
-                    </Paper>
-                    </div>
+                    <Schedule />
                   )}
                   { activeStep === 2 && (
                   <div className={classes.bigContainer}>

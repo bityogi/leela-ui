@@ -16,8 +16,8 @@ const Menu = [
   },
   {
     id: 4,
-    label: "Schedule",
-    pathname: "/schedule"
+    label: "Event",
+    pathname: "/event"
   },
   {
     id: 5,
