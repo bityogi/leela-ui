@@ -6,6 +6,7 @@ import Cards from 'components/Cards'
 import Main from 'components/Main'
 import Signup from 'components/Signup'
 import ScrollToTop from 'components/ScrollTop'
+import Location from 'components/Locations'
 
 export default props => (
     <ScrollToTop>
@@ -15,6 +16,7 @@ export default props => (
         <Route exact path='/signup' component={ Signup } />
         <Route exact path='/events' component={ Event } />
         <Route exact path='/cards' component={ Cards } />
+        <Route exact path='/location' component= { Location } />
       </Switch>
     </ScrollToTop>
   )

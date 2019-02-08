@@ -20,7 +20,7 @@ import qs from 'query-string';
 
 import Back from 'components/common/Back';
 
-import styles from './styles';
+import styles from 'styles';
 import Info from './info';
 import Media from './media';
 import Schedule from './schedule';

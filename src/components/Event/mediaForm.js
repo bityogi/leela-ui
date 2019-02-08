@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import styles from './styles';
+import styles from 'styles';
 
 const validate = values => {
     const errors = {}

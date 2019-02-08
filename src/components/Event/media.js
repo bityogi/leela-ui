@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import styles from './styles';
+import styles from 'styles';
 import MediaForm from './mediaForm';
 
 class Media extends Component {

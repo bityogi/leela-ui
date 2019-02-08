@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
-import styles from './styles';
+import styles from 'styles';
 
 class Schedule extends Component {
 
