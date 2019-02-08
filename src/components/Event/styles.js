@@ -36,6 +36,10 @@ export default theme => ({
       textTransform: 'uppercase',
       margin: theme.spacing.unit
     },
+    inlineButton: {
+      display: 'inline',
+      marginLeft: theme.spacing.unit * 1,
+    },
     stepper: {
       backgroundColor: 'transparent'
     },
