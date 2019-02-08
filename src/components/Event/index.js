@@ -22,6 +22,7 @@ import Back from 'components/common/Back';
 
 import styles from './styles';
 import Info from './info';
+import Media from './media';
 import Schedule from './schedule';
 
 const numeral = require('numeral');
@@ -32,9 +33,9 @@ numeral.defaultFormat('0,000');
 const getSteps = () => {
   return [
     'Info',
+    'Media',
     'Schedule',
-    'Loan details',
-    'Terms',
+    'Pre-requisites',
     'Confirm',
     'Done'
   ];
@@ -133,6 +134,9 @@ class Wizard extends Component {
                     <Info />
                   )}
                   { activeStep === 1 && (
+                    <Media />
+                  )}
+                   { activeStep === 2 && (
                     <Schedule />
                   )}
                   { activeStep === 2 && (
