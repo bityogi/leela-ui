@@ -25,6 +25,7 @@ import Info from './info';
 import Media from './media';
 import Schedule from './schedule';
 import PreReqs from './prereqs';
+import Summary from './summary';
 
 const numeral = require('numeral');
 numeral.defaultFormat('0,000');
@@ -80,11 +81,8 @@ class Wizard extends Component {
   };
 
   stepActions() {
-    if(this.state.activeStep === 3) {
-      return 'Accept';
-    }
     if(this.state.activeStep === 4) {
-      return 'Send';
+      return 'Accept';
     }
     if(this.state.activeStep === 5) {
       return 'Done';
@@ -142,67 +140,9 @@ class Wizard extends Component {
                    <PreReqs />
                   )}
                   { activeStep === 4 && (
-                    <div className={classes.bigContainer}>
-                      <Paper className={classes.paper}>
-                        <div style={{marginBottom: 24}}>
-                          <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            Terms & Conditions
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                            Please read through and accept the terms & conditions
-                          </Typography>
-                        </div>
-                        <div style={{ height: 330, padding: 16, border: '2px solid #ccc', borderRadius: '3px', overflowY: 'scroll' }}>
-                          <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            1. Your agreement
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                          By using this Site, you agree to be bound by, and to comply with, these Terms and Conditions. If you do not agree to these Terms and Conditions, please do not use this site.
-
-PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or otherwise alter these Terms and Conditions at any time. Unless otherwise indicated, amendments will become effective immediately. Please review these Terms and Conditions periodically. Your continued use of the Site following the posting of changes and/or modifications will constitute your acceptance of the revised Terms and Conditions and the reasonableness of these standards for notice of changes. For your information, this page was last updated as of the date at the top of these terms and conditions.
-                          </Typography>
-                          <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            2. Privacy
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                            Please review our Privacy Policy, which also governs your visit to this Site, to understand our practices.
-                            By using this Site, you agree to be bound by, and to comply with, these Terms and Conditions. If you do not agree to these Terms and Conditions, please do not use this site.
-
-PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or otherwise alter these Terms and Conditions at any time. Unless otherwise indicated, amendments will become effective immediately. Please review these Terms and Conditions periodically. Your continued use of the Site following the posting of changes and/or modifications will constitute your acceptance of the revised Terms and Conditions and the reasonableness of these standards for notice of changes. For your information, this page was last updated as of the date at the top of these terms and conditions.
-                          </Typography>
-                        </div>
-                        <FormGroup row>
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                checked={this.state.termsChecked}
-                                onChange={this.handleTerms}
-                                value='check'
-                              />
-                            }
-                            label="I have read and understood the terms & conditions"
-                          />
-                        </FormGroup>
-                      </Paper>
-                    </div>
+                    <Summary />
                   )}
                   { activeStep === 5 && (
-                  <div className={classes.smallContainer}>
-                    <Paper className={classes.paper}>
-                      <Grid item container xs={12}>
-                        <Grid item xs={12}>
-                          <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                            Sign & confirm
-                          </Typography>
-                          <Typography variant="body2" gutterBottom>
-                            Sign and confirm your agreement
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Paper>
-                    </div>
-                  )}
-                  { (activeStep === 5 || activeStep === 6) && (
                   <div className={classes.smallContainer}>
                     <Paper className={classes.paper}>
                       <Grid item container xs={12}>
@@ -211,16 +151,17 @@ PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or 
                             Congratulations <span role="img" aria-label="Congratulations">🎉</span>
                           </Typography>
                           <Typography variant="body2" gutterBottom>
-                            We have now a positive response
+                            Your event has been published.
                           </Typography>
                           <Button fullWidth variant='outlined'>
-                            Download the service invoice or whatever
+                            Share your event!
                           </Button>
                         </Grid>
                       </Grid>
                     </Paper>
-                    </div>
+                  </div>
                   )}
+                  
                   <div className={classes.flexBar}>
                     { activeStep !== 5 && (
                       <Button
@@ -237,7 +178,6 @@ PLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or 
                       color="primary"
                       onClick={activeStep !== 5 ? this.handleNext : this.goToDashboard}
                       size='large'
-                      disabled={this.state.activeStep === 3 && !this.state.termsChecked}
                     >
                       {this.stepActions()}
                     </Button>
