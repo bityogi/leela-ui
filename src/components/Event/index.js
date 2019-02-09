@@ -24,7 +24,7 @@ import styles from 'styles';
 import Info from './info';
 import Media from './media';
 import Schedule from './schedule';
-import PreReqs from './prereqs';
+import PreReqs from './PreReqs';
 import Summary from './summary';
 
 const numeral = require('numeral');
@@ -44,7 +44,7 @@ const getSteps = () => {
 class Wizard extends Component {
 
   state = {
-    activeStep: 1,
+    activeStep: 3,
     receivingAccount: 'Home Account',
     repaimentAccount: 'Saving Account',
     termsChecked: false
