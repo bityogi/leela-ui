@@ -44,7 +44,7 @@ const getSteps = () => {
 class Wizard extends Component {
 
   state = {
-    activeStep: 0,
+    activeStep: 1,
     receivingAccount: 'Home Account',
     repaimentAccount: 'Saving Account',
     termsChecked: false

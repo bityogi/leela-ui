@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { TextField, Select } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
+import { isEmpty } from 'lodash';
 // import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
+
 import styles from 'styles';
 import FileUpload from 'components/common/FileUpload';
+
+const imageIsRequired = value => (isEmpty(value) ? "Required" : undefined);
+
 
 const validate = values => {
     const errors = {}
@@ -22,6 +27,9 @@ const validate = values => {
 }
 
 class MediaForm extends Component {
+    state = {
+        imageFile: [],
+    }
 
     handleFormSubmit = (values) => {
         console.log('Form values for event info: ', values);
@@ -30,6 +38,8 @@ class MediaForm extends Component {
     handleFileUpload (file) {
         console.log('received file: ', file);
     }
+
+    handleOnDrop = newImageFile => this.setState({ imageFile: newImageFile });
 
     render() {
         const { classes, handleSubmit } = this.props;
@@ -43,7 +53,7 @@ class MediaForm extends Component {
                             Event Image
                         </Typography>
                         <Typography variant="h5" gutterBottom>
-                            <Field name="eventImage" component={FileUpload} onChange={this.handleFileUpload} />
+                            <FileUpload />
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
