@@ -31,8 +31,9 @@ class FileUpload extends React.Component {
    }
 
    render() {
+    const { classes } = this.props;
+      
     if (this.state.fileUploaded.length > 0) {
-      const { classes } = this.props;
       return (
         <Card className={classes.card}>
         <CardActionArea>
@@ -53,7 +54,7 @@ class FileUpload extends React.Component {
             return (
               <div
                 {...getRootProps()}
-                className={classNames('dropzone', {'dropzone--isActive': isDragActive})}
+                className={classNames('dropzone', {'dropzone--isActive': isDragActive}, classes.media)}
               >
                 <input {...getInputProps()} />
                 {

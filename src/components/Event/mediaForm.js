@@ -61,11 +61,9 @@ class MediaForm extends Component {
                             Profile Image
                         </Typography>
                         <Typography variant="h5" gutterBottom>
-                            <Field name="title" component={TextField}  />
+                            <FileUpload />
                         </Typography>
                     </Grid>
-                  
-                    
 
                 </Grid>
 
