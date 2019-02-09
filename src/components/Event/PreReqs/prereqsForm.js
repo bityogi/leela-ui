@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { isEmpty } from 'lodash';
 
 import styles from 'styles';
+import TextQuestion from './textQuestion';
 
 const validate = values => {
     const errors = {}
@@ -46,7 +47,8 @@ const validate = values => {
 
 class PreReqsForm extends Component {
     state = {
-        questions : []
+        questions : [],
+        showAddQuestionForm: false,
     }
 
     handleFormSubmit = (values) => {
@@ -55,20 +57,25 @@ class PreReqsForm extends Component {
 
     addFieldsArray = () => {
         const { questionType, reset } = this.props;
-        console.log('Add question: ', questionType);
-        console.log('resetForm: ', reset);
         const newQuestion = {
             index: this.state.questions.length - 1,
             type: questionType
         }
-        this.setState({ questions: this.state.questions.push(newQuestion)});
+        this.setState({ 
+            questions: [...this.state.questions, newQuestion],
+            showAddQuestionForm: true
+        });
         reset();
-    }   
-    
+    }
+
+    onQuestionAdded = (values) => {
+        console.log('Add this question please...', values);
+    }
+
     render() {
         const { handleSubmit, classes, questionType } = this.props;
-        const { questions } = this.state;
-
+        const { questions, showAddQuestionForm } = this.state;
+        console.log('showAddQuestionForm: ', showAddQuestionForm);
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 <Grid item container xs={12}>
@@ -100,7 +107,7 @@ class PreReqsForm extends Component {
                             </Button>
                         </Typography>
                    </Grid>
-                    
+                   { showAddQuestionForm ? <TextQuestion onQuestionAdded={this.onQuestionAdded} /> : null }
                 </Grid>
 
             </form>
