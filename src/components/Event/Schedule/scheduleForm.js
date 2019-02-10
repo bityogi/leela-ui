@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import styles from 'styles';
 import DatePicker from './datePicker';
 import TimePicker from './timePicker';
+import Switch from './switch';
 
 const validate = (values) => {
     const errors = {}
@@ -21,12 +22,21 @@ const validate = (values) => {
 
 class ScheduleForm extends Component {
 
+    state = {
+        isRecurring : false,
+    }
+
+    handleRecurringSwitch = (e) => {
+        this.setState({ isRecurring: e.target.checked });
+    }
+
     handleFormSubmit = (values) => {
         console.log('schedule form values: ', values);
     }
 
     render() {
         const { classes, handleSubmit } = this.props;
+        const { isRecurring } = this.state;
 
         return (
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -65,7 +75,22 @@ class ScheduleForm extends Component {
                             </Typography>
                         </Grid>
                     </Grid>
-
+                    <Grid item container xs={12}>
+                        <Grid item xs={6}>
+                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                                Recurring
+                            </Typography>
+                            <Typography variant="h5" gutterBottom>
+                                <Field 
+                                    name="recurring" 
+                                    component={Switch} 
+                                    label="Recurring" 
+                                    checked={isRecurring} 
+                                    onChange={this.handleRecurringSwitch}
+                                />
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </form>
         )
     }
