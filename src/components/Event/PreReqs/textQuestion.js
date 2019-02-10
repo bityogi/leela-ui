@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, FieldArray } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import { TextField } from 'redux-form-material-ui';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +17,32 @@ const validate = values => {
 
     return errors;
 }
-
+const renderChoices = ({ fields, meta: { error, submitFailed } }) => (
+    <ul>
+        <li>
+            <button type="button" onClick={() => fields.push({})}>
+                Add Choice
+            </button>
+            {submitFailed && error && <span>{error}</span>}
+        </li>
+        {fields.map((choice, index) => (
+            <li key={index}>
+                <button
+                    type="button"
+                    title="Remove Choice"
+                    onClick={() => fields.remove(index)}
+                >Remove</button>
+                <h4>Choice #{index + 1}</h4>
+                <Field
+                    name={`${choice}.text`}
+                    type="text"
+                    component={TextField}
+                    label="Choice Text"
+                />
+            </li>
+        ))}
+    </ul>
+)
 class TextQuestion extends Component {
 
     handleFormSubmit = (values) => {
@@ -49,6 +74,15 @@ class TextQuestion extends Component {
                             style={{ width:'80%', fontSize: '.9em' }}
                         />
                     </Typography>
+                    { 
+                        type === 'SingleChoice' || type === 'MultipleChoice' ? 
+                        (
+                            <Typography variant="h4" gutterBottom>
+                                <FieldArray name="choices" component={renderChoices} />
+                            </Typography>
+                        )
+                        : null }
+                    
                     <div className={classes.flexBar}>
                    
                       <Button
