@@ -21,8 +21,8 @@ const validate = values => {
 class TextQuestion extends Component {
 
     handleFormSubmit = (values) => {
-        const { onQuestionAdded } = this.props;
-        onQuestionAdded(values);
+        const { onQuestionAdded, question } = this.props;
+        onQuestionAdded(values, question);
     }
 
     render() {
@@ -45,19 +45,30 @@ class TextQuestion extends Component {
                     <Typography variant="h3" gutterBottom>
                         <Field 
                             component={TextField} 
-                            name={`questionText}`}
+                            name={`questionText`}
                             style={{ width:'80%', fontSize: '.9em' }}
                         />
+                    </Typography>
+                    <div className={classes.flexBar}>
+                   
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={ pristine || submitting }
+                      >
+                        Add
+                      </Button>
+                    
                         <Button 
-                            type="submit"
-                            variant="outlined" 
-                            size="large" 
-                            className={classes.inlineButton} 
+                            variant="contained"
+                            color="primary"
+                            className={classes.backButton}
                             disabled={ pristine || submitting }
                         >
-                            Add
+                         Clear
                         </Button>
-                    </Typography>
+                  </div>
 
                 </Grid>
             </form>

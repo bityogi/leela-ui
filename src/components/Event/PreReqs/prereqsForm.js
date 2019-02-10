@@ -58,7 +58,7 @@ class PreReqsForm extends Component {
     addNewQuestion = () => {
         const { questionType, reset } = this.props;
         const newQuestion = {
-            index: this.state.questions.length - 1,
+            index: this.state.questions.length,
             type: questionType
         }
         this.setState({ 
@@ -67,14 +67,19 @@ class PreReqsForm extends Component {
         reset();
     }
 
-    onQuestionAdded = (values) => {
+    onQuestionAdded = (values, question) => {
         console.log('Add this question please...', values);
+        //Add the question to the questions array, and empty out the the newQuestion variable
+        this.setState({
+            newQuestion: {},
+            questions: [ ...this.state.questions, { ...question, ...values } ]
+        });
     }
 
     render() {
         const { handleSubmit, classes, questionType } = this.props;
         const { questions, newQuestion } = this.state;
-        console.log('new question: ', newQuestion);
+        console.log('questions: ', questions);
         return (
             <div>
                 <div>
