@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import './App.css';
 import Routes from './routes'
@@ -13,7 +15,10 @@ class App extends Component {
     return (
       <div>
         <MuiThemeProvider theme={theme}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Routes />
+          </MuiPickersUtilsProvider>
+          
         </MuiThemeProvider>
       </div>
     );

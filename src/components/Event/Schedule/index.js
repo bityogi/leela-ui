@@ -9,10 +9,7 @@ import ScheduleForm from './scheduleForm';
 
 class Schedule extends Component {
 
-    handleFormSubmit = (values) => {
-        console.log('Scheduling form values: ', values);
-    }
-
+    
     render() {
         const { classes } = this.props;
 

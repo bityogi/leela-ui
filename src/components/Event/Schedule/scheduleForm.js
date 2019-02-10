@@ -3,8 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { MuiPickersUtilsProvider, TimePicker } from 'material-ui-pickers';
-import DateFnsUtils from '@date-io/date-fns';
+
 
 import styles from 'styles';
 import DatePicker from './datePicker';
@@ -29,7 +28,6 @@ class ScheduleForm extends Component {
         const { classes, handleSubmit } = this.props;
 
         return (
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <Grid item container xs={12}>
                     
@@ -52,14 +50,12 @@ class ScheduleForm extends Component {
                     </Grid>
 
                 </form>
-            </MuiPickersUtilsProvider>
-            
         )
     }
 }
 
 ScheduleForm = reduxForm({
-    name: 'scheduleForm',
+    form: 'scheduleForm',
     validate,
     warn: () => {}
 })(ScheduleForm);
