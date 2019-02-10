@@ -26,7 +26,7 @@ class TextQuestion extends Component {
     }
 
     render() {
-        const { questionIndex, classes, pristine, submitting, handleSubmit } = this.props;
+        const { question: { type, index }, classes, pristine, submitting, handleSubmit } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -34,6 +34,12 @@ class TextQuestion extends Component {
                     <Grid item xs={12}>
                         <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                             Question Text
+                            <span>
+                                { 
+                                    type === 'YesNo' ? ' Yes / No'
+                                    : type === 'SingleChoice' ? ' Single Choice' 
+                                    : type === 'MultipleChoice' ? ' Multiple Choice' : '' }
+                            </span>
                         </Typography>
                     </Grid>
                     <Typography variant="h3" gutterBottom>
@@ -52,6 +58,7 @@ class TextQuestion extends Component {
                             Add
                         </Button>
                     </Typography>
+
                 </Grid>
             </form>
             

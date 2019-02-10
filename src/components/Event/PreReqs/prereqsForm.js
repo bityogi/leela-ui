@@ -48,22 +48,21 @@ const validate = values => {
 class PreReqsForm extends Component {
     state = {
         questions : [],
-        showAddQuestionForm: false,
+        newQuestion: {},
     }
 
     handleFormSubmit = (values) => {
         console.log('Form values for pre-reqs: ', values);
     }
 
-    addFieldsArray = () => {
+    addNewQuestion = () => {
         const { questionType, reset } = this.props;
         const newQuestion = {
             index: this.state.questions.length - 1,
             type: questionType
         }
         this.setState({ 
-            questions: [...this.state.questions, newQuestion],
-            showAddQuestionForm: true
+            newQuestion
         });
         reset();
     }
@@ -74,8 +73,8 @@ class PreReqsForm extends Component {
 
     render() {
         const { handleSubmit, classes, questionType } = this.props;
-        const { questions, showAddQuestionForm } = this.state;
-        console.log('showAddQuestionForm: ', showAddQuestionForm);
+        const { questions, newQuestion } = this.state;
+        console.log('new question: ', newQuestion);
         return (
             <div>
                 <div>
@@ -104,7 +103,7 @@ class PreReqsForm extends Component {
                                             size="large" 
                                             className={classes.inlineButton} 
                                             disabled={ isEmpty(questionType) ? true : false }
-                                            onClick={() => this.addFieldsArray()}>
+                                            onClick={() => this.addNewQuestion()}>
                                             Add
                                         </Button>
                                     </Typography>
@@ -114,7 +113,11 @@ class PreReqsForm extends Component {
                 </div>
                 
                 <div>
-                    { showAddQuestionForm ? <TextQuestion onQuestionAdded={this.onQuestionAdded} /> : null }
+                    { 
+                        !isEmpty(newQuestion) ? 
+                            <TextQuestion onQuestionAdded={this.onQuestionAdded} question={newQuestion} /> 
+                            : null 
+                    }
                 </div>
 
             </div>
