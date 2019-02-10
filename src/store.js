@@ -4,13 +4,9 @@ import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import { persistStore, autoRehydrate } from 'redux-persist'
 
-
 import rootReducer from './reducers'
 
-
 export const history = createHistory()
-
-
 
 const initialState = {}
 const enhancers = [autoRehydrate()]
@@ -42,5 +38,4 @@ persistStore(store, {
   blacklist: ['form', 'admin', 'util']
 })
 
-console.log('store: ', store.getState());
 export default store

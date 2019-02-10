@@ -23,7 +23,7 @@ import Back from 'components/common/Back';
 import styles from 'styles';
 import Info from './info';
 import Media from './media';
-import Schedule from './schedule';
+import Schedule from './Schedule';
 import PreReqs from './PreReqs';
 import Summary from './summary';
 
@@ -44,7 +44,7 @@ const getSteps = () => {
 class Wizard extends Component {
 
   state = {
-    activeStep: 3,
+    activeStep: 2,
     receivingAccount: 'Home Account',
     repaimentAccount: 'Saving Account',
     termsChecked: false
