@@ -62,7 +62,7 @@ class TextQuestion extends Component {
 TextQuestion = reduxForm({
     form: 'prereqsForm',
     validate,
-})
+})(TextQuestion)
 
 export default withStyles(styles)(TextQuestion);
 

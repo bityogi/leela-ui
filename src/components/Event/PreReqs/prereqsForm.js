@@ -77,40 +77,48 @@ class PreReqsForm extends Component {
         const { questions, showAddQuestionForm } = this.state;
         console.log('showAddQuestionForm: ', showAddQuestionForm);
         return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-                <Grid item container xs={12}>
+            <div>
+                <div>
+                    <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+                        <Grid item container xs={12}>
+                        
+                            <Grid item xs={12}>
+                                <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                                    Type of of question
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="h5" gutterBottom>
+                                        <Field 
+                                            component={Select} 
+                                            name="questionType"
+                                            style={{ width:'80%', fontSize: '.9em' }}
+                                        >
+                                            <MenuItem key={'YesNo'} value={'YesNo'}>Yes or No</MenuItem>
+                                            <MenuItem key={'SingleChoice'} value={'SingleChoice'}>Single Choice</MenuItem>
+                                            <MenuItem key={'MultipleChoice'} value={'MultipleChoice'}>Multiple Choice</MenuItem>
+                                            <MenuItem key={'Text'} value={'Text'}>Text</MenuItem>
+                                        </Field>
+                                        <Button 
+                                            variant="outlined" 
+                                            size="large" 
+                                            className={classes.inlineButton} 
+                                            disabled={ isEmpty(questionType) ? true : false }
+                                            onClick={() => this.addFieldsArray()}>
+                                            Add
+                                        </Button>
+                                    </Typography>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </div>
                 
-                    <Grid item xs={12}>
-                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            Type of of question
-                        </Typography>
-                    </Grid>
-                   <Grid item xs={12}>
-                    <Typography variant="h5" gutterBottom>
-                            <Field 
-                                component={Select} 
-                                name="questionType"
-                                style={{ width:'80%', fontSize: '.9em' }}
-                            >
-                                <MenuItem key={'YesNo'} value={'YesNo'}>Yes or No</MenuItem>
-                                <MenuItem key={'SingleChoice'} value={'SingleChoice'}>Single Choice</MenuItem>
-                                <MenuItem key={'MultipleChoice'} value={'MultipleChoice'}>Multiple Choice</MenuItem>
-                                <MenuItem key={'Text'} value={'Text'}>Text</MenuItem>
-                            </Field>
-                            <Button 
-                                variant="outlined" 
-                                size="large" 
-                                className={classes.inlineButton} 
-                                disabled={ isEmpty(questionType) ? true : false }
-                                onClick={() => this.addFieldsArray()}>
-                                Add
-                            </Button>
-                        </Typography>
-                   </Grid>
-                   { showAddQuestionForm ? <TextQuestion onQuestionAdded={this.onQuestionAdded} /> : null }
-                </Grid>
+                <div>
+                    { showAddQuestionForm ? <TextQuestion onQuestionAdded={this.onQuestionAdded} /> : null }
+                </div>
 
-            </form>
+            </div>
+            
         )
     }
 
