@@ -17,32 +17,49 @@ const validate = values => {
 
     return errors;
 }
-const renderChoices = ({ fields, meta: { error, submitFailed } }) => (
-    <ul>
-        <li>
-            <button type="button" onClick={() => fields.push({})}>
-                Add Choice
-            </button>
-            {submitFailed && error && <span>{error}</span>}
-        </li>
+const renderChoices = ({ fields, meta: { error, submitFailed }, classes }) => (
+    <Grid item container xs={12}>
+    
         {fields.map((choice, index) => (
-            <li key={index}>
-                <button
-                    type="button"
-                    title="Remove Choice"
-                    onClick={() => fields.remove(index)}
-                >Remove</button>
-                <h4>Choice #{index + 1}</h4>
-                <Field
-                    name={`${choice}.text`}
-                    type="text"
-                    component={TextField}
-                    label="Choice Text"
-                />
-            </li>
+            <Grid key={index}>
+                <Grid item xs={12}>
+                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                        Choice #{index + 1}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Field
+                        name={`${choice}.text`}
+                        type="text"
+                        component={TextField}
+                        label="Choice Text"
+                    />
+                    <Button 
+                        variant="outlined" 
+                        size="small" 
+                        className={classes.inlineButton} 
+                        onClick={() => fields.remove(index)}
+                    >
+                        Remove
+                    </Button>
+                </Grid>
+            </Grid>
         ))}
-    </ul>
+
+        <Grid item xs={12}>
+            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                <Button 
+                    variant="outlined" 
+                    size="small" 
+                    onClick={() => fields.push({})}>
+                    Add Choice
+                </Button>
+                {submitFailed && error && <span>{error}</span>}
+            </Typography>
+        </Grid>
+    </Grid>
 )
+
 class TextQuestion extends Component {
 
     handleFormSubmit = (values) => {
@@ -78,7 +95,7 @@ class TextQuestion extends Component {
                         type === 'SingleChoice' || type === 'MultipleChoice' ? 
                         (
                             <Typography variant="h4" gutterBottom>
-                                <FieldArray name="choices" component={renderChoices} />
+                                <FieldArray name="choices" component={renderChoices} classes={classes} />
                             </Typography>
                         )
                         : null }
