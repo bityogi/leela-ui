@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from 'styles';
 import DatePicker from './datePicker';
+import TimePicker from './timePicker';
 
 const validate = (values) => {
     const errors = {}
@@ -31,20 +32,36 @@ class ScheduleForm extends Component {
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <Grid item container xs={12}>
                     
-                        <Grid item xs={12}>
+                        <Grid item xs={6}>
                             <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                                 Start
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="startDate" component={DatePicker} />
+                                <Field name="startDate" component={DatePicker} label="Start Date" />
                             </Typography>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={6}>
+                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                                Time
+                            </Typography>
+                            <Typography variant="h5" gutterBottom>
+                                <Field name="startTime" component={TimePicker} label="Start Time" />
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
                             <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                                 End
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="endDate" component={DatePicker} />
+                                <Field name="endDate" component={DatePicker} label="End Date" />
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                                Time
+                            </Typography>
+                            <Typography variant="h5" gutterBottom>
+                                <Field name="endTime" component={TimePicker} label="End Time" />
                             </Typography>
                         </Grid>
                     </Grid>
