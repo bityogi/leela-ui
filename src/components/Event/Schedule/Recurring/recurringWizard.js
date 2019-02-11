@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
 
 import styles from 'styles';
 import Interval from './interval';
@@ -76,7 +77,25 @@ class RecurringWizard extends Component {
                         <Interval recurrenceType={recurrenceType} />
                     )}
                     </div>    
+                    <div className={classes.flexBar}>
+                        <Button
+                            disabled={activeStep === 0}
+                            onClick={this.handleBack}
+                            className={classes.backButton}
+                            size='small'
+                        >
+                            Back
+                        </Button>
 
+                        <Button 
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleNext}
+                            size='small'
+                        >
+                            Next
+                        </Button>
+                    </div>
                 </div>
             </Grid>
         );

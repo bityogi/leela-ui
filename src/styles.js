@@ -24,7 +24,9 @@ export default theme => ({
     stepContainer: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'stretch',
+      width: '100%'
+
     },
     stepGrid: {
       width: '80%'
@@ -72,5 +74,8 @@ export default theme => ({
     },
     multiLineField: {
       width: '80%'
+    },
+    fullWidth : {
+      width: '100%',
     }
   })
