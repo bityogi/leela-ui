@@ -52,6 +52,21 @@ class RecurringWizard extends Component {
         }));
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log('prevState = ', prevState);
+        if (nextProps.recurrenceType !== prevState.recurrenceType) {
+            return { activeStep : 0 };
+        } else {
+            return null;
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.recurrenceType !== this.props.recurrenceType) {
+            this.setState({ recurrenceType : this.props.recurrenceType });
+        }
+    }
+
     render() {
         const { classes, recurrenceType } = this.props;
         const { activeStep } = this.state;
