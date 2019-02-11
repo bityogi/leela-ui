@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import styles from 'styles';
 import Interval from './interval';
+import WeekDaySelection from './weekdaySelection';
 
 const getSteps = (recurrenceType) => {
     const steps = {
@@ -91,6 +92,12 @@ class RecurringWizard extends Component {
                     { activeStep === 0 && (
                         <Interval recurrenceType={recurrenceType} />
                     )}
+
+                    {
+                        activeStep === 1 && recurrenceType === 'Weekly' && (
+                            <WeekDaySelection />
+                        )
+                    }
                     </div>    
                     <div className={classes.flexBar}>
                         <Button

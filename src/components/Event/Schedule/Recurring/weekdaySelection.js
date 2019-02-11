@@ -2,31 +2,22 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
-import IntervalTimes from './intervalItems';
+import WeekDayItems from './weekdayItems';
 
-const validate = (values) => {
-    const errors = {}
+class WeekDaySelection extends Component {
 
-    if (!values.startDate) {
-        errors.startDate = 'Required'
-    }
-
-    return errors;
-}
-
-class Interval extends Component {
-
-    
-    handleFormSubmit = (values) => {
-        console.log('interval form values: ', values);
+    handleFormSubmit = () => {
+        console.log('handle weekday form values');
     }
 
     render() {
-        const { handleSubmit, classes, recurrenceType } = this.props;
-
+        const { handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 <Grid container item xs={12}>
@@ -37,19 +28,19 @@ class Interval extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Field name="interval" component={IntervalTimes} recurrenceType={recurrenceType} />
+                        <Field name="weekDays" component={WeekDayItems} />
                     </Grid>
                 </Grid>
             </form>
-            
         )
     }
 }
 
-Interval = reduxForm({
-    form: 'intervalForm',
-    validate,
-    warn: () => {}
-})(Interval)
+WeekDaySelection = reduxForm({
+    form: 'weekDaySelection',
+    initialValues: { weekDays: [] },
+    validate: () => {},
+    warn: () => {},
+})(WeekDaySelection)
 
-export default withStyles(styles)(Interval);
+export default withStyles(styles)(WeekDaySelection);
