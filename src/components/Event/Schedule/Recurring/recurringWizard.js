@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import styles from 'styles';
 import Interval from './interval';
 import WeekDaySelection from './weekdaySelection';
+import MonthDaySelection from './monthDaySelection';
 
 const getSteps = (recurrenceType) => {
     const steps = {
@@ -96,6 +97,11 @@ class RecurringWizard extends Component {
                     {
                         activeStep === 1 && recurrenceType === 'Weekly' && (
                             <WeekDaySelection />
+                        )
+                    }
+                    {
+                        activeStep === 1 && recurrenceType === 'Monthly' && (
+                            <MonthDaySelection />
                         )
                     }
                     </div>    
