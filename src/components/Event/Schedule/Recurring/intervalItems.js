@@ -11,25 +11,52 @@ import styles from 'styles';
 class IntervalItems extends Component {
 
     render() {
-        const { input : { onChange }, label, meta: { touched}, recurrenceType, classes } = this.props;
+        const { input : { value, onChange }, label, meta: { touched}, recurrenceType, classes } = this.props;
         
         console.log('recurrenceType is: ', recurrenceType);
+        let intervalPeriod = {
+            singular : 'day',
+            plural : 'days'
+        }
+        switch (recurrenceType) {
+            case 'Weekly':
+            intervalPeriod.singular = 'week';
+            intervalPeriod.plural = 'weeks';
+            break;
+
+            case 'Monthly':
+            intervalPeriod.singular = 'month';
+            intervalPeriod.plural = 'months';
+            break;
+
+            case 'Yearly':
+            intervalPeriod.singular = 'year';
+            intervalPeriod.plural = 'years';
+            break;
+
+            default:
+        }
+
         return (
            
                 <List>
                     {
                         (times(10, (i) => (
-                                <ListItem button key={i} divider className={classes.fullWidth}>
+                                <ListItem 
+                                    button 
+                                    key={i} 
+                                    divider 
+                                    className={classes.fullWidth}
+                                    selected={value === i + 1}
+                                    onClick={() => onChange(i+1)}
+                                >
                                     <ListItemText primary={
                                         <FormattedMessage
                                             id="interval"
-                                            defaultMessage={`{interval, number} {interval, plural, one {day} other {days}}`}
+                                            defaultMessage={`{interval, number} {interval, plural, one {${intervalPeriod.singular}} other {${intervalPeriod.plural}}}`}
                                             values={{interval: i+1}}
                                         />
-                                    }>
-                                        
-                                    </ListItemText>
-                                    
+                                    }/>
                                 </ListItem>
                             ))
                         )
