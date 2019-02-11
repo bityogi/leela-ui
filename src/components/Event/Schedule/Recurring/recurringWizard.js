@@ -6,7 +6,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
 import styles from 'styles';
-
+import Interval from './interval';
 
 const getSteps = (recurrenceType) => {
     const steps = {
@@ -73,9 +73,7 @@ class RecurringWizard extends Component {
 
                     <div className={classes.smallContainer}>
                     { activeStep === 0 && (
-                        <div>
-                            Enter Interval Information
-                        </div>
+                        <Interval recurrenceType={recurrenceType} />
                     )}
                     </div>    
 
