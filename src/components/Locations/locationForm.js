@@ -4,7 +4,6 @@ import { TextField, Select } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -39,7 +38,7 @@ class LocationForm extends Component {
     }
 
     render() {
-        const { classes, handleSubmit } = this.props;
+        const { handleSubmit } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>

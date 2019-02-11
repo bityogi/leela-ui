@@ -25,7 +25,7 @@ class Interval extends Component {
     }
 
     render() {
-        const { handleSubmit, classes, recurrenceType } = this.props;
+        const { handleSubmit, recurrenceType } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>

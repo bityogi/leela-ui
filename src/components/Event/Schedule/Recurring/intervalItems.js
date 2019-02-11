@@ -11,7 +11,7 @@ import styles from 'styles';
 class IntervalItems extends Component {
 
     render() {
-        const { input : { value, onChange }, label, meta: { touched}, recurrenceType, classes } = this.props;
+        const { input : { value, onChange }, recurrenceType, classes } = this.props;
         
         console.log('recurrenceType is: ', recurrenceType);
         let intervalPeriod = {

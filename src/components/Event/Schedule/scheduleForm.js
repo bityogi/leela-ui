@@ -36,7 +36,7 @@ class ScheduleForm extends Component {
     }
 
     render() {
-        const { classes, handleSubmit } = this.props;
+        const { handleSubmit } = this.props;
         const { isRecurring } = this.state;
 
         return (

@@ -68,7 +68,7 @@ class TextQuestion extends Component {
     }
 
     render() {
-        const { question: { type, index }, classes, pristine, submitting, handleSubmit } = this.props;
+        const { question: { type }, classes, pristine, submitting, handleSubmit } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>

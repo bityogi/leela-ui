@@ -9,14 +9,6 @@ import Button from '@material-ui/core/Button';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import qs from 'query-string';
 
 import Back from 'components/common/Back';
 
@@ -102,8 +94,8 @@ class Wizard extends Component {
   render() {
 
     const { classes } = this.props;
-    const queryString = this.props.location.search
-    const parsed = queryString ? qs.parse(queryString) : {}
+   
+   
     const steps = getSteps();
     const { activeStep } = this.state;
 
