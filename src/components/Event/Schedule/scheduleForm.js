@@ -9,6 +9,7 @@ import styles from 'styles';
 import DatePicker from './datePicker';
 import TimePicker from './timePicker';
 import Switch from './switch';
+import Recurring from './Recurring';
 
 const validate = (values) => {
     const errors = {}
@@ -39,6 +40,7 @@ class ScheduleForm extends Component {
         const { isRecurring } = this.state;
 
         return (
+            <div>
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <Grid item container xs={12}>
                     
@@ -76,7 +78,7 @@ class ScheduleForm extends Component {
                         </Grid>
                     </Grid>
                     <Grid item container xs={12}>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                                 Recurring
                             </Typography>
@@ -90,8 +92,18 @@ class ScheduleForm extends Component {
                                 />
                             </Typography>
                         </Grid>
+                        
+                        
+                        
                     </Grid>
                 </form>
+                { 
+                    isRecurring && (
+                        <Recurring />
+                    )
+                }
+                        
+            </div>
         )
     }
 }
