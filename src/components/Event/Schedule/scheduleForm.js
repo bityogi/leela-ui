@@ -9,6 +9,7 @@ import styles from 'styles';
 import DatePicker from 'components/common/datePicker';
 import TimePicker from './timePicker';
 import Recurring from './Recurring';
+import Sessions from './Sessions';
 
 const validate = (values) => {
     const errors = {}
@@ -119,6 +120,11 @@ class ScheduleForm extends Component {
                 { 
                     isRecurring && (
                         <Recurring />
+                    )
+                }
+                {
+                    isMultiSession && (
+                        <Sessions />
                     )
                 }
                         
