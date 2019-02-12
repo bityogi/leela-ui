@@ -3,12 +3,11 @@ import { Field, reduxForm } from 'redux-form';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
+import { Switch } from 'redux-form-material-ui';
 
 import styles from 'styles';
 import DatePicker from 'components/common/datePicker';
 import TimePicker from './timePicker';
-import Switch from './switch';
 import Recurring from './Recurring';
 
 const validate = (values) => {
@@ -25,10 +24,15 @@ class ScheduleForm extends Component {
 
     state = {
         isRecurring : false,
+        isMultiSession: false,
     }
 
     handleRecurringSwitch = (e) => {
         this.setState({ isRecurring: e.target.checked });
+    }
+
+    handleMultiSessionSwitch = (e) => {
+        this.setState({ isMultiSession: e.target.checked });
     }
 
     handleFormSubmit = (values) => {
@@ -37,7 +41,7 @@ class ScheduleForm extends Component {
 
     render() {
         const { handleSubmit } = this.props;
-        const { isRecurring } = this.state;
+        const { isRecurring, isMultiSession } = this.state;
 
         return (
             <div>
@@ -78,7 +82,7 @@ class ScheduleForm extends Component {
                         </Grid>
                     </Grid>
                     <Grid item container xs={12}>
-                        <Grid item xs={12}>
+                        <Grid item xs={6}>
                             <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                                 Recurring
                             </Typography>
@@ -89,10 +93,25 @@ class ScheduleForm extends Component {
                                     label="Recurring" 
                                     checked={isRecurring} 
                                     onChange={this.handleRecurringSwitch}
+                                    disabled={isMultiSession}
                                 />
                             </Typography>
                         </Grid>
-                        
+                        <Grid item xs={6}>
+                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                                Multiple Sessions
+                            </Typography>
+                            <Typography variant="h5" gutterBottom>
+                                <Field 
+                                    name="recurring" 
+                                    component={Switch} 
+                                    label="Recurring" 
+                                    checked={isMultiSession} 
+                                    onChange={this.handleMultiSessionSwitch}
+                                    disabled={isRecurring}
+                                />
+                            </Typography>
+                        </Grid>
                         
                         
                     </Grid>
