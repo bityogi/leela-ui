@@ -1,33 +1,13 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+
 
 import styles from 'styles';
-import WeekDayItems from './weekdayItems';
-
-const MonthDaySelectionType = ({ input : { value, onChange }}) => {
-    console.log('MonthDaySelection value: ', value);
-    return (
-        <AppBar position="static" color="default">
-            <Tabs
-                value={value}
-                onChange={(v) => onChange(v)}
-                indicatorColor="primary"
-                textColor="primary"
-                variant="fullWidth"
-            >
-                <Tab label="By Month Days" />
-                <Tab label="By Days of Month" />
-            </Tabs>
-        </AppBar>
-    )
-}
-    
+import MonthDaySelectionTabs from './monthdaySelectionTabs';
 
 
 class MonthDaySelection extends Component {
@@ -50,7 +30,7 @@ class MonthDaySelection extends Component {
                         
                     </Grid>
                     <Grid item xs={12}>
-                        <Field name="monthDaySelectionType" component={MonthDaySelectionType} />
+                        <Field name="monthDaySelectionType" component={MonthDaySelectionTabs} />
                     </Grid>
                 </Grid>
             </form>
@@ -63,6 +43,15 @@ MonthDaySelection = reduxForm({
     initialValues: { monthDaySelectionType: 0 },
     validate: () => {},
     warn: () => {},
+})(MonthDaySelection)
+
+const selector = formValueSelector('monthDaySelection')
+
+MonthDaySelection = connect(state => {
+    const monthDaySelectionType = selector(state, 'monthDaySelectionType');
+    return {
+        monthDaySelectionType
+    }
 })(MonthDaySelection)
 
 export default withStyles(styles)(MonthDaySelection);
