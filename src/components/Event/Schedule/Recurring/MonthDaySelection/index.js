@@ -9,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import styles from 'styles';
 import MonthDaySelectionTabs from './monthdaySelectionTabs';
 import DayOfWeek from './dayOfWeek';
+import MonthDays from './monthDays';
 
 class MonthDaySelection extends Component {
 
@@ -32,8 +33,14 @@ class MonthDaySelection extends Component {
                     <Grid item xs={12}>
                         <Field name="monthDaySelectionType" component={MonthDaySelectionTabs} />
                     </Grid>
-                    { monthDaySelectionType === 0 && <div>Working on it</div> }
+                    <Grid item xs={12}>
+                    { 
+                        monthDaySelectionType === 0 && 
+                        <Field name="monthOfDays" component={MonthDays} /> 
+                    }
                     { monthDaySelectionType === 1 && <DayOfWeek /> }
+                    </Grid>
+                    
                 </Grid>
             </form>
         )
@@ -42,7 +49,7 @@ class MonthDaySelection extends Component {
 
 MonthDaySelection = reduxForm({
     form: 'monthDaySelection',
-    initialValues: { monthDaySelectionType: 0 },
+    initialValues: { monthDaySelectionType: 0, monthOfDays: [] },
     validate: () => {},
     warn: () => {},
 })(MonthDaySelection)
