@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 import styles from 'styles';
-import DatePicker from './datePicker';
+import DatePicker from 'components/common/datePicker';
 import TimePicker from './timePicker';
 import Switch from './switch';
 import Recurring from './Recurring';

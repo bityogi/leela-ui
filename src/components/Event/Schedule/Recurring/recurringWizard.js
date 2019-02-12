@@ -9,7 +9,8 @@ import Button from '@material-ui/core/Button';
 import styles from 'styles';
 import Interval from './interval';
 import WeekDaySelection from './weekdaySelection';
-import MonthDaySelection from './monthDaySelection';
+import MonthDaySelection from './MonthDaySelection';
+import RepeatUntil from './repeatUntil';
 
 const getSteps = (recurrenceType) => {
     const steps = {
@@ -74,6 +75,15 @@ class RecurringWizard extends Component {
         const { activeStep } = this.state;
         const steps = getSteps(recurrenceType);
 
+        let showRepeatUntil = false;
+        if (activeStep === 1 && (['Daily', 'Yearly'].includes(recurrenceType)) ) {
+            showRepeatUntil = true;
+        }
+
+        if (activeStep === 2 && (['Weekly', 'Monthly'].includes(recurrenceType)) ) {
+            showRepeatUntil = true;
+        }
+
         return (
             <Grid container item xs={12}>
                 <div className={classes.stepContainer}>
@@ -103,6 +113,9 @@ class RecurringWizard extends Component {
                         activeStep === 1 && recurrenceType === 'Monthly' && (
                             <MonthDaySelection />
                         )
+                    }
+                    { 
+                        ( showRepeatUntil ) && <RepeatUntil />
                     }
                     </div>    
                     <div className={classes.flexBar}>
