@@ -3,8 +3,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-
-
 class MonthDaySelectionTabs extends Component {
 
     handleTabChange = (e, v) => {
@@ -14,7 +12,6 @@ class MonthDaySelectionTabs extends Component {
     
     render() {
         const { input : { value }} = this.props;
-        console.log('input for tabs: ', this.props.input );
         return (
             <AppBar position="static" color="default">
                 <Tabs
@@ -25,7 +22,7 @@ class MonthDaySelectionTabs extends Component {
                     variant="fullWidth"
                 >
                     <Tab label="By Month Days" />
-                    <Tab label="By Days of Month" />
+                    <Tab label="By Days of Week" />
                 </Tabs>
             </AppBar>
         )

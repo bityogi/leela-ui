@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
 import MonthDaySelectionTabs from './monthdaySelectionTabs';
-
+import DayOfWeek from './dayOfWeek';
 
 class MonthDaySelection extends Component {
 
@@ -17,7 +17,7 @@ class MonthDaySelection extends Component {
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, monthDaySelectionType } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 <Grid container item xs={12}>
@@ -32,6 +32,8 @@ class MonthDaySelection extends Component {
                     <Grid item xs={12}>
                         <Field name="monthDaySelectionType" component={MonthDaySelectionTabs} />
                     </Grid>
+                    { monthDaySelectionType === 0 && <div>Working on it</div> }
+                    { monthDaySelectionType === 1 && <DayOfWeek /> }
                 </Grid>
             </form>
         )
