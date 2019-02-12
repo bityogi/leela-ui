@@ -29,7 +29,6 @@ class Recurring extends Component {
     }
 
     handleRecurringSelection = (value) => {
-        console.log('recurring selection: ', value);
         this.setState({ recurrenceType: value });
     }
 

@@ -41,6 +41,7 @@ class RecurringWizard extends Component {
 
     state = {
         activeStep: 0,
+        recurrenceType: 'Daily',
     }
 
     handleNext = () => {
@@ -56,7 +57,6 @@ class RecurringWizard extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('prevState = ', prevState);
         if (nextProps.recurrenceType !== prevState.recurrenceType) {
             return { activeStep : 0 };
         } else {

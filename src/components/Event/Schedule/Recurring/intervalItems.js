@@ -13,7 +13,6 @@ class IntervalItems extends Component {
     render() {
         const { input : { value, onChange }, recurrenceType, classes } = this.props;
         
-        console.log('recurrenceType is: ', recurrenceType);
         let intervalPeriod = {
             singular : 'day',
             plural : 'days'
