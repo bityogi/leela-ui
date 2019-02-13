@@ -9,16 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
 import { history } from 'store';
-
-const validate = values => {
-    const errors = {}
-
-    if (!values.title) {
-        errors.title = 'Required'
-    }
-
-    return errors;
-}
+import validate from '../validate';
+import initialValues from '../initialValues';
 
 class InfoForm extends Component {
 
@@ -91,8 +83,8 @@ class InfoForm extends Component {
 
 InfoForm = reduxForm({
     form: 'event',
+    initialValues,
     destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true,
     validate,
     warn: () => {},
     

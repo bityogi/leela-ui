@@ -10,7 +10,7 @@ import MediaForm from './mediaForm';
 class Media extends Component {
 
     render() {
-        const { classes } = this.props;
+        const { classes, enableSubmission } = this.props;
         return (
             <div className={classes.bigContainer}>
             <Paper className={classes.paper}>
@@ -30,7 +30,7 @@ class Media extends Component {
                 </div>
               </div>
               
-              <MediaForm />
+              <MediaForm enableSubmission={enableSubmission}  />
                 
               
             </Paper>

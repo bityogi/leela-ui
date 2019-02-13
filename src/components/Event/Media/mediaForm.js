@@ -6,17 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
 import FileUpload from 'components/common/FileUpload';
-
-
-const validate = values => {
-    const errors = {}
-
-    if (!values.title) {
-        errors.title = 'Required'
-    }
-
-    return errors;
-}
+import validate from '../validate';
 
 class MediaForm extends Component {
     state = {
@@ -29,6 +19,20 @@ class MediaForm extends Component {
 
     handleFileUpload (file) {
         console.log('received file: ', file);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { valid, submitting, anyTouched, enableSubmission } = this.props;
+        console.log('mediaForm -- valid: ', valid);
+        const enabled = (valid && !submitting);
+        const wasEnabled = (prevProps.valid && !prevProps.submitting);
+
+        console.log('mediaForm -- enabled: ', enabled);
+        console.log('mediaForm -- wasEnabled: ', wasEnabled);
+        
+        if (enabled !== wasEnabled) {
+            enableSubmission(enabled);
+        }
     }
 
     handleOnDrop = newImageFile => this.setState({ imageFile: newImageFile });
@@ -45,7 +49,7 @@ class MediaForm extends Component {
                             Event Image
                         </Typography>
                         <Typography variant="h5" gutterBottom>
-                            <Field name="media.eventImage" component={FileUpload} />
+                            <Field name="eventImage" component={FileUpload} />
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -53,7 +57,7 @@ class MediaForm extends Component {
                             Alternate Image
                         </Typography>
                         <Typography variant="h5" gutterBottom>
-                            <Field name="media.altImage" component={FileUpload} />
+                            <Field name="altImage" component={FileUpload} />
                         </Typography>
                     </Grid>
 
@@ -67,9 +71,7 @@ class MediaForm extends Component {
 
 MediaForm = reduxForm({
     form: 'event',
-    initialValues: { media : { eventImage : [], altImage : [] }},
     destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true,
     validate,
     warn: () => {}
 })(MediaForm)

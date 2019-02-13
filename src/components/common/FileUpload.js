@@ -28,13 +28,14 @@ class FileUpload extends React.Component {
      if (acceptedFiles.length > 0) {
        const uploadedFile = URL.createObjectURL(acceptedFiles[0]);
        onChange([uploadedFile])
-      //  this.setState({ fileUploaded : [uploadedFile] });
      }
    }
 
    render() {
-    const { classes, input : { value } } = this.props;
-      
+    const { classes, input : { value }, name, meta : { touched, error } } = this.props;
+    console.log('touched: ', touched);
+    console.log('error: ', error);
+
     if (value.length > 0) {
       return (
         <Card className={classes.card}>
@@ -51,23 +52,31 @@ class FileUpload extends React.Component {
       
     } else {
       return (
-        <Dropzone onDrop={this.onDrop}>
-          {({getRootProps, getInputProps, isDragActive}) => {
-            return (
-              <div
-                {...getRootProps()}
-                className={classNames('dropzone', {'dropzone--isActive': isDragActive}, classes.media)}
-              >
-                <input {...getInputProps()} />
-                {
-                  isDragActive ?
-                    <p>Drop files here...</p> :
-                    <p>Try dropping some files here, or click to select files to upload.</p>
-                }
-              </div>
-            )
-          }}
-        </Dropzone>
+        <div>
+          <Dropzone 
+            onDrop={this.onDrop}
+            name={name}
+            multiple={false}
+          >
+            {({getRootProps, getInputProps, isDragActive}) => {
+              return (
+                <div
+                  {...getRootProps()}
+                  className={classNames('dropzone', {'dropzone--isActive': isDragActive}, classes.media)}
+                >
+                  <input {...getInputProps()} />
+                  {
+                    isDragActive ?
+                      <p>Drop files here...</p> :
+                      <p>Try dropping some files here, or click to select files to upload.</p>
+                  }
+                </div>
+              )
+            }}
+          </Dropzone>
+          { touched && error && <span className="error">{error}</span> }
+        </div>
+        
       );
     }
     
