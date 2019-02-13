@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
-// import PreReqsForm from './prereqsForm';
+import PricingForm from './pricingForm';
 
 class Pricing extends Component {
 
@@ -24,6 +24,7 @@ class Pricing extends Component {
                     </Typography>
                   </div>
                   
+                  <PricingForm />
                   
                 </div>
               </Paper>
