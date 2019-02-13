@@ -82,7 +82,7 @@ class SessionsForm extends Component {
                 
                 <div>
                     { 
-                        !isEmpty(newSession) && <NewSession oneSessionAdded={this.oneSessionAdded} />
+                        !isEmpty(newSession) && <NewSession onSessionAdded={this.oneSessionAdded} session={newSession} />
                     }
                 </div>
 

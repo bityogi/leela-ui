@@ -8,6 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
 import DatePicker from 'components/common/datePicker';
+import TimePicker from 'components/common/timePicker';
 
 const validate = values => {
     const errors = {}
@@ -45,7 +46,7 @@ class Session extends Component {
                             />
                         </Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                         <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                             Start Date
                         </Typography>
@@ -57,19 +58,19 @@ class Session extends Component {
                             />
                         </Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                         <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                             Start Time
                         </Typography>
                         <Typography variant="h3" gutterBottom>
                             <Field 
-                                component={TextField} 
+                                component={TimePicker} 
                                 name={`sessionStartTime`}
                                 style={{ width:'80%', fontSize: '.9em' }}
                             />
                         </Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                         <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                             End Date
                         </Typography>
@@ -81,13 +82,13 @@ class Session extends Component {
                             />
                         </Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                         <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            extends Time
+                            End Time
                         </Typography>
                         <Typography variant="h3" gutterBottom>
                             <Field 
-                                component={TextField} 
+                                component={TimePicker} 
                                 name={`sessionEndTime`}
                                 style={{ width:'80%', fontSize: '.9em' }}
                             />

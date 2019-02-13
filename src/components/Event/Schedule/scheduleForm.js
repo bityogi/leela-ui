@@ -7,7 +7,7 @@ import { Switch } from 'redux-form-material-ui';
 
 import styles from 'styles';
 import DatePicker from 'components/common/datePicker';
-import TimePicker from './timePicker';
+import TimePicker from 'components/common/timePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
 
