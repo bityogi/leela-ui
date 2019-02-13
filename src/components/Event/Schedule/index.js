@@ -16,19 +16,19 @@ class Schedule extends Component {
         return (
             <div className={classes.smallContainer}>
                
-                        <Paper className={classes.paper}>
-                            
-                            <div style={{marginBottom: 32}}>
-                                <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
-                                Schedule
-                                </Typography>
-                                <Typography variant="body2" gutterBottom>
-                                Set your event schedule
-                                </Typography>
-                            </div>
-                            
-                            <ScheduleForm />
-                        </Paper>
+                <Paper className={classes.paper}>
+                    
+                    <div style={{marginBottom: 32}}>
+                        <Typography variant="subtitle1" style={{fontWeight: 'bold'}} gutterBottom>
+                        Schedule
+                        </Typography>
+                        <Typography variant="body2" gutterBottom>
+                        Set your event schedule
+                        </Typography>
+                    </div>
+                    
+                    <ScheduleForm />
+                </Paper>
             </div>
         );
     }

@@ -17,10 +17,9 @@ import Info from './info';
 import Media from './media';
 import Schedule from './Schedule';
 import PreReqs from './PreReqs';
+import Pricing from './Pricing';
 import Summary from './summary';
 
-const numeral = require('numeral');
-numeral.defaultFormat('0,000');
 
 const getSteps = () => {
   return [
@@ -28,6 +27,7 @@ const getSteps = () => {
     'Media',
     'Schedule',
     'Pre-requisites',
+    'Pricing',
     'Confirm',
     'Done'
   ];
@@ -132,9 +132,12 @@ class Wizard extends Component {
                    <PreReqs />
                   )}
                   { activeStep === 4 && (
-                    <Summary />
+                    <Pricing />
                   )}
                   { activeStep === 5 && (
+                    <Summary />
+                  )}
+                  { activeStep === 6 && (
                   <div className={classes.smallContainer}>
                     <Paper className={classes.paper}>
                       <Grid item container xs={12}>
@@ -155,7 +158,7 @@ class Wizard extends Component {
                   )}
                   
                   <div className={classes.flexBar}>
-                    { activeStep !== 5 && (
+                    { activeStep !== 6 && (
                       <Button
                       disabled={activeStep === 0}
                       onClick={this.handleBack}
@@ -168,7 +171,7 @@ class Wizard extends Component {
                     <Button 
                       variant="contained"
                       color="primary"
-                      onClick={activeStep !== 5 ? this.handleNext : this.goToDashboard}
+                      onClick={activeStep !== 6 ? this.handleNext : this.goToDashboard}
                       size='large'
                     >
                       {this.stepActions()}
