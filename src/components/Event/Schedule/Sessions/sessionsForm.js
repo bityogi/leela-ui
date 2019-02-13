@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import { isEmpty } from 'lodash';
 
 import styles from 'styles';
-
+import NewSession from './session';
 
 const validate = values => {
     const errors = {}
@@ -82,7 +82,7 @@ class SessionsForm extends Component {
                 
                 <div>
                     { 
-                        !isEmpty(newSession) && <div>Add new session</div>
+                        !isEmpty(newSession) && <NewSession oneSessionAdded={this.oneSessionAdded} />
                     }
                 </div>
 
