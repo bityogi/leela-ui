@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -45,15 +45,15 @@ class MediaForm extends Component {
                             Event Image
                         </Typography>
                         <Typography variant="h5" gutterBottom>
-                            <FileUpload />
+                            <Field name="media.eventImage" component={FileUpload} />
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            Profile Image
+                            Alternate Image
                         </Typography>
                         <Typography variant="h5" gutterBottom>
-                            <FileUpload />
+                            <Field name="media.altImage" component={FileUpload} />
                         </Typography>
                     </Grid>
 
@@ -66,7 +66,10 @@ class MediaForm extends Component {
 }
 
 MediaForm = reduxForm({
-    form: 'eventInfo',
+    form: 'event',
+    initialValues: { media : { eventImage : [], altImage : [] }},
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
     validate,
     warn: () => {}
 })(MediaForm)

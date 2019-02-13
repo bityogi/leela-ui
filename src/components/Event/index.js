@@ -13,13 +13,13 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Back from 'components/common/Back';
 
 import styles from 'styles';
-import Info from './info';
-import Media from './media';
+import Info from './Info';
+import Media from './Media';
 import Schedule from './Schedule';
 import PreReqs from './PreReqs';
 import Pricing from './Pricing';
 import Summary from './summary';
-
+import StepActions from './stepActions';
 
 const getSteps = () => {
   return [
@@ -36,10 +36,7 @@ const getSteps = () => {
 class Wizard extends Component {
 
   state = {
-    activeStep: 4,
-    receivingAccount: 'Home Account',
-    repaimentAccount: 'Saving Account',
-    termsChecked: false
+    activeStep: 0,
   }
 
   componentDidMount() {
@@ -71,16 +68,6 @@ class Wizard extends Component {
   handleTerms = event => {
     this.setState({ termsChecked: event.target.checked });
   };
-
-  stepActions() {
-    if(this.state.activeStep === 4) {
-      return 'Accept';
-    }
-    if(this.state.activeStep === 5) {
-      return 'Done';
-    }
-    return 'Next';
-  }
 
   goToDashboard = event => {
     const queryString = this.props.location.search
@@ -157,26 +144,12 @@ class Wizard extends Component {
                   </div>
                   )}
                   
-                  <div className={classes.flexBar}>
-                    { activeStep !== 6 && (
-                      <Button
-                      disabled={activeStep === 0}
-                      onClick={this.handleBack}
-                      className={classes.backButton}
-                      size='large'
-                      >
-                        Back
-                      </Button>
-                    )}
-                    <Button 
-                      variant="contained"
-                      color="primary"
-                      onClick={activeStep !== 6 ? this.handleNext : this.goToDashboard}
-                      size='large'
-                    >
-                      {this.stepActions()}
-                    </Button>
-                  </div>
+                  <StepActions 
+                    activeStep={activeStep} 
+                    handleBack={this.handleBack} 
+                    handleNext={this.handleNext} 
+                    goToDashboard={this.goToDashboard} 
+                  />
                 </div>
               </Grid>
             </Grid>

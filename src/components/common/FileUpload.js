@@ -23,23 +23,25 @@ class FileUpload extends React.Component {
    }
 
    onDrop = (acceptedFiles, rejectedFiles) => {
+     const { input : { onChange } } = this.props;
      console.log('files received: ', acceptedFiles);
      if (acceptedFiles.length > 0) {
        const uploadedFile = URL.createObjectURL(acceptedFiles[0]);
-       this.setState({ fileUploaded : [uploadedFile] });
+       onChange([uploadedFile])
+      //  this.setState({ fileUploaded : [uploadedFile] });
      }
    }
 
    render() {
-    const { classes } = this.props;
+    const { classes, input : { value } } = this.props;
       
-    if (this.state.fileUploaded.length > 0) {
+    if (value.length > 0) {
       return (
         <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={this.state.fileUploaded[0]}
+            image={value[0]}
             title="Event Name"
           />
 

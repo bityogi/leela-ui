@@ -80,9 +80,12 @@ class InfoForm extends Component {
 }
 
 InfoForm = reduxForm({
-    form: 'eventInfo',
+    form: 'event',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
     validate,
-    warn: () => {}
+    warn: () => {},
+    
 })(InfoForm)
 
 export default withStyles(styles)(InfoForm);
