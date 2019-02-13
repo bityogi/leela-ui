@@ -26,6 +26,16 @@ class InfoForm extends Component {
         console.log('Form values for event info: ', values);
     }
 
+    componentDidUpdate(prevProps) {
+        const { valid, submitting, anyTouched, enableSubmission } = this.props;
+        const enabled = (valid && !submitting) || !anyTouched;
+        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+
+        if (enabled !== wasEnabled) {
+            enableSubmission(enabled);
+        }
+    }
+
     render() {
         const { classes, handleSubmit } = this.props;
 

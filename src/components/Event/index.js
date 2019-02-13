@@ -37,10 +37,7 @@ class Wizard extends Component {
 
   state = {
     activeStep: 0,
-  }
-
-  componentDidMount() {
-    
+    enableFormSubmission: true,
   }
 
   handleNext = () => {
@@ -55,6 +52,14 @@ class Wizard extends Component {
     }));
   };
 
+  enableSubmission = (enabled) => {
+    console.log('enableSubmission: ', enabled);
+    this.setState({
+      enableFormSubmission: enabled
+    })
+  }
+
+
   handleReset = () => {
     this.setState({
       activeStep: 0,
@@ -65,9 +70,7 @@ class Wizard extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleTerms = event => {
-    this.setState({ termsChecked: event.target.checked });
-  };
+
 
   goToDashboard = event => {
     const queryString = this.props.location.search
@@ -84,8 +87,9 @@ class Wizard extends Component {
    
    
     const steps = getSteps();
-    const { activeStep } = this.state;
+    const { activeStep, enableFormSubmission } = this.state;
 
+    
     return (
       <React.Fragment>
         <CssBaseline />
@@ -107,7 +111,7 @@ class Wizard extends Component {
                     </Stepper>
                   </div>
                   { activeStep === 0 && (
-                    <Info />
+                    <Info enableSubmission={this.enableSubmission} /> 
                   )}
                   { activeStep === 1 && (
                     <Media />
@@ -149,6 +153,7 @@ class Wizard extends Component {
                     handleBack={this.handleBack} 
                     handleNext={this.handleNext} 
                     goToDashboard={this.goToDashboard} 
+                    enableFormSubmission={enableFormSubmission}
                   />
                 </div>
               </Grid>

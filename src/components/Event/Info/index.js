@@ -10,7 +10,7 @@ import InfoForm from './infoForm';
 class Info extends Component {
 
     render() {
-        const { classes } = this.props;
+        const { classes, enableSubmission } = this.props;
 
         return (
             <div className={classes.bigContainer}>
@@ -31,7 +31,7 @@ class Info extends Component {
                   </div>
                 </div>
                 
-                <InfoForm />
+                <InfoForm enableSubmission={enableSubmission} />
                   
                 
               </Paper>
