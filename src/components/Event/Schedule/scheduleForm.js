@@ -56,7 +56,7 @@ class ScheduleForm extends Component {
                                 Start
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="startDate" component={DatePicker} label="Start Date" />
+                                <Field name="startDate" component={DatePicker} label="Start Date" normalize={normalizeStartDate} />
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>

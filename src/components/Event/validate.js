@@ -39,8 +39,7 @@ const validate = values => {
     if (values.startDate && values.startTime && values.endDate && values.endTime) {
         console.log('startDate: ', values.startDate)
         console.log('startTime: ', values.startTime)
-        let newDate = new Date(values.startDate).setHours(new Date(values.startTime).getHours());
-        console.log('newDate: ', newDate.toLocaleString());
+        
     }
 
     return errors;

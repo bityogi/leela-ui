@@ -1,16 +1,14 @@
+import { change } from 'redux-form';
+import store from 'store';
 
 const normalizeStartDate = (value, previousValue, allValues) => {
-    console.log('normalizing start date')
-    if (!value) {
-        return { value, previousValue, allValues }
-    }
+    const newStartDate = new Date(value).setTime(new Date(allValues.startTime).getTime());
+    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    
-    allValues.startDate = new Date(allValues.startDate).setHours(new Date(value).getHours());
-    
-    return {
-        value, previousValue, allValues
-    }
+    console.log('currentStartDate: ', value);
+    console.log('newStartDate: ', newStartDate);
+    store.dispatch(change('event', 'startDate', newStartDate));
+    return value;
 }
 
 export { normalizeStartDate };
