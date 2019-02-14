@@ -1,3 +1,4 @@
+
 const validate = values => {
     const errors = {}
 
@@ -17,7 +18,29 @@ const validate = values => {
         if (values.eventImage.length === 0) {
             errors.eventImage = 'Required'
         }
-        
+    }
+    
+    if (!values.startDate) {
+        errors.startDate = 'Required'
+    }
+
+    if (!values.startTime) {
+        errors.startTime = 'Required'
+    }
+
+    if (!values.endDate) {
+        errors.endDate = 'Required'
+    }
+
+    if (!values.endTime) {
+        errors.endTime = 'Required'
+    }
+
+    if (values.startDate && values.startTime && values.endDate && values.endTime) {
+        console.log('startDate: ', values.startDate)
+        console.log('startTime: ', values.startTime)
+        let newDate = new Date(values.startDate).setHours(new Date(values.startTime).getHours());
+        console.log('newDate: ', newDate.toLocaleString());
     }
 
     return errors;

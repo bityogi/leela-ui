@@ -10,16 +10,8 @@ import DatePicker from 'components/common/datePicker';
 import TimePicker from 'components/common/timePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
-
-const validate = (values) => {
-    const errors = {}
-
-    if (!values.startDate) {
-        errors.startDate = 'Required'
-    }
-
-    return errors;
-}
+import validate from '../validate';
+import { normalizeStartDate } from './normalizeDateTime';
 
 class ScheduleForm extends Component {
 
@@ -38,6 +30,16 @@ class ScheduleForm extends Component {
 
     handleFormSubmit = (values) => {
         console.log('schedule form values: ', values);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { valid, submitting, anyTouched, enableSubmission } = this.props;
+        const enabled = (valid && !submitting) || !anyTouched;
+        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+
+        if (enabled !== wasEnabled) {
+            enableSubmission(enabled);
+        }
     }
 
     render() {
@@ -62,7 +64,7 @@ class ScheduleForm extends Component {
                                 Time
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="startTime" component={TimePicker} label="Start Time" />
+                                <Field name="startTime" component={TimePicker} label="Start Time" normalize={normalizeStartDate} />
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -134,7 +136,8 @@ class ScheduleForm extends Component {
 }
 
 ScheduleForm = reduxForm({
-    form: 'scheduleForm',
+    form: 'event',
+    destroyOnUnmount: false,
     validate,
     warn: () => {}
 })(ScheduleForm);

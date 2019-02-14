@@ -11,7 +11,7 @@ class Schedule extends Component {
 
     
     render() {
-        const { classes } = this.props;
+        const { classes, enableSubmission } = this.props;
         
         return (
             <div className={classes.smallContainer}>
@@ -26,7 +26,7 @@ class Schedule extends Component {
                         </Typography>
                     </div>
                     
-                    <ScheduleForm />
+                    <ScheduleForm enableSubmission={enableSubmission} />
                 </Paper>
             </div>
         );
