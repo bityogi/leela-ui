@@ -38,6 +38,24 @@ const validate = values => {
         }
     }
 
+    if (values.recurring === true) {
+        if (!values.frequency) {
+            errors.frequency = 'A frequency needs to be selected if its recurring';
+        } else {
+            if (!values.interval) {
+                console.log('invalid because no interval value')
+                errors.interval = 'Interval is required';
+            }
+
+            if (!values.repeatUntil) {
+                errors.repeatUntil = 'Repeat Until is required';
+            }
+            if (values.frequency === 'Daily') {
+                
+            }
+        }
+    }
+
     return errors;
 }
 

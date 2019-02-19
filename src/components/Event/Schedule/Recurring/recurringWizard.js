@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
+import { isEmpty } from 'lodash';
 
 import styles from 'styles';
 import Interval from './interval';
@@ -41,10 +44,16 @@ class RecurringWizard extends Component {
 
     state = {
         activeStep: 0,
-        recurrenceType: 'Daily',
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.recurrenceType !== this.props.recurrenceType) {
+            this.setState({ recurrenceType : this.props.recurrenceType });
+        }
     }
 
     handleNext = () => {
+        console.log('handle next for wizard ')
         this.setState(state => ({
             activeStep: state.activeStep + 1,
         }));
@@ -56,7 +65,21 @@ class RecurringWizard extends Component {
         }));
     }
 
+    showNext = () => {
+        const { recurrenceType } = this.props;
+        const { activeStep } = this.state;
+
+        if (['Daily', 'Yearly'].includes(recurrenceType) && (activeStep === 1)) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     static getDerivedStateFromProps(nextProps, prevState) {
+
+        console.log('nextProps.recurrenceType: ', nextProps.recurrenceType);
+        console.log('prevState.recurrenceType: ', prevState.recurrenceType);
         if (nextProps.recurrenceType !== prevState.recurrenceType) {
             return { activeStep : 0 };
         } else {
@@ -64,14 +87,38 @@ class RecurringWizard extends Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.recurrenceType !== this.props.recurrenceType) {
-            this.setState({ recurrenceType : this.props.recurrenceType });
+    enableSubmission = () => {
+        const { recurrenceType, interval, repeatUntil } = this.props;
+        const { activeStep } = this.state;
+
+        console.log('wizard enableSubmission -- activeStep: ', activeStep);
+        console.log('wizard enableSubmission -- interval: ', interval);
+        console.log('wizard enableSubmission -- repeatUntil: ', repeatUntil);
+
+        if (activeStep === 0) {
+            if (interval) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        if (activeStep === 1) {
+            if (['Daily', 'Yearly'].includes(recurrenceType)) {
+                if (repeatUntil) {
+                    return true
+                } else {
+                    return false
+                }
+            }
         }
     }
 
     render() {
+        let enableSubmission = this.enableSubmission();
+        console.log('enable submission for wizard: ', enableSubmission);
         const { classes, recurrenceType } = this.props;
+        
         const { activeStep } = this.state;
         const steps = getSteps(recurrenceType);
 
@@ -83,7 +130,6 @@ class RecurringWizard extends Component {
         if (activeStep === 2 && (['Weekly', 'Monthly'].includes(recurrenceType)) ) {
             showRepeatUntil = true;
         }
-
         return (
             <Grid container item xs={12}>
                 <div className={classes.stepContainer}>
@@ -133,6 +179,8 @@ class RecurringWizard extends Component {
                             color="primary"
                             onClick={this.handleNext}
                             size='small'
+                            disabled={!enableSubmission}
+                            style={{ display: (this.showNext()) ? '' : 'none' }}
                         >
                             Next
                         </Button>
@@ -142,5 +190,18 @@ class RecurringWizard extends Component {
         );
     }
 }
+
+
+const selector = formValueSelector('event')
+
+RecurringWizard = connect(state => {
+    const interval = selector(state, 'interval');
+    const repeatUntil = selector(state, 'repeatUntil');
+
+    return {
+        interval,
+        repeatUntil,
+    }
+})(RecurringWizard)
 
 export default withStyles(styles)(RecurringWizard);

@@ -6,16 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
 import IntervalTimes from './intervalItems';
-
-const validate = (values) => {
-    const errors = {}
-
-    if (!values.startDate) {
-        errors.startDate = 'Required'
-    }
-
-    return errors;
-}
+import validate from 'components/Event/validate';
 
 class Interval extends Component {
 
@@ -47,7 +38,8 @@ class Interval extends Component {
 }
 
 Interval = reduxForm({
-    form: 'intervalForm',
+    form: 'event',
+    destroyOnUnmount: false,
     validate,
     warn: () => {}
 })(Interval)

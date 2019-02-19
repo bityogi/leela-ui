@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, change } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { Select } from 'redux-form-material-ui';
@@ -7,21 +7,14 @@ import Grid from '@material-ui/core/Grid';
 import { isEmpty } from 'lodash';
 
 import RecurringWizard from './recurringWizard';
-
-const validate = (values) => {
-    const errors = {}
-
-    if (!values.frequency) {
-        errors.frequency = 'Required'
-    }
-
-    return errors;
-}
+import validate from '../../validate';
+import store from 'store';
 
 class Recurring extends Component {
 
     state = {
-        recurrenceType: ''
+        recurrenceType: '',
+        enableFormSubmission: true,
     }
 
     handleFormSubmit = (values) => {
@@ -30,11 +23,27 @@ class Recurring extends Component {
 
     handleRecurringSelection = (value) => {
         this.setState({ recurrenceType: value });
+        store.dispatch(change('event', 'interval', null));
+        store.dispatch(change('event', 'repeatUntil', null));
+    }
+
+    componentDidUpdate(prevProps) {
+        const { valid, submitting, anyTouched } = this.props;
+        const enabled = (valid && !submitting) || !anyTouched;
+        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+
+        if (enabled !== wasEnabled) {
+            this.setState({ enableFormSubmission: enabled });
+        }
+
+        if (prevProps.recurrenceType !== this.props.recurrenceType) {
+            this.setState({ recurrenceType : this.props.recurrenceType });
+        }
     }
 
     render() {
         const { handleSubmit } = this.props;
-        const { recurrenceType } = this.state;
+        const { recurrenceType, enableFormSubmission } = this.state;
 
         return (
             <Grid item xs={12}>
@@ -60,7 +69,7 @@ class Recurring extends Component {
                     </Typography>
                 </form>
                 { !isEmpty(recurrenceType) && (
-                    <RecurringWizard recurrenceType={recurrenceType} />
+                    <RecurringWizard recurrenceType={recurrenceType} enableSubmission={enableFormSubmission} />
                 )}
             </Grid>
         );
@@ -68,7 +77,8 @@ class Recurring extends Component {
 }
 
 Recurring = reduxForm({
-    form: 'recurringForm',
+    form: 'event',
+    destroyOnUnmount: false,
     validate,
     warn: () => {},
 })(Recurring)

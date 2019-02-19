@@ -30,7 +30,6 @@ class StepActions extends Component {
 
     render() {
         const { activeStep, enableFormSubmission, classes } = this.props;
-        console.log('enableFormSubmission in stepActions: ', enableFormSubmission);
         return (
             <div className={classes.flexBar}>
                     { activeStep !== 6 && (

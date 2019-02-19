@@ -7,17 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from 'styles';
 import DatePicker from 'components/common/datePicker';
-
-
-const validate = (values) => {
-    const errors = {}
-
-    if (!values.repeatUntil) {
-        errors.repeatUntil = 'Required'
-    }
-
-    return errors;
-}
+import validate from 'components/Event/validate';
 
 class RepeatUntil extends Component {
 
@@ -33,7 +23,7 @@ class RepeatUntil extends Component {
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <Grid container item xs={12}>
                         <Typography variant="h5" gutterBottom>
-                            <Field name="startDate" component={DatePicker} label="Repeat Until" fullWidth />
+                            <Field name="repeatUntil" component={DatePicker} label="Repeat Until" fullWidth />
                         </Typography>
                     </Grid>
                 </form>
@@ -43,7 +33,8 @@ class RepeatUntil extends Component {
 }
 
 RepeatUntil = reduxForm({
-    form: 'repeatUntil',
+    form: 'event',
+    destroyOnUnmount: false,
     validate,
     warn: () => {}
 })(RepeatUntil);
