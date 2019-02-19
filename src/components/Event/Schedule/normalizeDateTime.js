@@ -2,13 +2,24 @@ import { change } from 'redux-form';
 import store from 'store';
 
 const normalizeStartDate = (value, previousValue, allValues) => {
-    const newStartDate = new Date(value).setTime(new Date(allValues.startTime).getTime());
-    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
-    console.log('currentStartDate: ', value);
-    console.log('newStartDate: ', newStartDate);
+    const newStartDate = new Date(value);
+    
     store.dispatch(change('event', 'startDate', newStartDate));
+    store.dispatch(change('event', 'startTime', newStartDate));
+    
     return value;
 }
 
-export { normalizeStartDate };
+const normalizeEndDate = (value, previousVallue, allValues) => {
+    const newEndDate = new Date(value);
+    store.dispatch(change('event', 'endDate', newEndDate));
+    store.dispatch(change('event', 'endTime', newEndDate));
+    return value;
+}
+
+
+
+export { 
+    normalizeStartDate, 
+    normalizeEndDate,
+};

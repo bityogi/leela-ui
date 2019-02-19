@@ -1,3 +1,4 @@
+import { isAfter } from 'date-fns';
 
 const validate = values => {
     const errors = {}
@@ -37,9 +38,15 @@ const validate = values => {
     }
 
     if (values.startDate && values.startTime && values.endDate && values.endTime) {
-        console.log('startDate: ', values.startDate)
-        console.log('startTime: ', values.startTime)
-        
+        const startDate = new Date(values.startDate);
+        const endDate = new Date(values.endDate);
+
+        console.log('startDate: ', startDate.toString())
+        console.log('endDate: ', endDate.toString())
+        if (isAfter(startDate, endDate)) {
+            console.log('Invalid dates');
+            errors.endDate = 'Start Date/Time cannot be after End Date/Time';
+        }
     }
 
     return errors;

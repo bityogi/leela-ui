@@ -11,7 +11,10 @@ import TimePicker from 'components/common/timePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
 import validate from '../validate';
-import { normalizeStartDate } from './normalizeDateTime';
+import { 
+    normalizeStartDate,
+    normalizeEndDate,
+} from './normalizeDateTime';
 
 class ScheduleForm extends Component {
 
@@ -72,7 +75,7 @@ class ScheduleForm extends Component {
                                 End
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="endDate" component={DatePicker} label="End Date" />
+                                <Field name="endDate" component={DatePicker} label="End Date" normalize={normalizeEndDate} />
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -80,7 +83,7 @@ class ScheduleForm extends Component {
                                 Time
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="endTime" component={TimePicker} label="End Time" />
+                                <Field name="endTime" component={TimePicker} label="End Time" normalize={normalizeEndDate} />
                             </Typography>
                         </Grid>
                     </Grid>
