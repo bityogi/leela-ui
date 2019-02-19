@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { Switch } from 'redux-form-material-ui';
 
 import styles from 'styles';
-import DatePicker from 'components/common/datePicker';
+import DateTimePicker from 'components/common/dateTimePicker';
 import TimePicker from 'components/common/timePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
@@ -59,33 +59,19 @@ class ScheduleForm extends Component {
                                 Start
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="startDate" component={DatePicker} label="Start Date" normalize={normalizeStartDate} />
+                                <Field name="startDateTime" component={DateTimePicker} label="Start" initialFocusedDate={new Date()} />
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                                Time
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                                <Field name="startTime" component={TimePicker} label="Start Time" normalize={normalizeStartDate} />
-                            </Typography>
-                        </Grid>
+                        
                         <Grid item xs={6}>
                             <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                                 End
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="endDate" component={DatePicker} label="End Date" normalize={normalizeEndDate} />
+                                <Field name="endDateTime" component={DateTimePicker} label="End" />
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                                Time
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                                <Field name="endTime" component={TimePicker} label="End Time" normalize={normalizeEndDate} />
-                            </Typography>
-                        </Grid>
+                       
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>

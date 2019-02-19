@@ -21,31 +21,20 @@ const validate = values => {
         }
     }
     
-    if (!values.startDate) {
-        errors.startDate = 'Required'
+    if (!values.startDateTime) {
+        errors.startDateTime = 'Required'
     }
 
-    if (!values.startTime) {
-        errors.startTime = 'Required'
+    if (!values.endDateTime) {
+        errors.endDateTime = 'Required'
     }
 
-    if (!values.endDate) {
-        errors.endDate = 'Required'
-    }
+    if (values.startDateTime && values.endDateTime) {
+        const startDate = new Date(values.startDateTime);
+        const endDate = new Date(values.endDateTime);
 
-    if (!values.endTime) {
-        errors.endTime = 'Required'
-    }
-
-    if (values.startDate && values.startTime && values.endDate && values.endTime) {
-        const startDate = new Date(values.startDate);
-        const endDate = new Date(values.endDate);
-
-        console.log('startDate: ', startDate.toString())
-        console.log('endDate: ', endDate.toString())
         if (isAfter(startDate, endDate)) {
-            console.log('Invalid dates');
-            errors.endDate = 'Start Date/Time cannot be after End Date/Time';
+            errors.endDateTime = 'Start Date/Time cannot be after End Date/Time';
         }
     }
 

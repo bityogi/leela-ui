@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker } from 'material-ui-pickers';
+import { DateTimePicker } from 'material-ui-pickers';
 
 // import createComponent from 'components/util/createComponent';
 // import mapError from 'components/util/mapError';
@@ -22,14 +22,20 @@ import { DatePicker } from 'material-ui-pickers';
 //     value: new Date(value)
 // }))
 
-const renderDatePicker = ({ input: { onChange, value }, label, meta: { touched, error, warning } }) => (
-    <DatePicker
-        margin="normal"
-        label={label}
-        value={!value ? null : new Date(value)}
-        onChange={onChange}
-        helperText={(touched && (error || warning)) ? (error || warning) : null}
-    />
-)
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error, warning } }) => {
+    return (
+        <DateTimePicker
+            disablePast
+            margin="normal"
+            label={label}
+            value={!value ? null : new Date(value)}
+            onChange={onChange}
+            error={(touched && (error || warning))}
+            helperText={(error || warning)}
+        />
+    )
+}
+   
 
-export default renderDatePicker;
+
+export default renderDateTimePicker;
