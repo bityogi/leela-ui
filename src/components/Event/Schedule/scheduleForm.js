@@ -7,14 +7,9 @@ import { Switch } from 'redux-form-material-ui';
 
 import styles from 'styles';
 import DateTimePicker from 'components/common/dateTimePicker';
-import TimePicker from 'components/common/timePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
 import validate from '../validate';
-import { 
-    normalizeStartDate,
-    normalizeEndDate,
-} from './normalizeDateTime';
 
 class ScheduleForm extends Component {
 
