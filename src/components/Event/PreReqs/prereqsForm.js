@@ -12,8 +12,8 @@ import { isEmpty } from 'lodash';
 import styles from 'styles';
 import store from 'store';
 import TextQuestion from './textQuestion';
+import validate from 'components/Event/validate';
 import initialValues from 'components/Event/initialValues';
-
 
 class PreReqsForm extends Component {
     state = {
@@ -92,7 +92,7 @@ class PreReqsForm extends Component {
                 <div>
                     { 
                         !isEmpty(newQuestion) ? 
-                            <TextQuestion onQuestionAdded={this.onQuestionAdded} question={newQuestion} /> 
+                            <TextQuestion question={newQuestion} onQuestionAdded={this.onQuestionAdded} />
                             : null 
                     }
                 </div>
@@ -108,6 +108,7 @@ PreReqsForm = reduxForm({
     form: 'event',
     destroyOnUnmount: false,
     initialValues,
+    validate,
     warn: () => {}
 })(PreReqsForm)
 

@@ -247,7 +247,7 @@ RecurringWizard = connect(state => {
         weekDays,
         monthDaySelectionType,
         daysOfMonth,
-        dayOfWeek : { number: dayOfWeek_number, day: dayOfWeek_day }
+        dayOfWeek : { number: dayOfWeek_number, day: dayOfWeek_day },
     }
 })(RecurringWizard)
 

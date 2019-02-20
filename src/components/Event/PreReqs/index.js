@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import { formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
 import PreReqsForm from './prereqsForm';
+import DisplayQuestions from './Display';
 
 class PreReqs extends Component {
 
     render() {
-        const { classes } = this.props;
-
+        const { classes, questions } = this.props;
+        console.log('questions in pre-reqs index: ', questions);
         return (
             <div className={classes.smallContainer}>
               <Paper className={classes.paper}>
@@ -27,9 +30,19 @@ class PreReqs extends Component {
                   <PreReqsForm />
                 </div>
               </Paper>
+              <DisplayQuestions questions={questions} />
             </div>
         );
     }
 }
+
+const selector = formValueSelector('event')
+
+PreReqs  = connect(state => {
+    const questions = selector(state, 'questions');
+    return {
+        questions,
+    }
+})(PreReqs)
 
 export default withStyles(styles)(PreReqs);
