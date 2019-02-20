@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { Field } from 'redux-form';
-import { Select } from 'redux-form-material-ui';
-import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
 import { white } from 'ansi-colors';
 import { times } from 'lodash';

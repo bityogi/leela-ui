@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { change } from 'redux-form';
+import store from 'store';
 
 class MonthDaySelectionTabs extends Component {
 
     handleTabChange = (e, v) => {
         const { input: { onChange } } = this.props;
         onChange(v);
+        store.dispatch(change('event', 'daysOfMonth', []));
+        store.dispatch(change('event', 'dayOfWeek_number', null));
+        store.dispatch(change('event', 'dayOfWeek_day', null));
     }
     
     render() {

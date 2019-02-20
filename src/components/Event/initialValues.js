@@ -1,7 +1,9 @@
 const initialValues = { 
     eventImage : [], 
     altImage : [],
-    weekDays: []
+    weekDays: [],
+    monthDaySelectionType: 0, 
+    daysOfMonth: []
 }
 
 export default initialValues;

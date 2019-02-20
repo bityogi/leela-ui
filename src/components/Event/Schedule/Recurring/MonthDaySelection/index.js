@@ -10,6 +10,7 @@ import styles from 'styles';
 import MonthDaySelectionTabs from './monthdaySelectionTabs';
 import DayOfWeek from './dayOfWeek';
 import MonthDays from './monthDays';
+import validate from 'components/Event/validate';
 
 class MonthDaySelection extends Component {
 
@@ -19,6 +20,7 @@ class MonthDaySelection extends Component {
 
     render() {
         const { handleSubmit, monthDaySelectionType } = this.props;
+        console.log('MONTHDAYSELECTION_TYPE: ', monthDaySelectionType);
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 <Grid container item xs={12}>
@@ -27,8 +29,6 @@ class MonthDaySelection extends Component {
                         <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                             Month Days
                         </Typography>
-                        
-                        
                     </Grid>
                     <Grid item xs={12}>
                         <Field name="monthDaySelectionType" component={MonthDaySelectionTabs} />
@@ -36,7 +36,7 @@ class MonthDaySelection extends Component {
                     <Grid item xs={12}>
                     { 
                         monthDaySelectionType === 0 && 
-                        <Field name="monthOfDays" component={MonthDays} /> 
+                        <Field name="daysOfMonth" component={MonthDays} /> 
                     }
                     { monthDaySelectionType === 1 && <DayOfWeek /> }
                     </Grid>
@@ -48,13 +48,13 @@ class MonthDaySelection extends Component {
 }
 
 MonthDaySelection = reduxForm({
-    form: 'monthDaySelection',
-    initialValues: { monthDaySelectionType: 0, monthOfDays: [] },
-    validate: () => {},
+    form: 'event',
+    destroyOnUnmount: false,
+    validate,
     warn: () => {},
 })(MonthDaySelection)
 
-const selector = formValueSelector('monthDaySelection')
+const selector = formValueSelector('event')
 
 MonthDaySelection = connect(state => {
     const monthDaySelectionType = selector(state, 'monthDaySelectionType');

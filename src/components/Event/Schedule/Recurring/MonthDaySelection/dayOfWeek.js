@@ -14,7 +14,7 @@ class DayOfWeek extends Component {
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                         Number
                     </Typography>
-                    <Field name="dayOfWeek.number" label="Number" component={Select}>
+                    <Field name="dayOfWeek_number" label="Number" component={Select}>
                         <MenuItem key={1} value={1}>First</MenuItem>
                         <MenuItem key={2} value={2}>Second</MenuItem>
                         <MenuItem key={3} value={3}>Third</MenuItem>
@@ -26,7 +26,7 @@ class DayOfWeek extends Component {
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                         Day
                     </Typography>
-                    <Field name="dayOfWeek.day" label="Day" component={Select}>
+                    <Field name="dayOfWeek_day" label="Day" component={Select}>
                         <MenuItem key={1} value={1}>Sunday</MenuItem>
                         <MenuItem key={2} value={2}>Monday</MenuItem>
                         <MenuItem key={3} value={3}>Tuesday</MenuItem>

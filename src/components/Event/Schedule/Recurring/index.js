@@ -26,6 +26,7 @@ class Recurring extends Component {
         store.dispatch(change('event', 'interval', null));
         store.dispatch(change('event', 'repeatUntil', null));
         store.dispatch(change('event', 'weekDays', []));
+        store.dispatch(change('event', 'monthDaySelectionType', 0));
     }
 
     componentDidUpdate(prevProps) {

@@ -8,7 +8,8 @@ const renderDatePicker = ({ input: { onChange, value }, label, meta: { touched, 
         label={label}
         value={!value ? null : new Date(value)}
         onChange={onChange}
-        helperText={(touched && (error || warning)) ? (error || warning) : null}
+        error={(touched && (error || warning))}
+        helperText={(error || warning)}
     />
 )
 

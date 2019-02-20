@@ -14,6 +14,7 @@ import Interval from './interval';
 import WeekDaySelection from './weekdaySelection';
 import MonthDaySelection from './MonthDaySelection';
 import RepeatUntil from './repeatUntil';
+import { AST_True } from 'terser';
 
 const getSteps = (recurrenceType) => {
     const steps = {
@@ -90,12 +91,26 @@ class RecurringWizard extends Component {
     }
 
     enableSubmission = () => {
-        const { recurrenceType, interval, repeatUntil, weekDays } = this.props;
+        const { 
+            recurrenceType, 
+            interval, 
+            repeatUntil, 
+            weekDays, 
+            monthDaySelectionType,
+            daysOfMonth,
+            dayOfWeek : { number, day },
+
+        } = this.props;
         const { activeStep } = this.state;
 
         console.log('wizard enableSubmission -- activeStep: ', activeStep);
         console.log('wizard enableSubmission -- interval: ', interval);
         console.log('wizard enableSubmission -- repeatUntil: ', repeatUntil);
+        console.log('wizard enableSubmission -- weekDays: ', weekDays);
+        console.log('wizard enableSubmission -- monthDaySelectionType: ', monthDaySelectionType);
+        console.log('wizard enableSubmission -- daysOfMonth: ', daysOfMonth);
+        console.log('wizard enableSubmission -- dayOfWeek.number: ', number);
+        console.log('wizard enableSubmission -- dayOfWeek.day: ', day);
 
         if (activeStep === 0) {
             if (interval) {
@@ -118,6 +133,21 @@ class RecurringWizard extends Component {
                     return true
                 } else {
                     return false
+                }
+            }
+            if (['Monthly'].includes(recurrenceType)) {
+                if (monthDaySelectionType === 0) {
+                    if(!isEmpty(daysOfMonth)) {
+                        return true
+                    } else {
+                        return false
+                    }
+                } else if (monthDaySelectionType === 1) {
+                    if (number && day) {
+                        return true
+                    } else {
+                        return false
+                    }
                 }
             }
         }
@@ -207,11 +237,18 @@ RecurringWizard = connect(state => {
     const interval = selector(state, 'interval');
     const repeatUntil = selector(state, 'repeatUntil');
     const weekDays = selector(state, 'weekDays');
+    const monthDaySelectionType = selector(state, 'monthDaySelectionType');
+    const daysOfMonth = selector(state, 'daysOfMonth');
+    const dayOfWeek_number = selector(state, 'dayOfWeek_number');
+    const dayOfWeek_day = selector(state, 'dayOfWeek_day');
 
     return {
         interval,
         repeatUntil,
         weekDays,
+        monthDaySelectionType,
+        daysOfMonth,
+        dayOfWeek : { number: dayOfWeek_number, day: dayOfWeek_day }
     }
 })(RecurringWizard)
 

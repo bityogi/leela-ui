@@ -66,6 +66,25 @@ const validate = values => {
                     errors.weekDays = 'Please select one or more week-days';
                 }
             }
+
+            if (values.frequency === 'Monthly') {
+                if (values.monthDaySelectionType === 0) {
+                    if (isEmpty(values.daysOfMonth)) {
+                        console.log('Must select at-least 1 day of the month');
+                        errors.daysOfMonth = 'Must select at-least 1 day of the month';
+                    }
+                } else if (values.monthDaySelectionType === 1) {
+                    if (isEmpty(values.dayOfWeek_number)) {
+                        console.error('Please select a number');
+                        errors.dayOfWeek_number = 'Please select a number';
+                    }
+                    if (isEmpty(values.dayOfWeek_day)) {
+                        console.error('Please select a day of week');
+                        errors.dayOfWeek_day = 'Please select a day of week';
+                    }
+                
+                }
+            }
         }
     }
 
