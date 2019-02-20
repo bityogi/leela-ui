@@ -1,11 +1,17 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Checkbox, FormControlLabel } from 'redux-form-material-ui';
+// import { Checkbox, FormControlLabel } from 'redux-form-material-ui';
 import { map } from 'lodash';
+import Divider from '@material-ui/core/Divider';
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const renderChoices = (choices) => {
     return map(choices, c => {
-        return <FormControlLabel control={<Field name={`choice-${c.index}`} component={Checkbox} />} label={c.text} />
+        return (
+            <FormControlLabel control={<Checkbox value={`c.index`} />} label={c.text} key={c.index} />
+        )
+        
     })
 }
 
@@ -14,6 +20,7 @@ let MultiChoiceQuestion = ({ question }) => {
         <div>
             <label>{question.questionText}</label>
             {renderChoices(question.choices)}
+            <Divider />
         </div>
     )
 }

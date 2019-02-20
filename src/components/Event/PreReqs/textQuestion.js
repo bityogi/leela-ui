@@ -17,6 +17,8 @@ const validate = values => {
 
     return errors;
 }
+
+
 const renderChoices = ({ fields, meta: { error, submitFailed }, classes }) => (
     <Grid item container xs={12}>
     
@@ -51,7 +53,7 @@ const renderChoices = ({ fields, meta: { error, submitFailed }, classes }) => (
                 <Button 
                     variant="outlined" 
                     size="small" 
-                    onClick={() => fields.push({})}>
+                    onClick={() => fields.push({ index: fields.length })}>
                     Add Choice
                 </Button>
                 {submitFailed && error && <span>{error}</span>}

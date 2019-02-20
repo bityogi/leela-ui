@@ -35,7 +35,7 @@ class DisplayQuestions extends Component {
                 case 'SingleChoice':
                     return <SingleChoice question={q} key={q.index} />
                 
-                case 'MultiChoice':
+                case 'MultipleChoice':
                     return <MultiChoice question={q} key={q.index} />
 
                 default:

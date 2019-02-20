@@ -1,26 +1,38 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { RadioGroup } from 'redux-form-material-ui';
+// import { RadioGroup } from 'redux-form-material-ui';
 import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import { map } from 'lodash';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import { FormControlLabel } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 const renderChoices = (choices) => {
     return map(choices, c => {
-        return <Radio value={c.index} label={c.text} />
+        console.log('rendering choice: ', c);
+        return (
+            <FormControlLabel value={c.text} control={<Radio />} label={c.text} key={c.index} />
+        )
+         
     })
 }
 
 let SingleChoice = ({ question }) => {
     return (
         <div>
-            <Field 
-                name={`question-${question.index}`} 
-                component={RadioGroup} 
-                label={question.questionText} 
-                hintText={question.questionText} 
-            >
-                {renderChoices(question.choices)}
-            </Field>
+            <FormControl component="fieldset">
+                <FormLabel component="legend">{question.questionText}</FormLabel>
+                <RadioGroup
+                    aria-label={question.questionText}
+                    name={`question-${question.index}`}
+                    value={null}
+                >
+                    {renderChoices(question.choices)}
+                </RadioGroup>
+            </FormControl>
+            <Divider />
         </div>
     )
 }
