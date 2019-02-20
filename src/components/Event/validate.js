@@ -88,6 +88,12 @@ const validate = values => {
         }
     }
 
+    if (!values.price) {
+        errors.price = 'Required'
+    }
+
+    
+
     return errors;
 }
 
