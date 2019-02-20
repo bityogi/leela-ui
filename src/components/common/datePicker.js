@@ -10,6 +10,8 @@ const renderDatePicker = ({ input: { onChange, value }, label, meta: { touched, 
         onChange={onChange}
         error={(touched && (error || warning))}
         helperText={(error || warning)}
+        disablePast
+        initialFocusedDate={new Date()}
     />
 )
 

@@ -28,11 +28,10 @@ export default ({ fields, meta: { error, submitFailed }, classes }) => (
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                         From Date
                     </Typography>
-                    <Typography variant="h3" gutterBottom>
+                    <Typography variant="subtitle2" gutterBottom>
                         <Field 
                             component={DatePicker} 
                             name={`${byDate}.from`}
-                            style={{ width:'80%', fontSize: '.9em' }}
                         />
                     </Typography>
                 </Grid>
@@ -40,11 +39,10 @@ export default ({ fields, meta: { error, submitFailed }, classes }) => (
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                         By Date
                     </Typography>
-                    <Typography variant="h3" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                         <Field 
                             component={DatePicker} 
                             name={`${byDate}.till`}
-                            style={{ width:'80%', fontSize: '.9em' }}
                         />
                     </Typography>
                 </Grid>
@@ -52,11 +50,10 @@ export default ({ fields, meta: { error, submitFailed }, classes }) => (
                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
                         Price
                     </Typography>
-                    <Typography variant="h3" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                         <Field 
                             component={TextField} 
                             name={`${byDate}.price`}
-                            style={{ width:'80%', fontSize: '.9em' }}
                         />
                     </Typography>
                 </Grid>
