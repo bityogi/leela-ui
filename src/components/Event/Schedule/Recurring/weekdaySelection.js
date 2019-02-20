@@ -6,6 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
 import WeekDayItems from './weekdayItems';
+import validate from 'components/Event/validate';
 
 class WeekDaySelection extends Component {
 
@@ -34,9 +35,9 @@ class WeekDaySelection extends Component {
 }
 
 WeekDaySelection = reduxForm({
-    form: 'weekDaySelection',
-    initialValues: { weekDays: [] },
-    validate: () => {},
+    form: 'event',
+    destroyOnUnmount: false,
+    validate,
     warn: () => {},
 })(WeekDaySelection)
 

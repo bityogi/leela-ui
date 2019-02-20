@@ -71,6 +71,8 @@ class RecurringWizard extends Component {
 
         if (['Daily', 'Yearly'].includes(recurrenceType) && (activeStep === 1)) {
             return false
+        } else if (['Weekly', 'Monthly'].includes(recurrenceType) && (activeStep === 2)) {
+            return false
         } else {
             return true
         }
@@ -88,7 +90,7 @@ class RecurringWizard extends Component {
     }
 
     enableSubmission = () => {
-        const { recurrenceType, interval, repeatUntil } = this.props;
+        const { recurrenceType, interval, repeatUntil, weekDays } = this.props;
         const { activeStep } = this.state;
 
         console.log('wizard enableSubmission -- activeStep: ', activeStep);
@@ -106,6 +108,13 @@ class RecurringWizard extends Component {
         if (activeStep === 1) {
             if (['Daily', 'Yearly'].includes(recurrenceType)) {
                 if (repeatUntil) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            if (['Weekly'].includes(recurrenceType)) {
+                if (!isEmpty(weekDays)) {
                     return true
                 } else {
                     return false
@@ -197,10 +206,12 @@ const selector = formValueSelector('event')
 RecurringWizard = connect(state => {
     const interval = selector(state, 'interval');
     const repeatUntil = selector(state, 'repeatUntil');
+    const weekDays = selector(state, 'weekDays');
 
     return {
         interval,
         repeatUntil,
+        weekDays,
     }
 })(RecurringWizard)
 

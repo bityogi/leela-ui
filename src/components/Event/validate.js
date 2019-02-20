@@ -1,4 +1,6 @@
 import { isAfter } from 'date-fns';
+import { isEmpty } from 'lodash';
+import { isBefore } from 'date-fns/esm';
 
 const validate = values => {
     const errors = {}
@@ -49,9 +51,20 @@ const validate = values => {
 
             if (!values.repeatUntil) {
                 errors.repeatUntil = 'Repeat Until is required';
+            } else {
+                const repeatUntil = new Date(values.repeatUntil);
+                const endDate = new Date(values.endDateTime);
+                if (isBefore(repeatUntil, endDate)) {
+                    console.log('Repeat Until value should be after the event end-date');
+                    errors.repeatUntil = 'Repeat Until value should be after the event end-date';
+                }
             }
-            if (values.frequency === 'Daily') {
-                
+
+            if (values.frequency === 'Weekly') {
+                if (isEmpty(values.weekDays)) {
+                    console.log('invalid because no week-days have been selected for Weekly recurrence');
+                    errors.weekDays = 'Please select one or more week-days';
+                }
             }
         }
     }
