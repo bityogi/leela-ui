@@ -7,6 +7,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import { isEmpty } from 'lodash';
 
 import styles from 'styles';
@@ -204,25 +205,25 @@ class RecurringWizard extends Component {
                     }
                     </div>    
                     <div className={classes.flexBar}>
-                        <Button
+                        <Fab
                             disabled={activeStep === 0}
                             onClick={this.handleBack}
                             className={classes.backButton}
-                            size='small'
+                            size='medium'
                         >
                             Back
-                        </Button>
+                        </Fab>
 
-                        <Button 
-                            variant="contained"
+                        <Fab 
+                            variant="round"
                             color="primary"
                             onClick={this.handleNext}
-                            size='small'
+                            size='medium'
                             disabled={!enableSubmission}
                             style={{ display: (this.showNext()) ? '' : 'none' }}
                         >
                             Next
-                        </Button>
+                        </Fab>
                     </div>
                 </div>
             </Grid>
