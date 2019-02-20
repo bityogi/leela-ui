@@ -3,7 +3,8 @@ const initialValues = {
     altImage : [],
     weekDays: [],
     monthDaySelectionType: 0, 
-    daysOfMonth: []
+    daysOfMonth: [],
+    questions: [],
 }
 
 export default initialValues;

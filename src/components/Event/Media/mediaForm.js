@@ -22,7 +22,7 @@ class MediaForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { valid, submitting, anyTouched, enableSubmission } = this.props;
+        const { valid, submitting, enableSubmission } = this.props;
         console.log('mediaForm -- valid: ', valid);
         const enabled = (valid && !submitting);
         const wasEnabled = (prevProps.valid && !prevProps.submitting);

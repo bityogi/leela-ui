@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import { isEmpty } from 'lodash';
 
@@ -15,7 +14,6 @@ import Interval from './interval';
 import WeekDaySelection from './weekdaySelection';
 import MonthDaySelection from './MonthDaySelection';
 import RepeatUntil from './repeatUntil';
-import { AST_True } from 'terser';
 
 const getSteps = (recurrenceType) => {
     const steps = {

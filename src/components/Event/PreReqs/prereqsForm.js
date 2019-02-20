@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm, formValueSelector, change } from 'redux-form';
 import { Select } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,44 +10,13 @@ import Button from '@material-ui/core/Button';
 import { isEmpty } from 'lodash';
 
 import styles from 'styles';
+import store from 'store';
 import TextQuestion from './textQuestion';
+import initialValues from 'components/Event/initialValues';
 
-const validate = values => {
-    const errors = {}
-
-    if (!values.title) {
-        errors.title = 'Required'
-    }
-
-    return errors;
-}
-
-// const QuestionTypes = ({fields, meta: { error} }) => (
-//     <Typography variant="h5" gutterBottom>
-//         <Field 
-//             component={Select} 
-//             name="questionType"
-//             style={{ width:'80%', fontSize: '.9em' }}
-//         >
-//             <MenuItem key={'YesNo'} value={'YesNo'}>Yes or No</MenuItem>
-//             <MenuItem key={'SingleChoice'} value={'SingleChoice'}>Single Choice</MenuItem>
-//             <MenuItem key={'MultipleChoice'} value={'MultipleChoice'}>Multiple Choice</MenuItem>
-//             <MenuItem key={'Text'} value={'Text'}>Text</MenuItem>
-//         </Field>
-//         <Button 
-//             variant="outlined" 
-//             size="large" 
-//             className={classes.inlineButton} 
-//             disabled={ isEmpty(questionType) ? true : false }
-//             onClick={() => this.addFieldsArray()}>
-//             Add
-//         </Button>
-//     </Typography>
-// );
 
 class PreReqsForm extends Component {
     state = {
-        questions : [],
         newQuestion: {},
     }
 
@@ -56,9 +25,9 @@ class PreReqsForm extends Component {
     }
 
     addNewQuestion = () => {
-        const { questionType, reset } = this.props;
+        const { questions, questionType, reset } = this.props;
         const newQuestion = {
-            index: this.state.questions.length,
+            index: questions.length,
             type: questionType
         }
         this.setState({ 
@@ -72,14 +41,17 @@ class PreReqsForm extends Component {
         //Add the question to the questions array, and empty out the the newQuestion variable
         this.setState({
             newQuestion: {},
-            questions: [ ...this.state.questions, { ...question, ...values } ]
         });
+
+        const newSetOfQuestions = [ ...this.props.questions, { ...question, ...values }];
+
+        store.dispatch(change('event', 'questions', newSetOfQuestions));
     }
 
     render() {
         const { handleSubmit, classes, questionType } = this.props;
-        const { questions, newQuestion } = this.state;
-        console.log('questions: ', questions);
+        const { newQuestion } = this.state;
+        console.log('props for prereqsForm: ', this.props);
         return (
             <div>
                 <div>
@@ -133,17 +105,20 @@ class PreReqsForm extends Component {
 }
 
 PreReqsForm = reduxForm({
-    form: 'prereqsForm',
-    validate,
+    form: 'event',
+    destroyOnUnmount: false,
+    initialValues,
     warn: () => {}
 })(PreReqsForm)
 
-const selector = formValueSelector('prereqsForm')
+const selector = formValueSelector('event')
 
 PreReqsForm  = connect(state => {
     const questionType  = selector(state, 'questionType');
+    const questions = selector(state, 'questions');
     return {
-        questionType
+        questionType,
+        questions,
     }
 })(PreReqsForm)
 export default withStyles(styles)(PreReqsForm);
