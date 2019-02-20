@@ -27,7 +27,7 @@ class PreReqs extends Component {
                     </Typography>
                   </div>
                   
-                  <PreReqsForm />
+                  <PreReqsForm questions={questions}/>
                 </div>
               </Paper>
               <DisplayQuestions questions={questions} />

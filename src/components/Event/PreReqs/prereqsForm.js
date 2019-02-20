@@ -13,7 +13,6 @@ import styles from 'styles';
 import store from 'store';
 import TextQuestion from './textQuestion';
 import validate from 'components/Event/validate';
-import initialValues from 'components/Event/initialValues';
 
 class PreReqsForm extends Component {
     state = {
@@ -25,7 +24,7 @@ class PreReqsForm extends Component {
     }
 
     addNewQuestion = () => {
-        const { questions, questionType, reset } = this.props;
+        const { questions, questionType } = this.props;
         const newQuestion = {
             index: questions.length,
             type: questionType
@@ -33,17 +32,19 @@ class PreReqsForm extends Component {
         this.setState({ 
             newQuestion
         });
-        reset();
+        store.dispatch(change('event', 'questionType', null));
     }
 
     onQuestionAdded = (values, question) => {
         console.log('Add this question please...', values);
+        const { questions } = this.props;
+        console.log('questions -- onQuestionAdded: ', questions);
         //Add the question to the questions array, and empty out the the newQuestion variable
         this.setState({
             newQuestion: {},
         });
 
-        const newSetOfQuestions = [ ...this.props.questions, { ...question, ...values }];
+        const newSetOfQuestions = [ ...questions, { ...question, ...values }];
 
         store.dispatch(change('event', 'questions', newSetOfQuestions));
     }
@@ -107,7 +108,8 @@ class PreReqsForm extends Component {
 PreReqsForm = reduxForm({
     form: 'event',
     destroyOnUnmount: false,
-    initialValues,
+    forceUnregisterOnUnmount: true, 
+    //initialValues,
     validate,
     warn: () => {}
 })(PreReqsForm)
@@ -116,10 +118,9 @@ const selector = formValueSelector('event')
 
 PreReqsForm  = connect(state => {
     const questionType  = selector(state, 'questionType');
-    const questions = selector(state, 'questions');
+    //const questions = selector(state, 'questions');
     return {
         questionType,
-        questions,
     }
 })(PreReqsForm)
 export default withStyles(styles)(PreReqsForm);

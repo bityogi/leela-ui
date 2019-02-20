@@ -35,7 +35,7 @@ const store = createStore(
 )
 
 persistStore(store, {
-  blacklist: ['admin', 'util']
+  blacklist: ['form', 'admin', 'util']
 })
 
 export default store

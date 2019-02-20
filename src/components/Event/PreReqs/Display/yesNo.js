@@ -1,15 +1,13 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Checkbox } from 'redux-form-material-ui';
+import { reduxForm } from 'redux-form';
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-let YesNoQuestion = ({ question }) => {
+
+let YesNoQuestion = ({ question : { index, questionText } }) => {
     return (
         <div>
-            <Field 
-                name={`question-${question.index}`} 
-                component={Checkbox} 
-                label={question.questionText} 
-            />
+            <FormControlLabel control={<Checkbox value={`question-${index}`} />} label={questionText} />
         </div>
     )
 }

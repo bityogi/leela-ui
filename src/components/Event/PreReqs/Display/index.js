@@ -23,7 +23,7 @@ class DisplayQuestions extends Component {
     renderQuestions = () => {
         
         const { questions } = this.props;
-        console.log('rendering questions: ', questions);
+        console.log('rendering questions (in Display): ', questions);
         return map(questions, q => {
             switch (q.type) {
                 case 'Text':

@@ -63,8 +63,9 @@ const renderChoices = ({ fields, meta: { error, submitFailed }, classes }) => (
 class TextQuestion extends Component {
 
     handleFormSubmit = (values) => {
-        const { onQuestionAdded, question } = this.props;
+        const { onQuestionAdded, question, reset } = this.props;
         onQuestionAdded(values, question);
+        reset();
     }
 
     render() {
