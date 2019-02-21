@@ -6,18 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { TextField } from 'redux-form-material-ui';
 import { filter } from 'lodash';
-import { createNumberMask } from 'redux-form-input-masks';
 
 import styles from 'styles';
 import NewByDate from './byDate';
 import ByQuestion from './byQuestion';
 import validate from 'components/Event/validate';
 
-const currencyMask = createNumberMask({
-    prefix: 'US$ ',
-    decimalPlaces: 2,
-    locale: 'en-US',
-})
 
 class PricingForm extends Component {
 
@@ -58,7 +52,6 @@ class PricingForm extends Component {
                                     name="price" 
                                     component={TextField} 
                                     label="General Price" 
-                                    {...currencyMask}
                                 />
                             </Typography>
                         </Grid>
