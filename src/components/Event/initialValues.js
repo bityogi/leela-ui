@@ -5,6 +5,7 @@ const initialValues = {
     monthDaySelectionType: 0, 
     daysOfMonth: [],
     questions: [],
+    pricesByQuestion: [],
 }
 
 export default initialValues;

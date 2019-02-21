@@ -1,40 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { toNumber } from 'lodash';
 
+class RenderPriceByQuestion extends Component {
 
-const setPriceForQuestion = (index, e) => {
-    console.log('index of question: ', index);
-    console.log('price of question: ', e.target.value);
-}
+    setPriceForQuestion = (index, e) => {
+        const { addPriceForQuestion } = this.props;
+        const price = e.target.value;
+        console.log('price is: ', price);
+        if (toNumber(price)) {
+            addPriceForQuestion(index, price);
+        } else {
+            console.log('price is not a number!');
+        }
+        
+     }
 
-let RenderPriceByQuestion = ({ question : { index, questionText } }) => {
+    render() {
+        const { question : { index, questionText } } = this.props;
 
-    return (
-        <form>
-            <Grid item xs={12}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                        If Selected Yes, Add:
-                    </Typography>
-                    <Typography variant="h6" gutterBottom>
-                        <label>{questionText}</label>
-                    </Typography>
-                </Grid>
+        return (
+            <form>
                 <Grid item xs={12}>
-                    <Typography variant="h5" gutterBottom>
-                        <Field 
-                            name={`priceForQuestion${index}`}
-                            component={TextField} 
-                            label="Add Price (if Yes)" 
-                            onBlur={e => setPriceForQuestion(index, e)}
-                        />
-                    </Typography>
-                </Grid>
-            </form>
-    )
-}
+                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                            If Selected Yes, Add:
+                        </Typography>
+                        <Typography variant="h6" gutterBottom>
+                            <label>{questionText}</label>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="h5" gutterBottom>
+                            <Field 
+                                name={`priceForQuestion${index}`}
+                                component={TextField} 
+                                label="Add Price (if Yes)" 
+                                onBlur={e => this.setPriceForQuestion(index, e)}
+                            />
+                        </Typography>
+                    </Grid>
+                </form>
+        )
+    }
+} 
 
 RenderPriceByQuestion = reduxForm({
     form: 'priceByQuestion',
