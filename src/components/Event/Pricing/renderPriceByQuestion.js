@@ -35,7 +35,7 @@ class RenderPriceByQuestion extends Component {
                     <Grid item xs={12}>
                         <Typography variant="h5" gutterBottom>
                             <Field 
-                                name={`priceForQuestion${index}`}
+                                name={"price"}
                                 component={TextField} 
                                 label="Add Price (if Yes)" 
                                 onBlur={e => this.setPriceForQuestion(index, e)}
@@ -48,7 +48,7 @@ class RenderPriceByQuestion extends Component {
 } 
 
 RenderPriceByQuestion = reduxForm({
-    form: 'priceByQuestion',
+    
 })(RenderPriceByQuestion)
 
 export default RenderPriceByQuestion

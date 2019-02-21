@@ -10,35 +10,35 @@ import RenderPriceByQuestion from './renderPriceByQuestion';
 class PriceByQuestion extends Component {
 
     addPriceForQuestion = (questionIndex, price) => {
-        console.log('addPriceForQuestion -- questionIndex: ', questionIndex);
-        console.log('addPriceForQuestion -- price: ', price);
         const { pricesByQuestion } = this.props;
         const exists = find(pricesByQuestion, { questionIndex });
         if (exists) {
-            console.log('A price for this question already exists. Checking if its the same.')
-            if (exists.price === price) {
-                console.log('Price seems to match old value. Do nothing.')
-            } else {
+            if (exists.price !== price) {
                 const newPricesByQuestion = filter(pricesByQuestion, (p) => p.questionIndex !== questionIndex);
-
-                console.log('newPricesByQuestion: ', newPricesByQuestion);
                 store.dispatch(change('event', 'pricesByQuestion', [ ...newPricesByQuestion, { questionIndex, price }]));
-            }   
+            } 
         } else {
             store.dispatch(change('event', 'pricesByQuestion', [ ...pricesByQuestion, { questionIndex, price }]));
         }
-        
     }
 
     renderBoolQuestions = () => {
         const { boolQuestions, pricesByQuestion } = this.props;
-        console.log('Received priceByQuestion: ', pricesByQuestion);
         return map(boolQuestions, q => {
+            const exists = find(pricesByQuestion, { questionIndex : q.index });
+            
+            let initialValues = {};
+            if (exists) {
+                initialValues.price = exists.price 
+            }
+
             return (
                     <RenderPriceByQuestion
+                        form={`priceFor${q.index}`}
                         question={q}
                         addPriceForQuestion={this.addPriceForQuestion}
                         key={q.index}
+                        initialValues={initialValues}
                     />
                 )
             })
