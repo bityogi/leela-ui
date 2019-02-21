@@ -1,134 +1,82 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import React from 'react';
+import { Field } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import { TextField } from 'redux-form-material-ui';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
 
-import styles from 'styles';
-import DatePicker from 'components/common/datePicker';
-import TimePicker from 'components/common/timePicker';
-
-const validate = values => {
-    const errors = {}
-
-    if (!values.sessionName) {
-        errors.sessionName = 'Required'
-    }
-
-    return errors;
-}
+import DateTimePicker from 'components/common/dateTimePicker';
 
 
-class Session extends Component {
-
-    handleFormSubmit = (values) => {
-        const { onSessionAdded, session } = this.props;
-        onSessionAdded(values, session);
-    }
-
-    render() {
-        const {  classes, pristine, submitting, handleSubmit } = this.props;
-
-        return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+export default ({ fields, meta: { error, submitFailed }, classes }) => (
+    <Grid item container xs={12}>
+    
+        {fields.map((session, index) => (
+             <Grid key={index}>
                 <Grid item xs={12}>
-                    <Grid item xs={12}>
-                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            Session Name
-                        </Typography>
-                        <Typography variant="h3" gutterBottom>
-                            <Field 
-                                component={TextField} 
-                                name={`sessionName`}
-                                style={{ width:'80%', fontSize: '.9em' }}
-                            />
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            Start Date
-                        </Typography>
-                        <Typography variant="h3" gutterBottom>
-                            <Field 
-                                component={DatePicker} 
-                                name={`sessionStartDate`}
-                                style={{ width:'80%', fontSize: '.9em' }}
-                            />
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            Start Time
-                        </Typography>
-                        <Typography variant="h3" gutterBottom>
-                            <Field 
-                                component={TimePicker} 
-                                name={`sessionStartTime`}
-                                style={{ width:'80%', fontSize: '.9em' }}
-                            />
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            End Date
-                        </Typography>
-                        <Typography variant="h3" gutterBottom>
-                            <Field 
-                                component={DatePicker} 
-                                name={`sessionEndDate`}
-                                style={{ width:'80%', fontSize: '.9em' }}
-                            />
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                            End Time
-                        </Typography>
-                        <Typography variant="h3" gutterBottom>
-                            <Field 
-                                component={TimePicker} 
-                                name={`sessionEndTime`}
-                                style={{ width:'80%', fontSize: '.9em' }}
-                            />
-                        </Typography>
-                    </Grid>
-                    
-                    
-                    
-                    <div className={classes.flexBar}>
-                   
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={ pristine || submitting }
-                      >
-                        Add
-                      </Button>
-                    
-                        <Button 
-                            variant="contained"
-                            color="primary"
-                            className={classes.backButton}
-                            disabled={ pristine || submitting }
-                        >
-                         Clear
-                        </Button>
-                  </div>
-
+                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                        Session Name
+                    </Typography>
+                    <Typography variant="h3" gutterBottom>
+                        <Field 
+                            component={TextField} 
+                            name={`${session}.name`}
+                            style={{ width:'80%', fontSize: '.9em' }}
+                        />
+                    </Typography>
                 </Grid>
-            </form>
+                <Grid item xs={12}>
+                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                        Start Date
+                    </Typography>
+                    <Typography variant="h3" gutterBottom>
+                        <Field 
+                            component={DateTimePicker} 
+                            name={`${session}.start`}
+                            style={{ width:'80%', fontSize: '.9em' }}
+                        />
+                    </Typography>
+                </Grid>
             
-        );
-    }
-}
+                <Grid item xs={12}>
+                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                        End Date
+                    </Typography>
+                    <Typography variant="h3" gutterBottom>
+                        <Field 
+                            component={DateTimePicker} 
+                            name={`${session}.end`}
+                            style={{ width:'80%', fontSize: '.9em' }}
+                        />
+                    </Typography>
+                </Grid>
 
-Session = reduxForm({
-    form: 'sessionForm',
-    validate,
-})(Session)
+                <Grid item xs={12}>
+                    <Button 
+                        variant="outlined" 
+                        size="small" 
+                        className={classes.inlineButton} 
+                        onClick={() => fields.remove(index)}
+                    >
+                        Remove
+                    </Button>
+                </Grid>
+            </Grid>
+        ))}
 
-export default withStyles(styles)(Session);
+        <Grid item xs={12}>
+            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                <Button 
+                    variant="outlined" 
+                    size="small" 
+                    onClick={() => fields.push({ index: fields.length })}>
+                    Add Session
+                </Button>
+                {submitFailed && error && <span>{error}</span>}
+            </Typography>
+        </Grid>
+    </Grid>
+)
+
+
 
