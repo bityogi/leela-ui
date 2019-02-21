@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, FieldArray } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, FieldArray, formValueSelector } from 'redux-form';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { TextField } from 'redux-form-material-ui';
-import { isEmpty } from 'lodash';
+import { filter } from 'lodash';
 import { createNumberMask } from 'redux-form-input-masks';
 
 import styles from 'styles';
 import NewByDate from './byDate';
+import ByQuestion from './byQuestion';
 import validate from 'components/Event/validate';
 
 const currencyMask = createNumberMask({
@@ -39,9 +40,13 @@ class PricingForm extends Component {
 
  
     render() {
-        const { handleSubmit, classes, sessions, recurring } = this.props;
-        
+        const { handleSubmit, classes, pricesByDate, sessions, questions } = this.props;
+
+        console.log('pricesByDate: ', pricesByDate);
+        console.log('questions: ', questions);
+        const boolQuestions = filter(questions, q => { return q.type === 'YesNo' });
         return (
+            <div>
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <Grid item container xs={12}>
                         <Grid item xs={12}>
@@ -63,8 +68,9 @@ class PricingForm extends Component {
                             </Typography>
                         </Grid>
                     </Grid>
-                    
                 </form>
+                <ByQuestion boolQuestions={boolQuestions} />
+            </div>
         )
     }
 }
@@ -75,5 +81,16 @@ PricingForm = reduxForm({
     validate,
     warn: () => {}
 })(PricingForm);
+
+const selector = formValueSelector('event')
+
+PricingForm = connect(state => {
+    const pricesByDate = selector(state, 'pricesByDate');
+    const questions = selector(state, 'questions');
+    return {
+        pricesByDate,
+        questions,
+    }
+})(PricingForm)
 
 export default withStyles(styles)(PricingForm);
