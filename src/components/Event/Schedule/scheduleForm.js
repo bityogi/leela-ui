@@ -54,7 +54,7 @@ class ScheduleForm extends Component {
                                 Start
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="startDateTime" component={DateTimePicker} label="Start" initialFocusedDate={new Date()} />
+                                <Field name="start" component={DateTimePicker} label="Start" initialFocusedDate={new Date()} />
                             </Typography>
                         </Grid>
                         
@@ -63,7 +63,7 @@ class ScheduleForm extends Component {
                                 End
                             </Typography>
                             <Typography variant="h5" gutterBottom>
-                                <Field name="endDateTime" component={DateTimePicker} label="End" />
+                                <Field name="end" component={DateTimePicker} label="End" />
                             </Typography>
                         </Grid>
                        
@@ -75,7 +75,7 @@ class ScheduleForm extends Component {
                             </Typography>
                             <Typography variant="h5" gutterBottom>
                                 <Field 
-                                    name="recurring" 
+                                    name="isRecurring" 
                                     component={Switch} 
                                     label="Recurring" 
                                     checked={isRecurring} 
@@ -90,7 +90,7 @@ class ScheduleForm extends Component {
                             </Typography>
                             <Typography variant="h5" gutterBottom>
                                 <Field 
-                                    name="recurring" 
+                                    name="hasSessions" 
                                     component={Switch} 
                                     label="Recurring" 
                                     checked={isMultiSession} 

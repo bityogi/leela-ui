@@ -1,5 +1,5 @@
 import { isAfter } from 'date-fns';
-import { isEmpty } from 'lodash';
+import { isEmpty, map } from 'lodash';
 import { isBefore } from 'date-fns/esm';
 
 const validate = values => {
@@ -23,24 +23,24 @@ const validate = values => {
         }
     }
     
-    if (!values.startDateTime) {
-        errors.startDateTime = 'Required'
+    if (!values.start) {
+        errors.start = 'Required'
     }
 
-    if (!values.endDateTime) {
-        errors.endDateTime = 'Required'
+    if (!values.end) {
+        errors.end = 'Required'
     }
 
-    if (values.startDateTime && values.endDateTime) {
-        const startDate = new Date(values.startDateTime);
-        const endDate = new Date(values.endDateTime);
+    if (values.start && values.end) {
+        const startDate = new Date(values.start);
+        const endDate = new Date(values.end);
 
         if (isAfter(startDate, endDate)) {
-            errors.endDateTime = 'Start Date/Time cannot be after End Date/Time';
+            errors.end = 'Start Date/Time cannot be after End Date/Time';
         }
     }
 
-    if (values.recurring === true) {
+    if (values.isRecurring === true) {
         if (!values.frequency) {
             errors.frequency = 'A frequency needs to be selected if its recurring';
         } else {
@@ -53,7 +53,7 @@ const validate = values => {
                 errors.repeatUntil = 'Repeat Until is required';
             } else {
                 const repeatUntil = new Date(values.repeatUntil);
-                const endDate = new Date(values.endDateTime);
+                const endDate = new Date(values.end);
                 if (isBefore(repeatUntil, endDate)) {
                     console.log('Repeat Until value should be after the event end-date');
                     errors.repeatUntil = 'Repeat Until value should be after the event end-date';
@@ -84,6 +84,22 @@ const validate = values => {
                     }
                 
                 }
+            }
+        }
+    }
+
+    if (values.hasSessions === true) {
+        if (!values.sessions || isEmpty(values.sessions)) {
+            console.log('Event has been marked to have sessions but none were found')
+            errors.sessions = 'Event has been marked to have sessions but none were found';
+
+            if (!isEmpty(values.sessions)) {
+                map(values.sessions, (session, index) => {
+                    if (!session.name) {
+                        console.log('A session name is required for session');
+                        errors.sessions[index].name = 'Required'
+                    }
+                })
             }
         }
     }
