@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { connect, reduxForm } from 'react-redux';
+import { getFormValues } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
 
 import styles from 'styles';
 
-class Schedule extends Component {
+class Summary extends Component {
 
     render() {
-        const { classes } = this.props;
+        const { classes, values } = this.props;
+        console.log('event values: ', values);
 
         return (
             <div className={classes.smallContainer}>
@@ -22,22 +26,8 @@ class Schedule extends Component {
                       Please review event details
                     </Typography>
                   </div>
-                  <div style={{marginBottom: 32}}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                      Start Date
-                    </Typography>
-                    <Typography variant="h5" gutterBottom>
-                      1/1/2019
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography style={{textTransform: 'uppercase', marginBottom: 20}} color='secondary' gutterBottom>
-                      End Date
-                    </Typography>
-                    <Typography variant="h5" gutterBottom>
-                      1/1/2019
-                    </Typography>
-                  </div>
+                  
+                  
                 </div>
               </Paper>
             </div>
@@ -45,4 +35,13 @@ class Schedule extends Component {
     }
 }
 
-export default withStyles(styles)(Schedule);
+const mapStateToProps = (state) => ({
+  values: getFormValues('event')(state),
+})
+
+const enhance = compose(
+  connect(mapStateToProps, null),
+  withStyles(styles),
+)
+
+export default enhance(Summary);

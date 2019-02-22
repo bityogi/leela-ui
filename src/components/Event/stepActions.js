@@ -8,10 +8,10 @@ class StepActions extends Component {
 
     stepActions() {
         const { activeStep } = this.props;
-        if(activeStep === 4) {
+        if(activeStep === 5) {
           return 'Accept';
         }
-        if(activeStep === 5) {
+        if(activeStep === 6) {
           return 'Done';
         }
         return 'Next';
