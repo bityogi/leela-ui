@@ -6,10 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { TextField } from 'redux-form-material-ui';
 import { filter } from 'lodash';
+import Divider from '@material-ui/core/Divider';
 
 import styles from 'styles';
 import NewByDate from './byDate';
 import ByQuestion from './byQuestion';
+import BySession from './bySession';
 import validate from 'components/Event/validate';
 
 
@@ -34,10 +36,9 @@ class PricingForm extends Component {
 
  
     render() {
-        const { handleSubmit, classes, pricesByDate, sessions, questions } = this.props;
+        const { handleSubmit, classes, sessions, questions } = this.props;
 
-        console.log('pricesByDate: ', pricesByDate);
-        console.log('questions: ', questions);
+        console.log('sessions: ', sessions);
         const boolQuestions = filter(questions, q => { return q.type === 'YesNo' });
         return (
             <div>
@@ -54,15 +55,21 @@ class PricingForm extends Component {
                                     label="General Price" 
                                 />
                             </Typography>
+                            <Divider />
                         </Grid>
+                       
                         <Grid>
                             <Typography variant="h4" gutterBottom>
                                 <FieldArray name="pricesByDate" component={NewByDate} classes={classes} />
                             </Typography>
+                            <Divider />
                         </Grid>
+                       
                     </Grid>
                 </form>
                 <ByQuestion boolQuestions={boolQuestions} />
+                <Divider />
+                <BySession sessions={sessions} />
             </div>
         )
     }
@@ -80,9 +87,12 @@ const selector = formValueSelector('event')
 PricingForm = connect(state => {
     const pricesByDate = selector(state, 'pricesByDate');
     const questions = selector(state, 'questions');
+    const sessions = selector(state, 'sessions');
+
     return {
         pricesByDate,
         questions,
+        sessions,
     }
 })(PricingForm)
 

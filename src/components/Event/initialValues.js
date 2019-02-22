@@ -6,6 +6,7 @@ const initialValues = {
     daysOfMonth: [],
     questions: [],
     pricesByQuestion: [],
+    pricesBySession: [],
 }
 
 export default initialValues;
