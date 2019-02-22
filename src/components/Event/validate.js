@@ -17,11 +17,11 @@ const validate = values => {
         errors.description = 'Required'
     }
 
-    if (values.eventImage) {
-        if (values.eventImage.length === 0) {
-            errors.eventImage = 'Required'
-        }
-    }
+    // if (values.eventImage) {
+    //     if (values.eventImage.length === 0) {
+    //         errors.eventImage = 'Required'
+    //     }
+    // }
     
     if (!values.start) {
         errors.start = 'Required'
