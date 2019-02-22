@@ -44,6 +44,7 @@ class RecurringWizard extends Component {
 
     state = {
         activeStep: 0,
+        recurrenceType: 'Daily',
     }
 
     componentDidUpdate(prevProps) {
