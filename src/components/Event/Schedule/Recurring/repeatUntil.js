@@ -10,8 +10,8 @@ import moment from 'moment';
 import styles from 'styles';
 import DatePicker from 'components/common/datePicker';
 import validate from 'components/Event/validate';
-
-// require('moment-recur');
+// const later = require('later/later.js');
+require('moment-recur');
 
 class RepeatUntil extends Component {
 
@@ -20,7 +20,21 @@ class RepeatUntil extends Component {
     }
 
     computeReptitions = () => {
-        const { start, repeatUntil, interval, frequency } = this.props;
+        const { 
+            start, 
+            repeatUntil, 
+            interval, 
+            frequency, 
+            weekDays, 
+            monthDaySelectionType,
+            daysOfMonth,
+            dayOfWeek_number,
+            dayOfWeek_day,
+        } = this.props;
+
+        let repititions;
+        
+
         if (repeatUntil) {
             console.log('start: ', start);
             console.log('repeatUntil: ', repeatUntil);
@@ -30,32 +44,51 @@ class RepeatUntil extends Component {
             // const recurrence = moment().recur(start, repeatUntil).every(interval).days();
 
             // console.log('recurrence is: ', recurrence);
-            const startMoment = moment(start);
-            const endMoment = moment(repeatUntil);
-            let units;
-            switch (frequency) {
-                case 'Daily':
-                    units = 'days';
-                    break;
-                case 'Weekly':
-                    units = 'weeks';
-                    break;
-                case 'Monthly':
-                    units = 'months';
-                    break;
-                case 'Yearly':
-                    units = 'years';
-                    break;
-                default:
-                    units = 'days';
+            if (frequency === 'Monthly') {
+                let schedules;
+
+                if (frequency === 'Monthly') {
+                    if (monthDaySelectionType === 0) {
+                        schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(daysOfMonth).daysOfMonth();
+                        
+                    } else if (monthDaySelectionType === 1) {
+                        schedules = moment().recur().fromDate(start).every(dayOfWeek_day).dayOfWeek().every(dayOfWeek_number).weekOfMonth().endDate(repeatUntil);
+                    }
+                }
+
+                console.log('schedules: ', schedules);
+                repititions = schedules.all("L").length;
             }
-            console.log('units : ', units);
-            const span = endMoment.diff(startMoment, units);
-            console.log('interval span: ', span);
-            const repititions = Math.floor(span/interval);
+            
+            // const startMoment = moment(start);
+            // const endMoment = moment(repeatUntil);
+            // let units;
+            // switch (frequency) {
+            //     case 'Daily':
+            //         units = 'days';
+            //         break;
+            //     case 'Weekly':
+            //         units = 'weeks';
+            //         break;
+            //     case 'Monthly':
+            //         units = 'months';
+            //         break;
+            //     case 'Yearly':
+            //         units = 'years';
+            //         break;
+            //     default:
+            //         units = 'days';
+            // }
+            // console.log('units : ', units);
+            // const span = endMoment.diff(startMoment, units);
+            // console.log('interval span: ', span);
+            // repititions = Math.floor(span/interval);
+            // if (frequency === 'Weekly') {
+            //     repititions = repititions * weekDays.length
+            // }
 
             console.log('repititions: ', repititions);
-            return repititions;
+            return null;
         } else 
             return null;
         
@@ -96,12 +129,22 @@ RepeatUntil = connect(state => {
     const start = selector(state, 'start');
     const interval = selector(state, 'interval');
     const frequency = selector(state, 'frequency');
+    const weekDays = selector(state, 'weekDays');
+    const monthDaySelectionType = selector(state, 'monthDaySelectionType');
+    const daysOfMonth = selector(state, 'daysOfMonth');
+    const dayOfWeek_number = selector(state, 'dayOfWeek_number');
+    const dayOfWeek_day = selector(state, 'dayOfWeek_day');
+
 
     return {
         repeatUntil,
         start,
         interval,
         frequency,
+        weekDays,
+        monthDaySelectionType,
+        daysOfMonth,
+
     }
 })(RepeatUntil)
 

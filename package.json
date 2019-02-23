@@ -14,6 +14,7 @@
     "material-ui-pickers": "^2.2.1",
     "moment": "^2.24.0",
     "moment-range": "^4.0.1",
+    "moment-recur": "^1.0.7",
     "numeral": "^2.0.6",
     "query-string": "^6.2.0",
     "react": "^16.6.0",
