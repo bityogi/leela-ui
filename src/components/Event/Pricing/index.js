@@ -9,7 +9,7 @@ import PricingForm from './pricingForm';
 class Pricing extends Component {
 
     render() {
-        const { classes } = this.props;
+        const { classes, enableSubmission } = this.props;
 
         return (
             <div className={classes.smallContainer}>
@@ -24,7 +24,7 @@ class Pricing extends Component {
                     </Typography>
                   </div>
                   
-                  <PricingForm />
+                  <PricingForm enableSubmission={enableSubmission} />
                   
                 </div>
               </Paper>

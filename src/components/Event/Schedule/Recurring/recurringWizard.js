@@ -103,15 +103,7 @@ class RecurringWizard extends Component {
         } = this.props;
         const { activeStep } = this.state;
 
-        console.log('wizard enableSubmission -- activeStep: ', activeStep);
-        console.log('wizard enableSubmission -- interval: ', interval);
-        console.log('wizard enableSubmission -- repeatUntil: ', repeatUntil);
-        console.log('wizard enableSubmission -- weekDays: ', weekDays);
-        console.log('wizard enableSubmission -- monthDaySelectionType: ', monthDaySelectionType);
-        console.log('wizard enableSubmission -- daysOfMonth: ', daysOfMonth);
-        console.log('wizard enableSubmission -- dayOfWeek.number: ', number);
-        console.log('wizard enableSubmission -- dayOfWeek.day: ', day);
-
+        //If activeStep is 0 and interval is not specified then disable submission
         if (activeStep === 0) {
             if (interval) {
                 return true
@@ -120,6 +112,7 @@ class RecurringWizard extends Component {
             }
         }
 
+        
         if (activeStep === 1) {
             if (['Daily', 'Yearly'].includes(recurrenceType)) {
                 if (repeatUntil) {

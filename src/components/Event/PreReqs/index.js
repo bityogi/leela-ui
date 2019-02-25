@@ -11,8 +11,10 @@ import DisplayQuestions from './Display';
 
 class PreReqs extends Component {
 
+    
+
     render() {
-        const { classes, questions } = this.props;
+        const { classes, questions, enableSubmission } = this.props;
         console.log('questions in pre-reqs index: ', questions);
         return (
             <div className={classes.smallContainer}>
@@ -27,7 +29,7 @@ class PreReqs extends Component {
                     </Typography>
                   </div>
                   
-                  <PreReqsForm questions={questions}/>
+                  <PreReqsForm questions={questions} enableSubmission={enableSubmission}/>
                 </div>
               </Paper>
               <DisplayQuestions questions={questions} />

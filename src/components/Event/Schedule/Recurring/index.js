@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { reduxForm, Field, change } from 'redux-form';
+import { connect } from 'react-redux';
+import { reduxForm, Field, change, formValueSelector } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { Select } from 'redux-form-material-ui';
@@ -13,16 +14,14 @@ import store from 'store';
 class Recurring extends Component {
 
     state = {
-        recurrenceType: '',
         enableFormSubmission: true,
     }
 
     handleFormSubmit = (values) => {
-
     }
 
     handleRecurringSelection = (value) => {
-        this.setState({ recurrenceType: value });
+        store.dispatch(change('event', 'frequency', value));
         store.dispatch(change('event', 'interval', null));
         store.dispatch(change('event', 'repeatUntil', null));
         store.dispatch(change('event', 'weekDays', []));
@@ -37,15 +36,12 @@ class Recurring extends Component {
         if (enabled !== wasEnabled) {
             this.setState({ enableFormSubmission: enabled });
         }
-
-        if (prevProps.recurrenceType !== this.props.recurrenceType) {
-            this.setState({ recurrenceType : this.props.recurrenceType });
-        }
+        
     }
 
     render() {
-        const { handleSubmit } = this.props;
-        const { recurrenceType, enableFormSubmission } = this.state;
+        const { handleSubmit, frequency } = this.props;
+        const { enableFormSubmission } = this.state;
 
         return (
             <Grid item xs={12}>
@@ -70,8 +66,8 @@ class Recurring extends Component {
                     
                     </Typography>
                 </form>
-                { !isEmpty(recurrenceType) && (
-                    <RecurringWizard recurrenceType={recurrenceType} enableSubmission={enableFormSubmission} />
+                { !isEmpty(frequency) && (
+                    <RecurringWizard recurrenceType={frequency} enableSubmission={enableFormSubmission} />
                 )}
             </Grid>
         );
@@ -83,6 +79,16 @@ Recurring = reduxForm({
     destroyOnUnmount: false,
     validate,
     warn: () => {},
+})(Recurring)
+
+const selector = formValueSelector('event')
+
+Recurring = connect(state => {
+    const frequency = selector(state, 'frequency');
+   
+    return {
+        frequency,
+    }
 })(Recurring)
 
 export default Recurring;

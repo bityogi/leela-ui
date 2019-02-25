@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { TextField, Select } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { isEmpty } from 'lodash';
 
 import styles from 'styles';
 import { history } from 'store';
 import validate from '../validate';
 import initialValues from '../initialValues';
+
 
 class InfoForm extends Component {
 
@@ -19,9 +22,25 @@ class InfoForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { valid, submitting, anyTouched, enableSubmission } = this.props;
-        const enabled = (valid && !submitting) || !anyTouched;
-        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+        const { submitting, enableSubmission, title, location, description } = this.props;
+        
+        const isValid = () => {
+            if (isEmpty(title) || !(location) || isEmpty(description)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+        const wasValid = () => {
+            if (isEmpty(prevProps.title) || !(prevProps.location) || isEmpty(prevProps.description)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        const enabled = (isValid() && !submitting) ;
+        const wasEnabled = (wasValid() && !prevProps.submitting);
 
         if (enabled !== wasEnabled) {
             enableSubmission(enabled);
@@ -88,6 +107,20 @@ InfoForm = reduxForm({
     validate,
     warn: () => {},
     
+})(InfoForm)
+
+const selector = formValueSelector('event')
+
+InfoForm = connect(state => {
+    const title = selector(state, 'title');
+    const location = selector(state, 'location');
+    const description = selector(state, 'description');
+   
+    return {
+        title,
+        location,
+        description,
+    }
 })(InfoForm)
 
 export default withStyles(styles)(InfoForm);

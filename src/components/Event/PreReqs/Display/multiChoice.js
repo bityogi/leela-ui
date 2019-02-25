@@ -1,6 +1,5 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-// import { Checkbox, FormControlLabel } from 'redux-form-material-ui';
+import { reduxForm } from 'redux-form';
 import { map } from 'lodash';
 import Divider from '@material-ui/core/Divider';
 import Checkbox from '@material-ui/core/Checkbox'

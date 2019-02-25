@@ -37,7 +37,7 @@ class Wizard extends Component {
 
   state = {
     activeStep: 0,
-    enableFormSubmission: true,
+    enableFormSubmission: false,
   }
 
   handleNext = () => {

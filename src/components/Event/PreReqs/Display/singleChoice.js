@@ -1,6 +1,5 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-// import { RadioGroup } from 'redux-form-material-ui';
+import { reduxForm } from 'redux-form';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { map } from 'lodash';

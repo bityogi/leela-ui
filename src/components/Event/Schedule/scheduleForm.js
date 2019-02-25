@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm, formValueSelector, change } from 'redux-form';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,25 +9,23 @@ import moment from 'moment';
 import { isEmpty } from 'lodash';
 
 import styles from 'styles';
+import store from 'store';
 import DateTimePicker from 'components/common/dateTimePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
 import validate from '../validate';
 
 
+
 class ScheduleForm extends Component {
 
-    state = {
-        isRecurring : false,
-        isMultiSession: false,
-    }
-
+    
     handleRecurringSwitch = (e) => {
-        this.setState({ isRecurring: e.target.checked });
+        store.dispatch(change('event', 'isRecurring', e.target.checked));
     }
 
     handleMultiSessionSwitch = (e) => {
-        this.setState({ isMultiSession: e.target.checked });
+        store.dispatch(change('event', 'hasSessions', e.target.checked));
     }
 
     handleFormSubmit = (values) => {
@@ -35,18 +33,22 @@ class ScheduleForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { valid, submitting, anyTouched, enableSubmission } = this.props;
-        const enabled = (valid && !submitting) || !anyTouched;
+        const { valid, submitting, anyTouched, enableSubmission, isRecurring, repeatUntil } = this.props;
+        let enabled = (valid && !submitting ) || !anyTouched;
         const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
 
         if (enabled !== wasEnabled) {
+            if ((isRecurring === true) && isEmpty(repeatUntil)) {
+                enabled = false;
+            }
             enableSubmission(enabled);
         }
+        
     }
 
     render() {
-        const { handleSubmit, start } = this.props;
-        const { isRecurring, isMultiSession } = this.state;
+        const { handleSubmit, start, end, isRecurring, hasSessions } = this.props;
+        const datesEntered = (start) && (end);
         //If there is a start date/time, use that as the initial value for end date/time
         const initialEndDate = (start) ? moment(start).startOf('hour').add(1, 'hours') : moment().startOf('hour').add(1, 'hours'); 
 
@@ -78,7 +80,7 @@ class ScheduleForm extends Component {
                                     label="Recurring" 
                                     checked={isRecurring} 
                                     onChange={this.handleRecurringSwitch}
-                                    disabled={isMultiSession}
+                                    disabled={hasSessions || !datesEntered}
                                 />
                             </Typography>
                         </Grid>
@@ -91,9 +93,9 @@ class ScheduleForm extends Component {
                                     name="hasSessions" 
                                     component={Switch} 
                                     label="Recurring" 
-                                    checked={isMultiSession} 
+                                    checked={hasSessions} 
                                     onChange={this.handleMultiSessionSwitch}
-                                    disabled={isRecurring}
+                                    disabled={isRecurring || !datesEntered}
                                 />
                             </Typography>
                         </Grid>
@@ -107,7 +109,7 @@ class ScheduleForm extends Component {
                     )
                 }
                 {
-                    isMultiSession && (
+                    hasSessions && (
                         <Sessions />
                     )
                 }
@@ -128,9 +130,17 @@ const selector = formValueSelector('event')
 
 ScheduleForm = connect(state => {
     const start = selector(state, 'start');
-    
+    const end = selector(state, 'end');
+    const isRecurring = selector(state, 'isRecurring');
+    const hasSessions = selector(state, 'hasSessions');
+    const repeatUntil = selector(state, 'repeatUntil');
+
     return {
         start,
+        end,
+        isRecurring,
+        hasSessions,
+        repeatUntil,
     }
 })(ScheduleForm)
 

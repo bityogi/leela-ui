@@ -41,6 +41,7 @@ const validate = values => {
     }
 
     if (values.isRecurring === true) {
+        console.log('isRecurring -- true. frequency is: ', values.frequency);
         if (!values.frequency) {
             errors.frequency = 'A frequency needs to be selected if its recurring';
         } else {
@@ -48,7 +49,6 @@ const validate = values => {
                 console.log('invalid because no interval value')
                 errors.interval = 'Interval is required';
             }
-
             if (!values.repeatUntil) {
                 errors.repeatUntil = 'Repeat Until is required';
             } else {
@@ -108,7 +108,7 @@ const validate = values => {
         errors.price = 'Required'
     }
 
-    
+    console.log('event validate errors: ', errors);
 
     return errors;
 }

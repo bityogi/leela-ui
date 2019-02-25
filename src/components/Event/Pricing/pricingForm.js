@@ -17,21 +17,23 @@ import validate from 'components/Event/validate';
 
 class PricingForm extends Component {
 
-    state = {
-        newByDate: {},
-        byDates: [],
-    }
-
-    handleRecurringSwitch = (e) => {
-        this.setState({ isRecurring: e.target.checked });
-    }
-
-    handleMultiSessionSwitch = (e) => {
-        this.setState({ isMultiSession: e.target.checked });
-    }
+    // state = {
+    //     newByDate: {},
+    //     byDates: [],
+    // }
 
     handleFormSubmit = (values) => {
         console.log('schedule form values: ', values);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { valid, submitting, anyTouched, enableSubmission } = this.props;
+        const enabled = (valid && !submitting) || !anyTouched;
+        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+
+        if (enabled !== wasEnabled) {
+            enableSubmission(enabled);
+        }
     }
 
  

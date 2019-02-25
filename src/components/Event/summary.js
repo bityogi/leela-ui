@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect, reduxForm } from 'react-redux';
+import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';

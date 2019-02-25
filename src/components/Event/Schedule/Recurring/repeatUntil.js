@@ -6,11 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
-
 import styles from 'styles';
 import DatePicker from 'components/common/datePicker';
 import validate from 'components/Event/validate';
-// const later = require('later/later.js');
+
 require('moment-recur');
 
 class RepeatUntil extends Component {
@@ -34,18 +33,10 @@ class RepeatUntil extends Component {
 
         let repititions;
         
-
+        //Only compute the repitions, if a repeatUntil value has been specified
         if (repeatUntil) {
-            console.log('start: ', start);
-            console.log('repeatUntil: ', repeatUntil);
-            console.log('interval: ', interval);
-            console.log('frequency: ', frequency);
-            console.log('dayOfWeek_number: ', dayOfWeek_number);
-            console.log('dayOfWeek_day: ', dayOfWeek_day);
-
-
-            let schedules;
             
+            let schedules;
 
             if (frequency === 'Monthly') {
                 if (monthDaySelectionType === 0) {
@@ -60,40 +51,12 @@ class RepeatUntil extends Component {
                 schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(interval).years();
             } else if (frequency === 'Daily') {
                 schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(interval).days();
+            } else {
+                return null; //Invalid frequency value
             }
 
-            console.log('schedules: ', schedules);
             repititions = schedules.all("L").length;
             
-            
-            // const startMoment = moment(start);
-            // const endMoment = moment(repeatUntil);
-            // let units;
-            // switch (frequency) {
-            //     case 'Daily':
-            //         units = 'days';
-            //         break;
-            //     case 'Weekly':
-            //         units = 'weeks';
-            //         break;
-            //     case 'Monthly':
-            //         units = 'months';
-            //         break;
-            //     case 'Yearly':
-            //         units = 'years';
-            //         break;
-            //     default:
-            //         units = 'days';
-            // }
-            // console.log('units : ', units);
-            // const span = endMoment.diff(startMoment, units);
-            // console.log('interval span: ', span);
-            // repititions = Math.floor(span/interval);
-            // if (frequency === 'Weekly') {
-            //     repititions = repititions * weekDays.length
-            // }
-
-            console.log('repititions: ', repititions);
             return repititions;
         } else 
             return null;
