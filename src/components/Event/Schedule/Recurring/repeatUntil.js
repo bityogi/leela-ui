@@ -40,6 +40,9 @@ class RepeatUntil extends Component {
             console.log('repeatUntil: ', repeatUntil);
             console.log('interval: ', interval);
             console.log('frequency: ', frequency);
+            console.log('dayOfWeek_number: ', dayOfWeek_number);
+            console.log('dayOfWeek_day: ', dayOfWeek_day);
+
 
             let schedules;
             
@@ -49,7 +52,7 @@ class RepeatUntil extends Component {
                     schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(daysOfMonth).daysOfMonth();
                     
                 } else if (monthDaySelectionType === 1) {
-                    schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(dayOfWeek_day).daysOfWeek().every(dayOfWeek_number).weeksOfMonth();
+                    schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every([dayOfWeek_number]).weeksOfMonth().every(dayOfWeek_day).daysOfWeek();
                 }
             } else if (frequency === 'Weekly') {
                 schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(weekDays).daysOfWeek();
@@ -147,7 +150,8 @@ RepeatUntil = connect(state => {
         weekDays,
         monthDaySelectionType,
         daysOfMonth,
-
+        dayOfWeek_number,
+        dayOfWeek_day,
     }
 })(RepeatUntil)
 

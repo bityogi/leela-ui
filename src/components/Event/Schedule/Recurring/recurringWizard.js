@@ -143,7 +143,7 @@ class RecurringWizard extends Component {
                         return false
                     }
                 } else if (monthDaySelectionType === 1) {
-                    if (number && day) {
+                    if (!isNaN(number) && !isNaN(day)) {
                         return true
                     } else {
                         return false
