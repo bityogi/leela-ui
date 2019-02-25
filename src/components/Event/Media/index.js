@@ -10,7 +10,7 @@ import MediaForm from './mediaForm';
 class Media extends Component {
 
     render() {
-        const { classes, enableSubmission } = this.props;
+        const { classes, enableSubmission, isSubmissionEnabled } = this.props;
         return (
             <div className={classes.bigContainer}>
             <Paper className={classes.paper}>
@@ -23,14 +23,10 @@ class Media extends Component {
                     Add any images you would like associated with this event
                   </Typography>
                 </div>
-                <div>
-                <Button variant="outlined" size="large" className={classes.outlinedButtom}>
-                  Edit
-                </Button>
-                </div>
+                
               </div>
               
-              <MediaForm enableSubmission={enableSubmission}  />
+              <MediaForm enableSubmission={enableSubmission} isSubmissionEnabled={isSubmissionEnabled}  />
                 
               
             </Paper>

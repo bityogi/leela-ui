@@ -43,13 +43,14 @@ class Wizard extends Component {
   handleNext = () => {
     this.setState(state => ({
       activeStep: state.activeStep + 1,
-      //enableFormSubmission: false,
+      enableFormSubmission: (state.activeStep === 0) ? true : false,
     }));
   };
 
   handleBack = () => {
     this.setState(state => ({
       activeStep: state.activeStep - 1,
+      enableFormSubmission: true,
     }));
   };
 
@@ -111,10 +112,10 @@ class Wizard extends Component {
                     </Stepper>
                   </div>
                   { activeStep === 0 && (
-                    <Info enableSubmission={this.enableSubmission} /> 
+                    <Info enableSubmission={this.enableSubmission} isSubmissionEnabled={enableFormSubmission} /> 
                   )}
                   { activeStep === 1 && (
-                    <Media enableSubmission={this.enableSubmission} />
+                    <Media enableSubmission={this.enableSubmission} isSubmissionEnabled={enableFormSubmission}/>
                   )}
                    { activeStep === 2 && (
                     <Schedule enableSubmission={this.enableSubmission} />

@@ -9,33 +9,10 @@ import FileUpload from 'components/common/FileUpload';
 import validate from '../validate';
 
 class MediaForm extends Component {
-    state = {
-        imageFile: [],
-    }
-
+   
     handleFormSubmit = (values) => {
         console.log('Form values for event info: ', values);
     }
-
-    handleFileUpload (file) {
-        console.log('received file: ', file);
-    }
-
-    componentDidUpdate(prevProps) {
-        const { valid, submitting, enableSubmission } = this.props;
-        console.log('mediaForm -- valid: ', valid);
-        const enabled = (valid && !submitting);
-        const wasEnabled = (prevProps.valid && !prevProps.submitting);
-
-        console.log('mediaForm -- enabled: ', enabled);
-        console.log('mediaForm -- wasEnabled: ', wasEnabled);
-        
-        if (enabled !== wasEnabled) {
-            enableSubmission(enabled);
-        }
-    }
-
-    handleOnDrop = newImageFile => this.setState({ imageFile: newImageFile });
 
     render() {
         const { handleSubmit } = this.props;
@@ -75,5 +52,6 @@ MediaForm = reduxForm({
     validate,
     warn: () => {}
 })(MediaForm)
+
 
 export default withStyles(styles)(MediaForm);

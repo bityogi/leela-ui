@@ -31,7 +31,7 @@ class InfoForm extends Component {
                 return true;
             }
         }
-        
+
         const wasValid = () => {
             if (isEmpty(prevProps.title) || !(prevProps.location) || isEmpty(prevProps.description)) {
                 return false;

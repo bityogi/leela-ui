@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Switch } from 'redux-form-material-ui';
 import moment from 'moment';
-import { isEmpty } from 'lodash';
 
 import styles from 'styles';
 import store from 'store';
@@ -14,6 +13,7 @@ import DateTimePicker from 'components/common/dateTimePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
 import validate from '../validate';
+
 
 
 
@@ -33,14 +33,74 @@ class ScheduleForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { valid, submitting, anyTouched, enableSubmission, isRecurring, repeatUntil } = this.props;
-        let enabled = (valid && !submitting ) || !anyTouched;
-        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+        const { 
+            submitting, 
+            enableSubmission, 
+            isRecurring, 
+            repeatUntil,
+            start,
+            end,
+            frequency,
+            interval,
+        } = this.props;
+
+        const isValid = () => {
+            if (!(start) || !(end) ) {
+                return false;
+            } else {
+                if (isRecurring === true) {
+                    if (!frequency) {
+                        return false
+                    } else {
+                        if (!interval) {
+                            return false
+                        } else if (!repeatUntil) {
+                            return false
+                        } else {
+                            return true
+                        }
+                    }
+                } else {
+                    return true
+                }
+                
+            }
+        }
+        const wasValid = () => {
+            if ((!(prevProps.start) || !(prevProps.end))) {
+                return false;
+            } else {
+                if (prevProps.isRecurring === true) {
+                    if (!prevProps.frequency) {
+                        return false
+                    } else {
+                        if (!prevProps.interval) {
+                            return false
+                        } else if (!prevProps.repeatUntil) {
+                            return false
+                        } else {
+                            return true
+                        }
+                    }
+                } else {
+                    return true
+                }
+                
+            }
+        }
+        let enabled = (isValid() && !submitting );
+        const wasEnabled = (wasValid() && !prevProps.submitting)
+
+        console.log('start: ', start);
+        console.log('end: ', end);
+        console.log('isRecurring: ', isRecurring);
+        console.log('frequency: ', frequency);
+        console.log('isValid: ', isValid());
+        console.log('wasValid: ', wasValid());
+        console.log('enabled: ', enabled);
+        console.log('wasEnabled: ', wasEnabled);
 
         if (enabled !== wasEnabled) {
-            if ((isRecurring === true) && isEmpty(repeatUntil)) {
-                enabled = false;
-            }
             enableSubmission(enabled);
         }
         
@@ -134,13 +194,17 @@ ScheduleForm = connect(state => {
     const isRecurring = selector(state, 'isRecurring');
     const hasSessions = selector(state, 'hasSessions');
     const repeatUntil = selector(state, 'repeatUntil');
-
+    const frequency = selector(state, 'frequency');
+    const interval = selector(state, 'interval');
     return {
         start,
         end,
         isRecurring,
         hasSessions,
         repeatUntil,
+        frequency,
+        interval,
+
     }
 })(ScheduleForm)
 
