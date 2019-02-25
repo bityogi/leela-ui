@@ -40,25 +40,28 @@ class RepeatUntil extends Component {
             console.log('repeatUntil: ', repeatUntil);
             console.log('interval: ', interval);
             console.log('frequency: ', frequency);
+
+            let schedules;
             
-            // const recurrence = moment().recur(start, repeatUntil).every(interval).days();
 
-            // console.log('recurrence is: ', recurrence);
             if (frequency === 'Monthly') {
-                let schedules;
-
-                if (frequency === 'Monthly') {
-                    if (monthDaySelectionType === 0) {
-                        schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(daysOfMonth).daysOfMonth();
-                        
-                    } else if (monthDaySelectionType === 1) {
-                        schedules = moment().recur().fromDate(start).every(dayOfWeek_day).dayOfWeek().every(dayOfWeek_number).weekOfMonth().endDate(repeatUntil);
-                    }
+                if (monthDaySelectionType === 0) {
+                    schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(daysOfMonth).daysOfMonth();
+                    
+                } else if (monthDaySelectionType === 1) {
+                    schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(dayOfWeek_day).daysOfWeek().every(dayOfWeek_number).weeksOfMonth();
                 }
-
-                console.log('schedules: ', schedules);
-                repititions = schedules.all("L").length;
+            } else if (frequency === 'Weekly') {
+                schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(weekDays).daysOfWeek();
+            } else if (frequency === 'Yearly') {
+                schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(interval).years();
+            } else if (frequency === 'Daily') {
+                schedules = moment().recur(moment(start).format('YYYY-MM-DD'), moment(repeatUntil).format('YYYY-MM-DD')).every(interval).days();
             }
+
+            console.log('schedules: ', schedules);
+            repititions = schedules.all("L").length;
+            
             
             // const startMoment = moment(start);
             // const endMoment = moment(repeatUntil);
@@ -88,7 +91,7 @@ class RepeatUntil extends Component {
             // }
 
             console.log('repititions: ', repititions);
-            return null;
+            return repititions;
         } else 
             return null;
         

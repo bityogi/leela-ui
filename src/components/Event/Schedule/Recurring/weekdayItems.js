@@ -9,13 +9,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import styles from 'styles';
 
 const weekDays = [
-    { value: 1, name: 'Sunday' },
-    { value: 2, name: 'Monday' },
-    { value: 3, name: 'Tuesday' },
-    { value: 4, name: 'Wednesday' },
-    { value: 5, name: 'Thursday' },
-    { value: 6, name: 'Friday' },
-    { value: 7, name: 'Saturday' },
+    { value: 0, name: 'Sunday' },
+    { value: 1, name: 'Monday' },
+    { value: 2, name: 'Tuesday' },
+    { value: 3, name: 'Wednesday' },
+    { value: 4, name: 'Thursday' },
+    { value: 5, name: 'Friday' },
+    { value: 6, name: 'Saturday' },
 ]
 
 class WeekDayItems extends Component {
