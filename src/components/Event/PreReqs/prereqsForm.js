@@ -35,6 +35,11 @@ class PreReqsForm extends Component {
         store.dispatch(change('event', 'questionType', null));
     }
 
+    clearNewQuestion = () => {
+        this.setState({ newQuestion : {} });
+        store.dispatch(change('event', 'questionType', null));
+    }
+
     onQuestionAdded = (values, question) => {
         console.log('Add this question please...', values);
         const { questions } = this.props;
@@ -77,7 +82,7 @@ class PreReqsForm extends Component {
                                     Type of of question
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={8}>
                                 <Typography variant="h5" gutterBottom>
                                         <Field 
                                             component={Select} 
@@ -89,15 +94,29 @@ class PreReqsForm extends Component {
                                             <MenuItem key={'MultipleChoice'} value={'MultipleChoice'}>Multiple Choice</MenuItem>
                                             <MenuItem key={'Text'} value={'Text'}>Text</MenuItem>
                                         </Field>
-                                        <Button 
-                                            variant="outlined" 
-                                            size="large" 
-                                            className={classes.inlineButton} 
-                                            disabled={ isEmpty(questionType) ? true : false }
-                                            onClick={() => this.addNewQuestion()}>
-                                            Add
-                                        </Button>
                                     </Typography>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Button 
+                                    variant="contained" 
+                                    color="primary"
+                                    size="small" 
+                                    className={classes.inlineButton} 
+                                    disabled={ isEmpty(questionType) ? true : false }
+                                    onClick={() => this.addNewQuestion()}>
+                                    Add
+                                </Button>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Button 
+                                    variant="outlined" 
+                                    color="default"
+                                    size="small" 
+                                    className={classes.inlineButton} 
+                                    disabled={ isEmpty(questionType) ? true : false }
+                                    onClick={() => this.clearNewQuestion()}>
+                                    Clear
+                                </Button>
                             </Grid>
                         </Grid>
                     </form>
@@ -122,7 +141,7 @@ PreReqsForm = reduxForm({
     form: 'event',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true, 
-    //initialValues,
+    initialValues: { questions: [] },
     validate,
     warn: () => {}
 })(PreReqsForm)

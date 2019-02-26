@@ -5,18 +5,49 @@ import { TextField, Checkbox } from 'redux-form-material-ui';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { isEmpty } from 'lodash';
 
 import styles from 'styles';
 
-const validate = values => {
+const validate = (values, props) => {
+    console.log('validaing textQuestion -- checking values: ', values);
     const errors = {}
+    const { question: { type } } = props;
 
+    console.log('validaing textQuestion -- question-TYPE: ', type);
+    
     if (!values.questionText) {
         errors.questionText = 'Required'
     }
 
+    if (type === 'SingleChoice' || type === 'MultipleChoice') {
+        if (!values.choices) {
+            errors.choices = 'No choices added'
+        } else {
+            if (values.choices.length <= 1) {
+                errors.choices = 'At least two choices required';
+            }
+        }
+        
+        
+    }
+
+    console.log('errors for textQuestion validate: ', errors);
     return errors;
 }
+
+const validateChoice = (values, allValues, props) => {
+    const errors = {};
+    
+    if (values) {
+        if (!values.text) {
+            errors.text = 'Required';
+        }
+    }
+   
+    const response = isEmpty(errors) ? null : errors;
+    return response;
+}   
 
 
 const renderChoices = ({ fields, meta: { error, submitFailed }, classes }) => (
@@ -71,7 +102,7 @@ class TextQuestion extends Component {
     }
 
     render() {
-        const { question: { type }, classes, pristine, submitting, handleSubmit } = this.props;
+        const { valid, question: { type }, classes, pristine, submitting, handleSubmit } = this.props;
         console.log('type of question: ', type);
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -109,7 +140,7 @@ class TextQuestion extends Component {
                         (type === 'SingleChoice' || type === 'MultipleChoice') &&
                         (
                             <Typography variant="h6" gutterBottom>
-                                <FieldArray name="choices" component={renderChoices} classes={classes} />
+                                <FieldArray name="choices" component={renderChoices} classes={classes} validate={validateChoice} />
                             </Typography>
                         )
                     }
@@ -133,19 +164,12 @@ class TextQuestion extends Component {
                         type="submit"
                         variant="contained"
                         color="primary"
-                        disabled={ pristine || submitting }
+                        disabled={ valid && (pristine || submitting) }
+                        className={classes.outlinedButtom}
                       >
                         Add
                       </Button>
-                    
-                        <Button 
-                            variant="contained"
-                            color="primary"
-                            className={classes.backButton}
-                            disabled={ pristine || submitting }
-                        >
-                         Clear
-                        </Button>
+                       
                   </div>
 
                 </Grid>
