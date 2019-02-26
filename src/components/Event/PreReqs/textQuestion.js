@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, FieldArray } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
-import { TextField } from 'redux-form-material-ui';
+import { TextField, Checkbox } from 'redux-form-material-ui';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -72,7 +72,7 @@ class TextQuestion extends Component {
 
     render() {
         const { question: { type }, classes, pristine, submitting, handleSubmit } = this.props;
-
+        console.log('type of question: ', type);
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 <Grid item xs={12}>
@@ -86,22 +86,46 @@ class TextQuestion extends Component {
                                     : type === 'MultipleChoice' ? ' Multiple Choice' : '' }
                             </span>
                         </Typography>
+                        <Typography variant="h6" gutterBottom>
+                            <Field 
+                                component={TextField} 
+                                name={`questionText`}
+                            />
+                        </Typography>
                     </Grid>
-                    <Typography variant="h3" gutterBottom>
-                        <Field 
-                            component={TextField} 
-                            name={`questionText`}
-                            style={{ width:'80%', fontSize: '.9em' }}
-                        />
-                    </Typography>
+                    <Grid item xs={12}>
+                        <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                            Is Required ?
+                        </Typography>
+                        <Typography variant="h6" gutterBottom>
+                            <Field 
+                                component={Checkbox} 
+                                name={`isRequired`}
+                            />
+                        </Typography>
+                    </Grid>
+                    
                     { 
-                        type === 'SingleChoice' || type === 'MultipleChoice' ? 
+                        (type === 'SingleChoice' || type === 'MultipleChoice') &&
                         (
-                            <Typography variant="h4" gutterBottom>
+                            <Typography variant="h6" gutterBottom>
                                 <FieldArray name="choices" component={renderChoices} classes={classes} />
                             </Typography>
                         )
-                        : null }
+                    }
+                    { 
+                        (type === 'YesNo') &&
+                        (
+                            <Grid item xs={12}>
+                                <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
+                                    Will the answer to this question affect pricing?
+                                </Typography>
+                                <Typography variant="h6" gutterBottom>
+                                    <Field name="affectPrice" component={Checkbox} />
+                                </Typography>
+                            </Grid>
+                        )
+                    }
                     
                     <div className={classes.flexBar}>
                    

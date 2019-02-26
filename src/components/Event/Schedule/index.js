@@ -14,7 +14,7 @@ class Schedule extends Component {
         const { classes, enableSubmission } = this.props;
         
         return (
-            <div className={classes.smallContainer}>
+            <div className={classes.bigContainer}>
                 <Paper className={classes.paper}>
                     
                     <div style={{marginBottom: 32}}>

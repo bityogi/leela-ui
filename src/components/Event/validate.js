@@ -33,7 +33,7 @@ const validate = values => {
         errors.price = 'Required'
     }
 
-    console.log('event validate errors: ', errors);
+    // console.log('event validate errors: ', errors);
 
     return errors;
 }
