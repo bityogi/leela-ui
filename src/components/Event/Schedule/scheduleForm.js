@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Switch } from 'redux-form-material-ui';
 import moment from 'moment';
+import { isEmpty, pick } from 'lodash';
 
 import styles from 'styles';
 import store from 'store';
@@ -13,6 +14,8 @@ import DateTimePicker from 'components/common/dateTimePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
 import validate from '../validate';
+import { isBefore } from 'date-fns/esm';
+import validateSchedule from 'components/Event/validateSchedule';
 
 
 
@@ -33,73 +36,66 @@ class ScheduleForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { 
-            submitting, 
-            enableSubmission, 
-            isRecurring, 
-            repeatUntil,
-            start,
-            end,
-            frequency,
-            interval,
-        } = this.props;
+        const { submitting, enableSubmission } = this.props;
+
+        const values = pick(this.props, [
+            'submitting', 
+            'enableSubmission', 
+            'isRecurring', 
+            'repeatUntil',
+            'start',
+            'end',
+            'frequency',
+            'interval',
+            'weekDays',
+            'monthDaySelectionType',
+            'daysOfMonth',
+            'dayOfWeek_number',
+            'dayOfWeek_day',
+            'hasSessions',
+            'sessions',
+        ]);
 
         const isValid = () => {
-            if (!(start) || !(end) ) {
-                return false;
+            const errors = validateSchedule(values);
+            if (isEmpty(errors)) {
+                return true
             } else {
-                if (isRecurring === true) {
-                    if (!frequency) {
-                        return false
-                    } else {
-                        if (!interval) {
-                            return false
-                        } else if (!repeatUntil) {
-                            return false
-                        } else {
-                            return true
-                        }
-                    }
-                } else {
-                    return true
-                }
-                
+                return false
             }
         }
         const wasValid = () => {
-            if ((!(prevProps.start) || !(prevProps.end))) {
-                return false;
+           const prevValues = pick(prevProps, [
+                'submitting', 
+                'enableSubmission', 
+                'isRecurring', 
+                'repeatUntil',
+                'start',
+                'end',
+                'frequency',
+                'interval',
+                'weekDays',
+                'monthDaySelectionType',
+                'daysOfMonth',
+                'dayOfWeek_number',
+                'dayOfWeek_day',
+                'hasSessions',
+                'sessions',
+            ]);
+            const prevErrors = validateSchedule(prevValues);
+            if (isEmpty(prevErrors)) {
+                return true
             } else {
-                if (prevProps.isRecurring === true) {
-                    if (!prevProps.frequency) {
-                        return false
-                    } else {
-                        if (!prevProps.interval) {
-                            return false
-                        } else if (!prevProps.repeatUntil) {
-                            return false
-                        } else {
-                            return true
-                        }
-                    }
-                } else {
-                    return true
-                }
-                
+                return false
             }
         }
         let enabled = (isValid() && !submitting );
         const wasEnabled = (wasValid() && !prevProps.submitting)
 
-        console.log('start: ', start);
-        console.log('end: ', end);
-        console.log('isRecurring: ', isRecurring);
-        console.log('frequency: ', frequency);
+   
         console.log('isValid: ', isValid());
         console.log('wasValid: ', wasValid());
-        console.log('enabled: ', enabled);
-        console.log('wasEnabled: ', wasEnabled);
-
+      
         if (enabled !== wasEnabled) {
             enableSubmission(enabled);
         }
@@ -196,6 +192,12 @@ ScheduleForm = connect(state => {
     const repeatUntil = selector(state, 'repeatUntil');
     const frequency = selector(state, 'frequency');
     const interval = selector(state, 'interval');
+    const weekDays = selector(state, 'weekDays');
+    const monthDaySelectionType = selector(state, 'monthDaySelectionType');
+    const daysOfMonth = selector(state, 'daysOfMonth');
+    const dayOfWeek_number = selector(state, 'dayOfWeek_number');
+    const dayOfWeek_day = selector(state, 'dayOfWeek_day');
+    const sessions = selector(state, 'sessions');
     return {
         start,
         end,
@@ -204,6 +206,12 @@ ScheduleForm = connect(state => {
         repeatUntil,
         frequency,
         interval,
+        weekDays,
+        monthDaySelectionType,
+        daysOfMonth,
+        dayOfWeek_number,
+        dayOfWeek_day,
+        sessions,
 
     }
 })(ScheduleForm)
