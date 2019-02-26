@@ -14,7 +14,6 @@ import DateTimePicker from 'components/common/dateTimePicker';
 import Recurring from './Recurring';
 import Sessions from './Sessions';
 import validate from '../validate';
-import { isBefore } from 'date-fns/esm';
 import validateSchedule from 'components/Event/validateSchedule';
 
 

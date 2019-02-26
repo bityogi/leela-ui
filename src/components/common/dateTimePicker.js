@@ -18,6 +18,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
             helperText={(error || warning)}
             allowKeyboardControl
             initialFocusedDate={initialDateValue}
+            minutesStep={5}
         />
     )
 }

@@ -50,13 +50,16 @@ class PreReqsForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { valid, submitting, anyTouched, enableSubmission } = this.props;
-        const enabled = (valid && !submitting) || !anyTouched;
-        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+        const { submitting, enableSubmission, questionType } = this.props;
+        const { newQuestion } = this.state;
 
-        if (enabled !== wasEnabled) {
-            enableSubmission(enabled);
+        const isValid = () => {
+            return (isEmpty(questionType) && isEmpty(newQuestion))
         }
+
+        let enabled = (isValid() && !submitting );
+        
+        enableSubmission(enabled);
     }
 
     render() {
