@@ -15,7 +15,6 @@ class PreReqs extends Component {
 
     render() {
         const { classes, questions, enableSubmission } = this.props;
-        console.log('questions in pre-reqs index: ', questions);
         return (
             <div className={classes.bigContainer}>
               <Paper className={classes.paper}>

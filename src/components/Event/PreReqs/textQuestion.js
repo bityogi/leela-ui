@@ -8,28 +8,26 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { isEmpty } from 'lodash';
 
 import styles from 'styles';
+import renderChoices from './renderChoices';
+import { map } from 'rsvp';
 
 const validate = (values, props) => {
     console.log('validaing textQuestion -- checking values: ', values);
     const errors = {}
     const { question: { type } } = props;
 
-    console.log('validaing textQuestion -- question-TYPE: ', type);
-    
     if (!values.questionText) {
-        errors.questionText = 'Required'
+        errors.questionText = 'Question Text is Required'
     }
 
     if (type === 'SingleChoice' || type === 'MultipleChoice') {
         if (!values.choices) {
-            errors.choices = 'No choices added'
+            errors.questionText = 'No choices added'
         } else {
             if (values.choices.length <= 1) {
-                errors.choices = 'At least two choices required';
+                errors.questionText = 'At least two choices required';
             }
         }
-        
-        
     }
 
     console.log('errors for textQuestion validate: ', errors);
@@ -38,72 +36,33 @@ const validate = (values, props) => {
 
 const validateChoice = (values, allValues, props) => {
     const errors = {};
-    
+    console.log('values for validateChoice: ', values);
     if (values) {
-        if (!values.text) {
-            errors.text = 'Required';
-        }
+        map(values, (v, i) => {
+            if (!values.text) {
+                errors.text = `Text is missing for choice ${i-1}`;
+            }
+        })
     }
    
     const response = isEmpty(errors) ? null : errors;
+    console.log('validateChoice response: ', response);
     return response;
 }   
 
 
-const renderChoices = ({ fields, meta: { error, submitFailed }, classes }) => (
-    <Grid item container xs={12}>
-    
-        {fields.map((choice, index) => (
-            <Grid key={index}>
-                <Grid item xs={12}>
-                    <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                        Choice #{index + 1}
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Field
-                        name={`${choice}.text`}
-                        type="text"
-                        component={TextField}
-                        label="Choice Text"
-                    />
-                    <Button 
-                        variant="outlined" 
-                        size="small" 
-                        className={classes.inlineButton} 
-                        onClick={() => fields.remove(index)}
-                    >
-                        Remove
-                    </Button>
-                </Grid>
-            </Grid>
-        ))}
-
-        <Grid item xs={12}>
-            <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                <Button 
-                    variant="outlined" 
-                    size="small" 
-                    onClick={() => fields.push({ index: fields.length })}>
-                    Add Choice
-                </Button>
-                {submitFailed && error && <span>{error}</span>}
-            </Typography>
-        </Grid>
-    </Grid>
-)
-
 class TextQuestion extends Component {
 
     handleFormSubmit = (values) => {
-        const { onQuestionAdded, question, reset } = this.props;
+        const { onQuestionAdded, question, reset, valid } = this.props;
+        console.log('is question form valid: ', valid);
         onQuestionAdded(values, question);
         reset();
     }
 
     render() {
-        const { valid, question: { type }, classes, pristine, submitting, handleSubmit } = this.props;
-        console.log('type of question: ', type);
+        const { invalid, question: { type }, classes, pristine, submitting, handleSubmit, error } = this.props;
+        console.error('error in TextQuestion: ', error);
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 <Grid item xs={12}>
@@ -163,8 +122,8 @@ class TextQuestion extends Component {
                       <Button
                         type="submit"
                         variant="contained"
-                        color="primary"
-                        disabled={ valid && (pristine || submitting) }
+                        color="default"
+                        disabled={ (pristine || submitting) || invalid }
                         className={classes.outlinedButtom}
                       >
                         Add
