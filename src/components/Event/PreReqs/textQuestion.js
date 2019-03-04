@@ -5,11 +5,11 @@ import { TextField, Checkbox } from 'redux-form-material-ui';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { isEmpty } from 'lodash';
+import { isEmpty, map } from 'lodash';
 
 import styles from 'styles';
 import renderChoices from './renderChoices';
-import { map } from 'rsvp';
+
 
 const validate = (values, props) => {
     console.log('validaing textQuestion -- checking values: ', values);
@@ -26,6 +26,12 @@ const validate = (values, props) => {
         } else {
             if (values.choices.length <= 1) {
                 errors.questionText = 'At least two choices required';
+            } else {
+                map(values.choices, (c) => {
+                    if (!c.text) {
+                        errors.questionText = `No text in choice`
+                    }
+                })
             }
         }
     }
@@ -38,9 +44,9 @@ const validateChoice = (values, allValues, props) => {
     const errors = {};
     console.log('values for validateChoice: ', values);
     if (values) {
-        map(values, (v, i) => {
-            if (!values.text) {
-                errors.text = `Text is missing for choice ${i-1}`;
+        map(values, (v) => {
+            if (!v.text) {
+                errors.text = `Text is missing for a choice`;
             }
         })
     }
