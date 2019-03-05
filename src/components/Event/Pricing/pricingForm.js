@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { TextField } from 'redux-form-material-ui';
-import { filter, isEmpty, map } from 'lodash';
+import { filter } from 'lodash';
 import Divider from '@material-ui/core/Divider';
 
 import styles from 'styles';
@@ -13,33 +13,9 @@ import NewByDate from './byDate';
 import ByQuestion from './byQuestion';
 import BySession from './bySession';
 import validate from 'components/Event/validate';
-
-const validateByDate = (values, allValues, props) => {
-    let errors = {};
-    console.log('values for validateByDate: ', values);
-    if (values && values.length > 0) {
-        map(values, v => {
-            if (!v.from) {
-                errors.from = 'Required'
-            }
-    
-            if (!v.till) {
-                errors.till = 'Required'
-            }
-    
-            if (!v.price) {
-                errors.price = 'Required'
-            }
-        })
-        
-    }
-   
-    const response = isEmpty(errors) ? null : errors;
-    console.log('validateByDate response: ', response);
-    return response;
+import validatePriceByDate from './validatePricingByDate';
 
 
-}
 class PricingForm extends Component {
 
     // state = {
@@ -88,7 +64,7 @@ class PricingForm extends Component {
                        
                         <Grid>
                             <Typography variant="h4" gutterBottom>
-                                <FieldArray name="pricesByDate" component={NewByDate} classes={classes} validate={validateByDate} />
+                                <FieldArray name="pricesByDate" component={NewByDate} classes={classes} validate={validatePriceByDate} />
                             </Typography>
                             <Divider />
                         </Grid>
@@ -116,15 +92,11 @@ PricingForm = connect(state => {
     const pricesByDate = selector(state, 'pricesByDate');
     const questions = selector(state, 'questions');
     const sessions = selector(state, 'sessions');
-    const start = selector(state, 'start');
-    const end = selector(state, 'end');
-    
+   
     return {
         pricesByDate,
         questions,
         sessions,
-        start,
-        end,
     }
 })(PricingForm)
 
