@@ -10,9 +10,9 @@ import { isEmpty, map } from 'lodash';
 
 export default (props) => {
 
-    const { fields, meta: { error, valid }, classes } = props;
+    const { fields, meta: { error, valid }, classes, start } = props;
     const hasErrorMessages = (!isEmpty(error) && !isEmpty(error.messages));
-
+    console.log('session start -- initialValue: ', start);
     return (
         <Grid item container xs={12}>
             {fields.map((session, index) => (
@@ -39,7 +39,7 @@ export default (props) => {
                                 component={DateTimePicker} 
                                 name={`${session}.start`}
                                 style={{ width:'80%', fontSize: '.9em' }}
-                                
+                                initialFocusedDate={start}
                             />
                         </Typography>
                     </Grid>
@@ -53,6 +53,7 @@ export default (props) => {
                                 component={DateTimePicker} 
                                 name={`${session}.end`}
                                 style={{ width:'80%', fontSize: '.9em' }}
+                                initialFocusedDate={start}
                             />
                         </Typography>
                     </Grid>

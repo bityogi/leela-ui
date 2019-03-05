@@ -19,13 +19,13 @@ class SessionsForm extends Component {
     }
 
     render() {
-        const { handleSubmit, classes } = this.props;
+        const { handleSubmit, classes, start } = this.props;
         return (
             <div>
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <Grid item container xs={12}>
                         <Typography variant="h4" gutterBottom>
-                            <FieldArray name="sessions" component={NewSession} classes={classes} validate={validateSession} />
+                            <FieldArray name="sessions" component={NewSession} classes={classes} validate={validateSession} start={start} />
                         </Typography>
                     </Grid>
                 </form>
@@ -46,9 +46,10 @@ const selector = formValueSelector('event')
 
 SessionsForm = connect(state => {
     const sessions = selector(state, 'sessions');
-    
+    const start = selector(state, 'start');
     return {
         sessions,
+        start,
     }
 })(SessionsForm)
 

@@ -35,7 +35,7 @@ class PriceByQuestion extends Component {
 
             return (
                     <RenderPriceByQuestion
-                        form={`priceFor${q.index}`}
+                        form={`priceByQuestionFor${q.index}`}
                         question={q}
                         addPriceForQuestion={this.addPriceForQuestion}
                         key={q.index}
