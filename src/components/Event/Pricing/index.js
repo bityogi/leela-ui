@@ -12,7 +12,7 @@ class Pricing extends Component {
         const { classes, enableSubmission } = this.props;
 
         return (
-            <div className={classes.smallContainer}>
+            <div className={classes.bigContainer}>
               <Paper className={classes.paper}>
                 <div>
                   <div style={{marginBottom: 32}}>

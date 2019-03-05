@@ -24,6 +24,7 @@ class PriceByQuestion extends Component {
 
     renderBoolQuestions = () => {
         const { boolQuestions, pricesByQuestion } = this.props;
+        
         return map(boolQuestions, q => {
             const exists = find(pricesByQuestion, { questionIndex : q.index });
             

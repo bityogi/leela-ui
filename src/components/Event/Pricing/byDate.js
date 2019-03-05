@@ -4,9 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import { TextField } from 'redux-form-material-ui';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { isEmpty } from 'lodash';
 
 import DatePicker from 'components/common/datePicker';
-
+import RenderErrors from 'components/common/renderValues';
 
 
 export default ({ fields, meta: { error, submitFailed }, classes }) => (
@@ -66,11 +67,16 @@ export default ({ fields, meta: { error, submitFailed }, classes }) => (
                 <Button 
                     variant="outlined" 
                     size="small" 
-                    onClick={() => fields.push({ index: fields.length })}>
+                    onClick={() => fields.push({ index: fields.length })}
+                    disabled={!isEmpty(error)}
+                >
                     Add Price By Date
                 </Button>
-                {submitFailed && error && <span>{error}</span>}
+                
             </Typography>
+            {
+                !isEmpty(error) && <RenderErrors renderObject={error} isError/>
+            }
         </Grid>
     </Grid>
 )

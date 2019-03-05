@@ -36,7 +36,7 @@ const getSteps = () => {
 class Wizard extends Component {
 
   state = {
-    activeStep: 3,
+    activeStep: 4,
     enableFormSubmission: false,
   }
 

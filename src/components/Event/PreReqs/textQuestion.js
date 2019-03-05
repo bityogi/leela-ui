@@ -41,7 +41,7 @@ const validate = (values, props) => {
 }
 
 const validateChoice = (values, allValues, props) => {
-    const errors = {};
+    let errors = {};
     console.log('values for validateChoice: ', values);
     if (values) {
         map(values, (v) => {
