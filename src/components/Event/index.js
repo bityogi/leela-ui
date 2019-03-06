@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import { submit } from 'redux-form';
 
 import Back from 'components/common/Back';
 
@@ -44,7 +45,7 @@ class Wizard extends Component {
     //Leave the form submittable by default for these steps (Media, Pre-Reqs)
     this.setState(state => ({
       activeStep: state.activeStep + 1,
-      enableFormSubmission: ([0, 2].includes(state.activeStep)) ? true : false, 
+      enableFormSubmission: ([0, 2, 5].includes(state.activeStep)) ? true : false, 
     }));
   };
 
@@ -68,12 +69,6 @@ class Wizard extends Component {
     });
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-
-
   goToDashboard = event => {
     const queryString = this.props.location.search
     
@@ -81,6 +76,10 @@ class Wizard extends Component {
       pathname: '/dashboard',
       search: queryString
     })
+  }
+
+  submitEvent = (values) => {
+    submit('event')
   }
 
   render() {
@@ -154,7 +153,7 @@ class Wizard extends Component {
                     activeStep={activeStep} 
                     handleBack={this.handleBack} 
                     handleNext={this.handleNext} 
-                    goToDashboard={this.goToDashboard} 
+                    submitEvent={this.submitEvent} 
                     enableFormSubmission={enableFormSubmission}
                   />
                 </div>

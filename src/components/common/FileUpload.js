@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import Dropzone from 'react-dropzone'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-
 import CardMedia from '@material-ui/core/CardMedia';
 import { withStyles } from '@material-ui/core/styles';
 // import classes from '*.module.css';

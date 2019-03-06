@@ -64,15 +64,21 @@ class RepeatUntil extends Component {
     }
 
     render() {
-        const { handleSubmit } = this.props;
-        const repititions = this.computeReptitions();
+        const { handleSubmit, valid, start } = this.props;
+        const repititions = valid ? this.computeReptitions() : null;
         const maxDateForRepeatUntil = moment().add('years', 5);
         return (
             <div>
                 <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                     <Grid container item xs={12}>
                         <Typography variant="h5" gutterBottom>
-                            <Field name="repeatUntil" component={DatePicker} label="Repeat Until" fullWidth maxDate={maxDateForRepeatUntil} />
+                            <Field 
+                                name="repeatUntil" 
+                                component={DatePicker} 
+                                label="Repeat Until" 
+                                fullWidth 
+                                maxDate={maxDateForRepeatUntil}
+                                minDate={start} />
                         </Typography>
                         <Typography variant="subtitle1" gutterBottom>
                             {(repititions) ? `This event will repeat ${repititions} times` : ''}
