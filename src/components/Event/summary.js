@@ -62,8 +62,7 @@ class Summary extends Component {
                           <Typography variant="caption" gutterBottom color="primary">
                                 Event Image
                             </Typography>
-                            <Typography variant="overline" gutterBottom>
-                              <Card className={classes.card}>
+                            <Card className={classes.card}>
                                 <CardActionArea>
                                   <CardMedia
                                     className={classes.media}
@@ -72,8 +71,6 @@ class Summary extends Component {
                                   />
                                 </CardActionArea>
                               </Card>
-                                
-                            </Typography>
                         </Grid>
                       )
                     }

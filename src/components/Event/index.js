@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,10 +12,10 @@ import Button from '@material-ui/core/Button';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { submit } from 'redux-form';
+import { getFormValues } from 'redux-form';
 
 import Back from 'components/common/Back';
-
+import { submitEvent } from 'actions';
 import styles from 'styles';
 import Info from './Info';
 import Media from './Media';
@@ -42,10 +45,10 @@ class Wizard extends Component {
   }
 
   handleNext = () => {
-    //Leave the form submittable by default for these steps (Media, Pre-Reqs)
+    //Leave the form submittable by default for these steps (Media, Pre-Reqs, Summary and Done)
     this.setState(state => ({
       activeStep: state.activeStep + 1,
-      enableFormSubmission: ([0, 2, 5].includes(state.activeStep)) ? true : false, 
+      enableFormSubmission: ([0, 2, 4, 5].includes(state.activeStep)) ? true : false, 
     }));
   };
 
@@ -78,8 +81,13 @@ class Wizard extends Component {
     })
   }
 
-  submitEvent = (values) => {
-    submit('event')
+  submitEvent = () => {
+    const { values, submitEvent } = this.props;
+    console.log('Submitting event values: ',)
+    submitEvent(values)
+      .then(() => {
+        this.handleNext();
+      });
   }
 
   render() {
@@ -154,6 +162,7 @@ class Wizard extends Component {
                     handleBack={this.handleBack} 
                     handleNext={this.handleNext} 
                     submitEvent={this.submitEvent} 
+                    goToDashboard={this.goToDashboard}
                     enableFormSubmission={enableFormSubmission}
                   />
                 </div>
@@ -166,4 +175,18 @@ class Wizard extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(Wizard));
+const mapStateToProps = (state) => ({
+  values: getFormValues('event')(state),
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  submitEvent,
+}, dispatch)
+
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles),
+  withRouter,
+)
+
+export default enhance(Wizard);

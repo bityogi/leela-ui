@@ -23,9 +23,15 @@ class StepActions extends Component {
     }
 
     onNextClicked = () => {
-        const { handleNext, submitEvent, activeStep } = this.props;
+        const { handleNext, submitEvent, goToDashboard, activeStep } = this.props;
 
-        activeStep !== 6 ? handleNext() : submitEvent();
+        if (activeStep === 6) {
+          goToDashboard();
+        } else if (activeStep === 5) {
+          submitEvent();
+        } else {
+          handleNext();
+        }
     }
 
     render() {
