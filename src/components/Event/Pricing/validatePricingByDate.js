@@ -8,8 +8,6 @@ import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 
 export default (values, allValues, props) => {
-    console.log('validatePriceByDate -- value: ', values);
-    console.log('validatePriceByDate -- allValues: ', allValues);
     const errors = {};
     
     if (values) {

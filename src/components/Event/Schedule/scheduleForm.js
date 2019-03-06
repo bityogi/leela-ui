@@ -91,10 +91,6 @@ class ScheduleForm extends Component {
         let enabled = (isValid() && !submitting );
         const wasEnabled = (wasValid() && !prevProps.submitting)
 
-   
-        console.log('isValid: ', isValid());
-        console.log('wasValid: ', wasValid());
-      
         if (enabled !== wasEnabled) {
             enableSubmission(enabled);
         }

@@ -32,9 +32,7 @@ class FileUpload extends React.Component {
 
    render() {
     const { classes, input : { value }, name, meta : { touched, error } } = this.props;
-    console.log('touched: ', touched);
-    console.log('error: ', error);
-
+ 
     if (value.length > 0) {
       return (
         <Card className={classes.card}>

@@ -28,20 +28,14 @@ class PricingForm extends Component {
         }
     }
 
-    handleFormSubmit = () => {
-        console.log('event form is being submitted');
-    }
-
- 
+    
     render() {
-        const { handleSubmit, classes, sessions, questions } = this.props;
+        const { classes, sessions, questions } = this.props;
 
-        console.log('sessions: ', sessions);
-        console.log('questions: ', questions);
         const boolQuestions = filter(questions, q => { return q.type === 'YesNo' && q.affectPrice === true });
         return (
             <div>
-                <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+                <form>
                     <Grid item container xs={12}>
                         <Grid item xs={12}>
                             <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
