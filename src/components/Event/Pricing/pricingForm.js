@@ -18,15 +18,6 @@ import validatePriceByDate from './validatePricingByDate';
 
 class PricingForm extends Component {
 
-    // state = {
-    //     newByDate: {},
-    //     byDates: [],
-    // }
-
-    handleFormSubmit = (values) => {
-        console.log('schedule form values: ', values);
-    }
-
     componentDidUpdate(prevProps) {
         const { valid, submitting, anyTouched, enableSubmission } = this.props;
         const enabled = (valid && !submitting) || !anyTouched;
@@ -35,6 +26,10 @@ class PricingForm extends Component {
         if (enabled !== wasEnabled) {
             enableSubmission(enabled);
         }
+    }
+
+    handleFormSubmit = () => {
+        console.log('event form is being submitted');
     }
 
  

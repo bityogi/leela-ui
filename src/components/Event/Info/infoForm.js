@@ -17,9 +17,9 @@ import initialValues from '../initialValues';
 
 class InfoForm extends Component {
 
-    handleFormSubmit = (values) => {
-        console.log('Form values for event info: ', values);
-    }
+    // handleFormSubmit = (values) => {
+    //     console.log('Form values for event info: ', values);
+    // }
 
     componentDidUpdate(prevProps) {
         const { submitting, enableSubmission, title, location, description } = this.props;
@@ -51,7 +51,7 @@ class InfoForm extends Component {
         const { classes, handleSubmit } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+            <form>
                 <Grid item container xs={12}>
                 
                     <Grid item xs={12}>
