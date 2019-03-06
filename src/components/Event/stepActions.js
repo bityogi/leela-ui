@@ -4,12 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
-import { reduxForm, getFormValues } from 'redux-form';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { reduxForm } from 'redux-form';
 
 import styles from 'styles';
 import { submitEvent } from 'actions';
 
 class StepActions extends Component {
+
+    state = {
+      submitting : false
+    }
 
     stepActions() {
         const { activeStep } = this.props;
@@ -33,8 +38,10 @@ class StepActions extends Component {
         if (activeStep === 6) {
           goToDashboard();
         } else if (activeStep === 5) {
-          submitEvent(values)
+          this.setState({ submitting: true })
+          submitEvent()
             .then(() => {
+              this.setState({ submitting: false })
               handleNext();
             });
         } else {
@@ -43,8 +50,9 @@ class StepActions extends Component {
     }
 
     render() {
-        const { activeStep, enableFormSubmission, classes, submitting, handleSubmit } = this.props;
-        console.log('event form submitting: ', submitting);
+        const { activeStep, enableFormSubmission, classes, handleSubmit } = this.props;
+        const { submitting } = this.state;
+        console.log('submitting event: ', submitting);
         return (
           <form onSubmit={handleSubmit}>
             <div className={classes.flexBar}>
@@ -63,10 +71,15 @@ class StepActions extends Component {
                 color="primary"
                 onClick={this.onNextClicked}
                 size='large'
-                disabled={!enableFormSubmission}
+                disabled={!enableFormSubmission || submitting}
               >
                 {this.stepActions()}
               </Button>
+              {
+                submitting && (
+                  <CircularProgress color="primary" />
+                )
+              }
             </div>
           </form>
         );
@@ -78,16 +91,13 @@ StepActions = reduxForm({
   onSubmit: submitEvent,
 })(StepActions);
 
-const mapStateToProps = (state) => ({
-  values: getFormValues('event')(state),
-})
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   submitEvent,
 }, dispatch)
 
 const enhance = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(null, mapDispatchToProps),
   withStyles(styles),
 )
 

@@ -77,5 +77,8 @@ export default theme => ({
     },
     fullWidth : {
       width: '100%',
+    },
+    progress: {
+      margin: theme.spacing.unit * 2
     }
   })

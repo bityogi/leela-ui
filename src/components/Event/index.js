@@ -127,7 +127,7 @@ class Wizard extends Component {
                       <Summary />
                     )}
                     { activeStep === 6 && (
-                    <div className={classes.smallContainer}>
+                    <div className={classes.bigContainer}>
                       <Paper className={classes.paper}>
                         <Grid item container xs={12}>
                           <Grid item xs={12}>

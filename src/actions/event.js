@@ -1,4 +1,4 @@
-import { submit } from 'redux-form';
+import { submit, getFormValues } from 'redux-form';
 
 import {
     FETCH_START,
@@ -9,8 +9,12 @@ import {
 } from './types';
 
 export const submitEvent = (values) => {
-    return dispatch => {
-        console.log('sumbit event started. values: ', values);
+    return (dispatch, getState) => {
+
+        const eventValues = getFormValues('event')(getState());
+        console.log('ACTION: submitEvent -- with values: ', eventValues);
+        dispatch(submit('event'));
+                
         dispatch({
             type: FETCH_START
         });
@@ -21,7 +25,6 @@ export const submitEvent = (values) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 console.log('mocking sumbission of event to server ...');
-                dispatch(submit('event'));
                 
                 dispatch({
                     type: FETCH_END
