@@ -52,8 +52,7 @@ class StepActions extends Component {
     render() {
         const { activeStep, enableFormSubmission, classes, handleSubmit } = this.props;
         const { submitting } = this.state;
-        console.log('submitting event: ', submitting);
-        return (
+       return (
           <form onSubmit={handleSubmit}>
             <div className={classes.flexBar}>
               { activeStep !== 6 && (

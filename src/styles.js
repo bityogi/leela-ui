@@ -80,5 +80,11 @@ export default theme => ({
     },
     progress: {
       margin: theme.spacing.unit * 2
+    },
+    card: {
+      maxWidth: 345,
+    },
+    media: {
+      height: 140,
     }
   })

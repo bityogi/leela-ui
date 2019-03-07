@@ -9,6 +9,7 @@ import { compose } from 'recompose';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
+import moment from 'moment';
 
 import styles from 'styles';
 
@@ -67,10 +68,13 @@ class Summary extends Component {
                                 <CardMedia
                                   className={classes.media}
                                   image={URL.createObjectURL(values.eventImage[0])}
-                                  title="Event Image"
+                                  title="Event Image Card"
                                 />
                               </CardActionArea>
                           </Card>
+                          <Typography variant="overline" gutterBottom color="primary">
+                              Event Image should be up here
+                          </Typography>
                         </Grid>
                       )
                     }
@@ -79,7 +83,7 @@ class Summary extends Component {
                             Start
                         </Typography>
                         <Typography variant="overline" gutterBottom>
-                            {values.start.toString()}
+                            {moment(values.start).format('MMMM Do YYYY, h:mm a')}
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
@@ -87,7 +91,7 @@ class Summary extends Component {
                             End
                         </Typography>
                         <Typography variant="overline" gutterBottom>
-                            {values.end.toString()}
+                            {moment(values.end).format('MMMM Do YYYY, h:mm a')}
                         </Typography>
                     </Grid>
 
