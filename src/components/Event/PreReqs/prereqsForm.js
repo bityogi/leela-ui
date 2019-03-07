@@ -55,7 +55,7 @@ class PreReqsForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { submitting, enableSubmission, questionType } = this.props;
+        const { enableSubmission, questionType } = this.props;
         const { newQuestion } = this.state;
         // console.log('prereqsForm -- componentDidUpdate: newQuestion - ', newQuestion);
         // console.log('prereqsForm -- componentDidUpdate: questionType - ', questionType);
@@ -65,7 +65,7 @@ class PreReqsForm extends Component {
         }
         // console.log('prereqsForm -- componentDidUpdate: isValid - ', isValid());
         
-        let enabled = (isValid() && !submitting );
+        let enabled = (isValid());
         
         enableSubmission(enabled);
     }

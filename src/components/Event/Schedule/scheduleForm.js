@@ -35,7 +35,7 @@ class ScheduleForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { submitting, enableSubmission } = this.props;
+        const { enableSubmission } = this.props;
 
         const values = pick(this.props, [
             'submitting', 
@@ -63,38 +63,10 @@ class ScheduleForm extends Component {
                 return false
             }
         }
-        const wasValid = () => {
-           const prevValues = pick(prevProps, [
-                'submitting', 
-                'enableSubmission', 
-                'isRecurring', 
-                'repeatUntil',
-                'start',
-                'end',
-                'frequency',
-                'interval',
-                'weekDays',
-                'monthDaySelectionType',
-                'daysOfMonth',
-                'dayOfWeek_number',
-                'dayOfWeek_day',
-                'hasSessions',
-                'sessions',
-            ]);
-            const prevErrors = validateSchedule(prevValues);
-            if (isEmpty(prevErrors)) {
-                return true
-            } else {
-                return false
-            }
-        }
-        let enabled = (isValid() && !submitting );
-        const wasEnabled = (wasValid() && !prevProps.submitting)
 
-        if (enabled !== wasEnabled) {
-            enableSubmission(enabled);
-        }
-        
+        let enabled = isValid();
+    
+        enableSubmission(enabled);
     }
 
     render() {

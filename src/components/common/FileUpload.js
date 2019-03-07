@@ -25,8 +25,8 @@ class FileUpload extends React.Component {
      const { input : { onChange } } = this.props;
      console.log('files received: ', acceptedFiles);
      if (acceptedFiles.length > 0) {
-       const uploadedFile = URL.createObjectURL(acceptedFiles[0]);
-       onChange([uploadedFile])
+      //  const uploadedFile = URL.createObjectURL(acceptedFiles[0]);
+       onChange([acceptedFiles[0]])
      }
    }
 
@@ -39,7 +39,7 @@ class FileUpload extends React.Component {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={value[0]}
+            image={URL.createObjectURL(value[0])}
             title="Event Name"
           />
 

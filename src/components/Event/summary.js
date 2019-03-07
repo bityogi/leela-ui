@@ -60,17 +60,17 @@ class Summary extends Component {
                       values.eventImage.length > 0 && (
                         <Grid item xs={12}>
                           <Typography variant="caption" gutterBottom color="primary">
-                                Event Image
-                            </Typography>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                  <CardMedia
-                                    className={classes.media}
-                                    image={values.eventImage[0]}
-                                    title="Event Image"
-                                  />
-                                </CardActionArea>
-                              </Card>
+                              Event Image
+                          </Typography>
+                          <Card className={classes.card}>
+                              <CardActionArea>
+                                <CardMedia
+                                  className={classes.media}
+                                  image={URL.createObjectURL(values.eventImage[0])}
+                                  title="Event Image"
+                                />
+                              </CardActionArea>
+                          </Card>
                         </Grid>
                       )
                     }

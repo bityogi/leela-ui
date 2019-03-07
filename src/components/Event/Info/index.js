@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from 'styles';
@@ -23,11 +22,6 @@ class Info extends Component {
                     <Typography variant="body2" gutterBottom>
                       General information about this event
                     </Typography>
-                  </div>
-                  <div>
-                  <Button variant="outlined" size="large" className={classes.outlinedButtom}>
-                    Edit
-                  </Button>
                   </div>
                 </div>
                 

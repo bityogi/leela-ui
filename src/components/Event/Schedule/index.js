@@ -11,7 +11,7 @@ class Schedule extends Component {
 
     
     render() {
-        const { classes, enableSubmission } = this.props;
+        const { classes, enableSubmission, isSubmissionEnabled } = this.props;
         
         return (
             <div className={classes.bigContainer}>
@@ -26,7 +26,7 @@ class Schedule extends Component {
                         </Typography>
                     </div>
                     
-                    <ScheduleForm enableSubmission={enableSubmission} />
+                    <ScheduleForm enableSubmission={enableSubmission} isSubmissionEnabled={isSubmissionEnabled} />
                 </Paper>
             </div>
         );
