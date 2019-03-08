@@ -10,8 +10,10 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import moment from 'moment';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import styles from 'styles';
+import { intervalPeriod } from 'components/common/util';
 
 class Summary extends Component {
 
@@ -19,7 +21,8 @@ class Summary extends Component {
         const { classes, values } = this.props;
         console.log('event values: ', values);
         console.log('event image: ', values.eventImage[0]);
-
+        const ip = intervalPeriod(values.frequency);
+        
         return (
             <div className={classes.bigContainer}>
               <Paper className={classes.paper}>
@@ -72,9 +75,24 @@ class Summary extends Component {
                                 />
                               </CardActionArea>
                           </Card>
-                          <Typography variant="overline" gutterBottom color="primary">
-                              Event Image should be up here
+                        </Grid>
+                      )
+                    }
+                    {
+                      values.altImage.length > 0 && (
+                        <Grid item xs={12}>
+                          <Typography variant="caption" gutterBottom color="primary">
+                              Alternate Event Image
                           </Typography>
+                          <Card className={classes.card}>
+                              <CardActionArea>
+                                <CardMedia
+                                  className={classes.media}
+                                  image={URL.createObjectURL(values.eventImage[0])}
+                                  title="Event Image Card"
+                                />
+                              </CardActionArea>
+                          </Card>
                         </Grid>
                       )
                     }
@@ -94,7 +112,36 @@ class Summary extends Component {
                             {moment(values.end).format('MMMM Do YYYY, h:mm a')}
                         </Typography>
                     </Grid>
-
+                    {
+                      values.isRecurring === true && (
+                        <Grid item xs={12}>
+                          <Typography variant="caption" gutterBottom color="primary">
+                                Recurrence
+                            </Typography>
+                            <Typography variant="overline" gutterBottom>
+                              <FormattedMessage
+                                    id="interval"
+                                    defaultMessage={`Repeats {frequency}, every {interval, number} {interval, plural, one {${ip.singular}} other {${ip.plural}}} until {repeatUntil}`}
+                                    values={{frequency: values.frequency, interval: values.interval, repeatUntil: moment(values.repeatUntil).format('MMMM Do YYYY, h:mm a')}}
+                                />
+                            </Typography>
+                        </Grid>
+                      )
+                    }
+                    <Grid item xs={6}>
+                      <Typography variant="caption" gutterBottom color="primary">
+                            Price
+                        </Typography>
+                        <Typography variant="overline" gutterBottom>
+                          <FormattedNumber
+                            value={values.price}
+                            style='currency'
+                            currency='USD'
+                            minimumFractionDigits={2}
+                            maximumFractionDigits={2}
+                          />
+                        </Typography>
+                    </Grid>
 
                     
                   </Grid>
