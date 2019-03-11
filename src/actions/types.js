@@ -17,3 +17,9 @@ export const SUBMIT_EVENT = 'SUBMIT_EVENT';
 export const SUBMIT_EVENT_SUCCESS = 'SUBMIT_EVENT_SUCCESS';
 export const SUBMIT_EVENT_FAIL = 'SUBMIT_EVENT_FAIL';
 export const SUBMIT_EVENT_RESET = 'SUBMIT_EVENT_RESET';
+
+// *** USER ACTIONS *** //
+export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
