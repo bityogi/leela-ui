@@ -11,6 +11,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import moment from 'moment';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { map } from 'lodash';
 
 import styles from 'styles';
 import { intervalPeriod } from 'components/common/util';
@@ -20,7 +21,6 @@ class Summary extends Component {
     render() {
         const { classes, values } = this.props;
         console.log('event values: ', values);
-        console.log('event image: ', values.eventImage[0]);
         const ip = intervalPeriod(values.frequency);
         
         return (
@@ -126,6 +126,36 @@ class Summary extends Component {
                                 />
                             </Typography>
                         </Grid>
+                      )
+                    }
+                    {
+                      values.hasSessions === true && (map(values.sessions, session => (
+                        <Grid item xs={12} key={session.name}>
+                          <Typography variant="caption" gutterBottom color="primary">
+                              Session Name
+                          </Typography>
+                          <Typography variant="overline" gutterBottom>
+                            {session.name}
+                          </Typography>
+                          <Grid item xs={6}>
+                            <Typography variant="caption" gutterBottom color="primary">
+                                Start
+                            </Typography>
+                            <Typography variant="overline" gutterBottom>
+                              {moment(session.start).format('MMMM Do YYYY, h:mm a')}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Typography variant="caption" gutterBottom color="primary">
+                                End
+                            </Typography>
+                            <Typography variant="overline" gutterBottom>
+                              {moment(session.end).format('MMMM Do YYYY, h:mm a')}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      ))
+                        
                       )
                     }
                     <Grid item xs={6}>

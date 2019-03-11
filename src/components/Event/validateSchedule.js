@@ -67,17 +67,27 @@ export default (values) => {
         if (!values.sessions || isEmpty(values.sessions)) {
             console.log('Event has been marked to have sessions but none were found')
             errors.sessions = 'Event has been marked to have sessions but none were found';
+        } else if (!isEmpty(values.sessions)) {
+            console.log('values sessions is not empty -- will map through them');
+            map(values.sessions, (session) => {
+                if (!session.name) {
+                    console.log('A session name is required for session');
+                    errors.sessionName = 'A session name is required for session'
+                }
 
-            if (!isEmpty(values.sessions)) {
-                map(values.sessions, (session, index) => {
-                    if (!session.name) {
-                        console.log('A session name is required for session');
-                        errors.sessions[index].name = 'Required'
-                    }
-                })
-            }
+                if (!session.start) {
+                    console.log('A start date/time is required for session');
+                    errors.sessionStart = 'A start date/time is required for session'
+                }
+
+                if (!session.end) {
+                    console.log('An end date/time is required for session');
+                    errors.sessionEnd = 'An end date/time is required for session'
+                }
+            })
         }
     }
 
+    
     return errors;
 }

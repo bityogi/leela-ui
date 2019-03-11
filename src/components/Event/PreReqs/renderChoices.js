@@ -6,6 +6,8 @@ import { TextField } from 'redux-form-material-ui';
 import Button from '@material-ui/core/Button';
 import { isEmpty } from 'lodash';
 
+import RenderErrors from 'components/common/renderValues';
+
 export default ({ fields, meta: { error, submitFailed }, classes }) => {
 
     console.log('error in renderChoices: ', error);
@@ -51,6 +53,9 @@ export default ({ fields, meta: { error, submitFailed }, classes }) => {
                     
                 </Typography>
             </Grid>
+            {
+                !isEmpty(error) && <RenderErrors renderObject={error} isError/>
+            }
         </Grid>
     )
 }

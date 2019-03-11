@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import DateTimePicker from 'components/common/dateTimePicker';
 import { isEmpty, map } from 'lodash';
 
+import RenderErrors from 'components/common/renderValues';
 
 export default (props) => {
 
@@ -83,10 +84,10 @@ export default (props) => {
                     </Button>
                     
                 </Typography>
-                <Typography color='error' variant="caption">
-                    { hasErrorMessages && map(error.messages, (message, index) => <p key={index}>{message}</p>) }
-                </Typography>
             </Grid>
+            {
+                !isEmpty(error) && <RenderErrors renderObject={error} isError/>
+            }
         </Grid>
     )
 }

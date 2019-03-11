@@ -9,11 +9,8 @@ import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 
 export default (sessions, allValues, props) => {
-    console.log('validateSession -- value: ', sessions);
-    console.log('validateSession -- allValues: ', allValues);
     const errors = {};
-    const messages = [];
-
+    
     if (sessions) {
         map(sessions, (session, index) => {
             console.log('Session values are : ', session);
@@ -32,16 +29,16 @@ export default (sessions, allValues, props) => {
             //Only do further validations, if all required values are there.
             if (isEmpty(errors)) {
                 if (isAfter(session.start, session.end)) {
-                    messages.push('Session start date should be before session end-date');
+                    errors.start = 'Session start date should be before session end-date';
                 } else {
                     if (isBefore(session.start, allValues.start)) {
-                        messages.push('A session start time cannot be before Event start time');    
+                        errors.startTime = 'A session start time cannot be before Event start time';    
                     }
                     if (isAfter(session.end, allValues.end)) {
-                        messages.push('A session end time cannot be after Event end time');
+                        errors.endTime = 'A session end time cannot be after Event end time';
                     }
                     // Only do the range validation, if other validations have passed
-                    if (isEmpty(messages)) {
+                    if (isEmpty(errors)) {
                         for (let i = 0; i < index; i++) {
                             const prevStart = sessions[i].start;
                             const prevEnd = sessions[i].end;
@@ -49,7 +46,7 @@ export default (sessions, allValues, props) => {
                             const prevRange = moment.range(prevStart, prevEnd);
                             const currentRange = moment.range(session.start, session.end);
                             if (currentRange.overlaps(prevRange)) {
-                                messages.push(`The times are overlapping with session ${sessions[i].name}`);
+                                errors.time = `The times are overlapping with session ${sessions[i].name}`;
                             }
                         }
                     }
@@ -59,10 +56,6 @@ export default (sessions, allValues, props) => {
                 }
             }
         })
-    }
-
-    if (!isEmpty(messages)) {
-        errors.messages = messages;
     }
 
     const response = isEmpty(errors) ? null : errors;
