@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom'
-import CssBaseline from '@material-ui/core/CssBaseline';
+
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -87,10 +87,7 @@ class Wizard extends Component {
 
     
     return (
-      <React.Fragment>
-        <CssBaseline />
-        <div className={classes.root}>
-          <Grid container justify="center"> 
+      <Grid container justify="center"> 
             <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
               <Grid item xs={12}>
                 <Back />
@@ -160,8 +157,7 @@ class Wizard extends Component {
               </Grid>
             </Grid>
           </Grid>
-        </div>
-      </React.Fragment>
+        
     )
   }
 }
