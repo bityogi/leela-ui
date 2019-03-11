@@ -4,16 +4,20 @@ import {
 } from 'actions/types';
 
 const defaultState = {
-    text: '',
-    type: 'info', // one of 'info', 'confirm', 'warning'
+    duration: 4000, //default to 4 seconds
+    message: '',
+    type: 'info', // one of 'success', 'warning', 'error', 'info'
 };
 
 export default (previousState = defaultState, { type, payload }) => {
     switch (type) {
         case SHOW_NOTIFICATION:
-            return { text: payload.text, type: payload.type };
+            const state = {
+                message: payload.message, type: payload.type, duration: payload.duration || 4000
+            }
+            return state;
         case HIDE_NOTIFICATION:
-            return { ...previousState, text: '' };
+            return { ...previousState, message: '' };
         default:
             return previousState;
     }

@@ -11,7 +11,7 @@ import Routes from './routes'
 import customTheme from './theme';
 import styles from './styles';
 import Topbar from 'components/Topbar';
-
+import Notification from 'components/common/notification';
 const theme = createMuiTheme(customTheme);
 
 class App extends Component {
@@ -29,9 +29,10 @@ class App extends Component {
                 <Topbar />
                 <div className={classes.root}>
               
-                <Routes />
+                  <Routes />
                 </div>
-                </React.Fragment>
+                <Notification />
+              </React.Fragment>
             </MuiPickersUtilsProvider>
           </IntlProvider>
         </MuiThemeProvider>

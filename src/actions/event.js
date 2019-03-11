@@ -4,9 +4,11 @@ import {
     FETCH_START,
     FETCH_END,
     SUBMIT_EVENT,
-    SUBMIT_EVENT_SUCCESS,
-
 } from './types';
+
+import {
+    showNotification
+} from './admin';
 
 export const submitEvent = (values) => {
     return (dispatch, getState) => {
@@ -29,6 +31,8 @@ export const submitEvent = (values) => {
                 dispatch({
                     type: FETCH_END
                 })
+
+                dispatch(showNotification('Event successfully created', 'success'));
                 
                 resolve();
             }, 3000);

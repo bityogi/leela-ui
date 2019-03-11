@@ -135,7 +135,7 @@ class Topbar extends Component {
                     <React.Fragment>
                       <div className={classes.productLogo}>
                         <Typography>
-                          Helping raise consciousness
+                          Connect, Provide, Serve.
                         </Typography>
                       </div>
                       <div className={classes.iconContainer}>
