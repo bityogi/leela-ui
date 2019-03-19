@@ -3,7 +3,9 @@ import classNames from 'classnames'
 import Dropzone from 'react-dropzone'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 import styles from 'styles';
@@ -17,9 +19,14 @@ class FileUpload extends React.Component {
      const { input : { onChange } } = this.props;
      console.log('files received: ', acceptedFiles);
      if (acceptedFiles.length > 0) {
-      //  const uploadedFile = URL.createObjectURL(acceptedFiles[0]);
-       onChange([acceptedFiles[0]])
+        onChange([acceptedFiles[0]]);
      }
+   }
+
+   onRemove = () => {
+     const { input: { onChange } } = this.props;
+     console.log('removing file')
+     onChange([]);
    }
 
    render() {
@@ -34,6 +41,12 @@ class FileUpload extends React.Component {
             image={URL.createObjectURL(value[0])}
             title="Event Name"
           />
+          <CardActions>
+        
+        <Button size="small" color="primary" onClick={this.onRemove}>
+          Remove
+        </Button>
+      </CardActions>
 
         </CardActionArea>
       </Card>
