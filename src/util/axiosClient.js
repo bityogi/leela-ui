@@ -33,9 +33,18 @@ let client = axios.create({
     baseURL: api_url
   });
   
-  client.defaults.headers.common['Content-Type'] = 'application/json';
+client.defaults.headers.common['Content-Type'] = 'application/json';
+
+let uploadClient = axios.create({
+    baseURL: api_url
+})
+uploadClient.defaults.headers.common['Content-Type'] = 'multipart/form-data';
   
-  export {
+export {
     authClient,
-    client
-  }
+    client,
+    uploadClient,
+}
+
+
+  
