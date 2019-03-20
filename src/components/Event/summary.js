@@ -61,7 +61,7 @@ class Summary extends Component {
                         </Typography>
                     </Grid>
                     {
-                      values.eventImage.length > 0 && (
+                      (values.eventImage.file) && (
                         <Grid item xs={12}>
                           <Typography variant="caption" gutterBottom color="primary">
                               Event Image
@@ -70,7 +70,7 @@ class Summary extends Component {
                               <CardActionArea>
                                 <CardMedia
                                   className={classes.media}
-                                  image={URL.createObjectURL(values.eventImage[0])}
+                                  image={URL.createObjectURL(values.eventImage.file)}
                                   title="Event Image Card"
                                 />
                               </CardActionArea>
@@ -79,7 +79,7 @@ class Summary extends Component {
                       )
                     }
                     {
-                      values.altImage.length > 0 && (
+                      (values.altImage.file) && (
                         <Grid item xs={12}>
                           <Typography variant="caption" gutterBottom color="primary">
                               Alternate Event Image
@@ -88,7 +88,7 @@ class Summary extends Component {
                               <CardActionArea>
                                 <CardMedia
                                   className={classes.media}
-                                  image={URL.createObjectURL(values.eventImage[0])}
+                                  image={URL.createObjectURL(values.altImage.file)}
                                   title="Event Image Card"
                                 />
                               </CardActionArea>

@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 import styles from 'styles';
-import { uploadFile } from 'actions';
+import { uploadFile, removeFile } from 'actions';
 
 class FileUpload extends React.Component {
    state = {
@@ -26,30 +26,38 @@ class FileUpload extends React.Component {
         uploadFile(acceptedFiles[0])
           .then(res => {
             console.log('response from upload-file POST: ', res);
+            onChange({ ...res.data, file: acceptedFiles[0] })
           })
           .catch(err => {
             console.error('error from upload-file POST: ', err);
           })
-        onChange([acceptedFiles[0]]);
+        
      }
    }
 
    onRemove = () => {
-     const { input: { onChange } } = this.props;
-     console.log('removing file')
-     onChange([]);
+     const { input: { value, onChange }, removeFile } = this.props;
+     removeFile(value.NewFileName)
+        .then(res => {
+          console.log('response from remove-file DELETE: ', res);
+          onChange({})
+        })
+        .catch(err => {
+          console.error('error from remove-file DELETE: ', err);
+        })
+     
    }
 
    render() {
     const { classes, input : { value }, name, meta : { touched, error } } = this.props;
  
-    if (value.length > 0) {
+    if (value.file) {
       return (
         <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={URL.createObjectURL(value[0])}
+            image={URL.createObjectURL(value.file)}
             title="Event Name"
           />
           <CardActions>
@@ -98,6 +106,7 @@ class FileUpload extends React.Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   uploadFile,
+  removeFile,
 }, dispatch)
 
 const enhance = compose(

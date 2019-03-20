@@ -1,6 +1,6 @@
 const initialValues = { 
-    eventImage : [], 
-    altImage : [],
+    eventImage : {}, 
+    altImage : {},
     isRecurring: false,
     weekDays: [],
     monthDaySelectionType: 0, 
