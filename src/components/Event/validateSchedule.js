@@ -1,6 +1,13 @@
 import { isEmpty, map } from 'lodash';
-import { isAfter } from 'date-fns';
-import { isBefore } from 'date-fns/esm';
+import { isAfter, parseISO, isBefore } from 'date-fns';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+
+import validateSession from 'components/Event/Schedule/Sessions/validateSession';
+import validate from './validate';
+import session from './Schedule/Sessions/session';
+
+const moment = extendMoment(Moment);
 
 export default (values) => {
     const errors = {};
@@ -64,30 +71,22 @@ export default (values) => {
     }
 
     if (values.hasSessions === true) {
+
+        
+
         if (!values.sessions || isEmpty(values.sessions)) {
             console.log('Event has been marked to have sessions but none were found')
             errors.sessions = 'Event has been marked to have sessions but none were found';
         } else if (!isEmpty(values.sessions)) {
-            console.log('values sessions is not empty -- will map through them');
-            map(values.sessions, (session) => {
-                if (!session.name) {
-                    console.log('A session name is required for session');
-                    errors.sessionName = 'A session name is required for session'
-                }
+            
+            const sessionErrors = validateSession(values.sessions, values);
 
-                if (!session.start) {
-                    console.log('A start date/time is required for session');
-                    errors.sessionStart = 'A start date/time is required for session'
-                }
-
-                if (!session.end) {
-                    console.log('An end date/time is required for session');
-                    errors.sessionEnd = 'An end date/time is required for session'
-                }
-            })
+            if (!isEmpty(sessionErrors)) {
+                errors.sessionErrors = sessionErrors;
+            }
+           
         }
     }
 
-    
     return errors;
 }

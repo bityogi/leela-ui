@@ -57,6 +57,7 @@ class ScheduleForm extends Component {
 
         const isValid = () => {
             const errors = validateSchedule(values);
+            console.log('errors from validateSchedule: ', errors);
             if (isEmpty(errors)) {
                 return true
             } else {
