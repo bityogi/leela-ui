@@ -5,15 +5,13 @@ import { TextField } from 'redux-form-material-ui';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DateTimePicker from 'components/common/dateTimePicker';
-import { isEmpty, map } from 'lodash';
+import { isEmpty } from 'lodash';
 
 import RenderErrors from 'components/common/renderValues';
 
 export default (props) => {
 
     const { fields, meta: { error, valid }, classes, start } = props;
-    const hasErrorMessages = (!isEmpty(error) && !isEmpty(error.messages));
-    console.log('session start -- initialValue: ', start);
     return (
         <Grid item container xs={12}>
             {fields.map((session, index) => (
@@ -24,6 +22,7 @@ export default (props) => {
                         </Typography>
                         <Typography variant="h3" gutterBottom>
                             <Field 
+                                autoFocus
                                 component={TextField} 
                                 name={`${session}.name`}
                                 style={{ width:'80%', fontSize: '.9em' }}
