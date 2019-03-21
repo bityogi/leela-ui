@@ -8,6 +8,8 @@ const validate = values => {
 
     if (!values.title) {
         errors.title = 'Required'
+    } else if (values.title.length > 50) {
+        errors.title = 'Max 50 characters allowed'
     }
 
     if (!values.location) {
@@ -16,7 +18,9 @@ const validate = values => {
 
     if (!values.description) {
         errors.description = 'Required'
-    }
+    } else if (values.description.length > 2000) (
+        errors.description = 'Max 2000 characters allowed'
+    )
 
     // if (values.eventImage) {
     //     if (values.eventImage.length === 0) {
