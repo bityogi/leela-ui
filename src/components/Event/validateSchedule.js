@@ -21,11 +21,17 @@ export default (values) => {
     }
 
     if (values.start && values.end) {
-        const startDate = new Date(values.start);
-        const endDate = new Date(values.end);
+        const startDate = moment(values.start);
+        const endDate = moment(values.end);
 
-        if (isAfter(startDate, endDate)) {
+        if (startDate.isAfter(endDate)) {
             errors.end = 'Start Date/Time cannot be after End Date/Time';
+        } else {
+            let duration = moment.duration(endDate.diff(startDate)).asMinutes();
+            if (duration < 15) {
+                errors.end = 'Please allow at-least 15 minutes between start and end time';
+            }
+
         }
     }
 

@@ -14,7 +14,6 @@ export default (sessions, allValues) => {
     
     if (sessions) {
         map(sessions, (session, index) => {
-            console.log('Session values are : ', session);
             if (!session.name) {
                 errors.name = 'Required'
             }
@@ -29,18 +28,27 @@ export default (sessions, allValues) => {
 
             //Only do further validations, if all required values are there.
             if (isEmpty(errors)) {
-                if (isAfter(parseISO(session.start), parseISO(session.end))) {
+                const sessionStart = moment(session.start);
+                const sessionEnd = moment(session.end);
+                const eventStart = moment(allValues.start);
+                const eventEnd = moment(allValues.end);
+
+                if (sessionStart.isAfter(sessionEnd)) {
                     errors.start = 'Session start date should be before session end-date';
                 } else {
-                    if (isBefore(parseISO(session.start), parseISO(allValues.start))) {
-                        errors.startTime = 'A session start time cannot be before Event start time';    
+                    if (sessionStart.isBefore(eventStart)) {
+                        errors.startTime = 'A session start time cannot be before Event start time';  
                     }
-                    if (isAfter(parseISO(session.end), parseISO(allValues.end)  )) {
-                        
+                    if (sessionEnd.isAfter(eventEnd)) {
                         errors.endTime = 'A session end time cannot be after Event end time';
-                    } else {
-                        console.log('session end is BEFORE schedule end.')
-                        console.log('schedule end: ', allValues.end)
+                    }
+
+                    // Do further validations, if no validation errors so far
+                    if (isEmpty(errors)) {
+                        let duration = moment.duration(sessionEnd.diff(sessionStart)).asMinutes();
+                        if (duration < 15) {
+                            errors.endTime = 'Please allow at-least 15 minutes between session start and end time';
+                        }
                     }
                     
                     // Only do the range validation, if other validations have passed
