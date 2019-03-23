@@ -20,7 +20,7 @@ class RenderPriceByQuestion extends Component {
      }
 
     render() {
-        const { question : { index, questionText } } = this.props;
+        const { question : { index, text } } = this.props;
 
         return (
             <form>
@@ -29,7 +29,7 @@ class RenderPriceByQuestion extends Component {
                             If Selected Yes, Add:
                         </Typography>
                         <Typography variant="h6" gutterBottom>
-                            <label>{questionText}</label>
+                            <label>{text}</label>
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, change, formValueSelector } from 'redux-form';
-import { map, find, filter } from 'lodash';
+import { map, forEach } from 'lodash';
 
 import store from 'store';
 
@@ -10,27 +10,26 @@ import RenderPriceByQuestion from './renderPriceByQuestion';
 class PriceByQuestion extends Component {
 
     addPriceForQuestion = (questionIndex, price) => {
-        const { pricesByQuestion } = this.props;
-        const exists = find(pricesByQuestion, { questionIndex });
-        if (exists) {
-            if (exists.price !== price) {
-                const newPricesByQuestion = filter(pricesByQuestion, (p) => p.questionIndex !== questionIndex);
-                store.dispatch(change('event', 'pricesByQuestion', [ ...newPricesByQuestion, { questionIndex, price }]));
-            } 
-        } else {
-            store.dispatch(change('event', 'pricesByQuestion', [ ...pricesByQuestion, { questionIndex, price }]));
-        }
+
+        const { questions } = this.props;
+        forEach(questions, (q) => {
+            if (q.index === questionIndex) {
+                q.preReqPrice = { amount: price };
+            }
+        });
+        store.dispatch(change('event', 'questions', questions));
+   
     }
 
     renderBoolQuestions = () => {
-        const { boolQuestions, pricesByQuestion } = this.props;
+        const { boolQuestions } = this.props;
         
         return map(boolQuestions, q => {
-            const exists = find(pricesByQuestion, { questionIndex : q.index });
+            const exists = q.preReqPrice
             
             let initialValues = {};
             if (exists) {
-                initialValues.price = exists.price 
+                initialValues.price = exists.amount 
             }
 
             return (
@@ -62,8 +61,10 @@ PriceByQuestion = reduxForm({
 const selector = formValueSelector('event')
 PriceByQuestion = connect(state => {
     const pricesByQuestion = selector(state, 'pricesByQuestion');
+    const questions = selector(state, 'questions');
     return {
         pricesByQuestion,
+        questions,
     }
 })(PriceByQuestion)
 
