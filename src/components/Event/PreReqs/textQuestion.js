@@ -16,20 +16,20 @@ const validate = (values, props) => {
     const errors = {}
     const { question: { type } } = props;
 
-    if (!values.questionText) {
-        errors.questionText = 'Question Text is Required'
+    if (!values.text) {
+        errors.text = 'Question Text is Required'
     }
 
     if (type === 'SingleChoice' || type === 'MultipleChoice') {
         if (!values.choices) {
-            errors.questionText = 'No choices added'
+            errors.text = 'No choices added'
         } else {
             if (values.choices.length <= 1) {
-                errors.questionText = 'At least two choices required';
+                errors.text = 'At least two choices required';
             } else {
                 map(values.choices, (c) => {
                     if (!c.text) {
-                        errors.questionText = `No text in choice`
+                        errors.text = `No text in choice`
                     }
                 })
             }
@@ -85,7 +85,7 @@ class TextQuestion extends Component {
                         <Typography variant="h6" gutterBottom>
                             <Field 
                                 component={TextField} 
-                                name={`questionText`}
+                                name={`text`}
                             />
                         </Typography>
                     </Grid>

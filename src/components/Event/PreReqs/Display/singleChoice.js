@@ -6,7 +6,6 @@ import { map } from 'lodash';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { FormControlLabel } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
 
 const renderChoices = (choices) => {
     return map(choices, c => {
@@ -22,16 +21,15 @@ let SingleChoice = ({ question }) => {
     return (
         <div>
             <FormControl component="fieldset">
-                <FormLabel component="legend">{question.questionText}</FormLabel>
+                <FormLabel component="legend">{question.text}</FormLabel>
                 <RadioGroup
-                    aria-label={question.questionText}
+                    aria-label={question.text}
                     name={`question-${question.index}`}
                     value={null}
                 >
                     {renderChoices(question.choices)}
                 </RadioGroup>
             </FormControl>
-            <Divider />
         </div>
     )
 }

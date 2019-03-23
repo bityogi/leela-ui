@@ -158,6 +158,42 @@ class Summary extends Component {
                         
                       )
                     }
+                    {
+                      (values.questions && values.questions.length > 0) && map(values.questions, question => (
+                        <Grid item xs={12} key={question.index}>
+                          <Typography variant="caption" gutterBottom color="primary">
+                              Question
+                          </Typography>
+                          <Typography variant="overline" gutterBottom>
+                            {question.text}
+                          </Typography>
+                          <Grid item xs={6}>
+                            <Typography variant="caption" gutterBottom color="primary">
+                                Type
+                            </Typography>
+                            <Typography variant="overline" gutterBottom>
+                              {question.type}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Typography variant="caption" gutterBottom color="primary">
+                                Is it required?
+                            </Typography>
+                            <Typography variant="overline" gutterBottom>
+                              { (question.isRequired === true) ? 'Yes' : 'No' }
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Typography variant="caption" gutterBottom color="primary">
+                                Will it affect price
+                            </Typography>
+                            <Typography variant="overline" gutterBottom>
+                              { (question.affectPrice === true) ? 'Yes' : 'No' }
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                     ))
+                    }
                     <Grid item xs={6}>
                       <Typography variant="caption" gutterBottom color="primary">
                             Price

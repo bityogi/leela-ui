@@ -1,7 +1,6 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { map } from 'lodash';
-import Divider from '@material-ui/core/Divider';
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
@@ -17,9 +16,8 @@ const renderChoices = (choices) => {
 let MultiChoiceQuestion = ({ question }) => {
     return (
         <div>
-            <label>{question.questionText}</label>
+            <label>{question.text}</label>
             {renderChoices(question.choices)}
-            <Divider />
         </div>
     )
 }
