@@ -86,5 +86,9 @@ export default theme => ({
     },
     media: {
       height: 140,
+    },
+    divider: {
+      marginTop: theme.spacing.unit * 1,
+      marginBottom: theme.spacing.unit * 1,
     }
   })

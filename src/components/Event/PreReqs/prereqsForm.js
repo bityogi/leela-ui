@@ -13,6 +13,7 @@ import styles from 'styles';
 import store from 'store';
 import TextQuestion from './textQuestion';
 import validate from 'components/Event/validate';
+import { Divider } from '@material-ui/core';
 
 class PreReqsForm extends Component {
     state = {
@@ -123,7 +124,7 @@ class PreReqsForm extends Component {
                         </Grid>
                     </form>
                 </div>
-                
+                <Divider className={classes.divider} />
                 <div>
                     { 
                         !isEmpty(newQuestion) ? 

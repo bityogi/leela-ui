@@ -86,6 +86,7 @@ class TextQuestion extends Component {
                             <Field 
                                 component={TextField} 
                                 name={`text`}
+                                autoFocus
                             />
                         </Typography>
                     </Grid>

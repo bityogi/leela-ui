@@ -7,7 +7,7 @@ let TextQuestion = ({ question }) => {
     console.log(' Displaying TEXT question: ', question);
     return (
         <div>
-            <Field name={`question-${question.index}`} component={TextField} label={question.questionText} />
+            <Field name={`question-${question.index}`} component={TextField} label={question.text} />
         </div>
     )
 }
