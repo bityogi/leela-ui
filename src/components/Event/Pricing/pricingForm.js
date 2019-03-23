@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { TextField } from 'redux-form-material-ui';
-import { filter } from 'lodash';
+import { filter, pick, isEmpty } from 'lodash';
 import Divider from '@material-ui/core/Divider';
 
 import styles from 'styles';
@@ -14,18 +14,34 @@ import ByQuestion from './byQuestion';
 import BySession from './bySession';
 import validate from 'components/Event/validate';
 import validatePriceByDate from './validatePricingByDate';
+import validatePricing from 'components/Event/validatePricing';
 
 
 class PricingForm extends Component {
 
     componentDidUpdate(prevProps) {
-        const { valid, submitting, anyTouched, enableSubmission } = this.props;
-        const enabled = (valid && !submitting) || !anyTouched;
-        const wasEnabled = (prevProps.valid && !prevProps.submitting) || !prevProps.anyTouched
+        const { enableSubmission } = this.props;
+        const values = pick(this.props, [
+            'pricesByDate',
+            'questions',
+            'sessions',
+            'price',
+        ]);
 
-        if (enabled !== wasEnabled) {
-            enableSubmission(enabled);
+        const isValid = () => {
+            const errors = validatePricing(values);
+            console.log('errors from validatePricing: ', errors);
+            if (isEmpty(errors)) {
+                return true
+            } else {
+                return false
+            }
         }
+
+        let enabled = isValid();
+    
+        enableSubmission(enabled);
+        
     }
 
     
@@ -81,11 +97,13 @@ PricingForm = connect(state => {
     const pricesByDate = selector(state, 'pricesByDate');
     const questions = selector(state, 'questions');
     const sessions = selector(state, 'sessions');
-   
+    const price = selector(state, 'price');
+
     return {
         pricesByDate,
         questions,
         sessions,
+        price,
     }
 })(PricingForm)
 

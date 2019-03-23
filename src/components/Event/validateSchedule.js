@@ -1,11 +1,10 @@
-import { isEmpty, map } from 'lodash';
-import { isAfter, parseISO, isBefore } from 'date-fns';
+import { isEmpty } from 'lodash';
+import { isBefore } from 'date-fns';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
 import validateSession from 'components/Event/Schedule/Sessions/validateSession';
-import validate from './validate';
-import session from './Schedule/Sessions/session';
+
 
 const moment = extendMoment(Moment);
 
