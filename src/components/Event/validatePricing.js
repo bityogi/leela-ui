@@ -1,4 +1,6 @@
-import { map, isNumber } from 'lodash';
+import { map, isEmpty } from 'lodash';
+
+import validatePricingByDate from 'components/Event/Pricing/validatePricingByDate';
 
 export default (values) => {
     console.log('values for validatePricing: ', values);
@@ -23,6 +25,12 @@ export default (values) => {
                 }
             }
         })
+    }
+
+    const datePricingErrors = validatePricingByDate(values.pricesByDate, { start: values.start });
+
+    if (!isEmpty(datePricingErrors)) {
+        errors.datePricingErrors = datePricingErrors;
     }
 
     return errors;

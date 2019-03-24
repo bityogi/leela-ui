@@ -1,4 +1,5 @@
 {
-    "workbench.colorTheme": "Solarized Light",
-    "workbench.editor.showIcons": false
+    "workbench.colorTheme": "Tomorrow Night Blue",
+    "workbench.editor.showIcons": false,
+    "workbench.iconTheme": "vs-minimal"
 }

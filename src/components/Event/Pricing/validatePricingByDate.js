@@ -27,15 +27,20 @@ export default (values, allValues, props) => {
 
             //Only do further validations, if all required values are there.
             if (isEmpty(errors)) {
-                if (isAfter(v.from, v.end)) {
+                const sessionStart = moment(v.from);
+                const sessionEnd = moment(v.till);
+                const scheduleStart = moment(allValues.start);
+
+                if (sessionStart.isAfter(sessionEnd)) {
                     errors.from ='From-date should be before By-date';
                 } else {
-                    if (isAfter(v.from, allValues.start)) {
+                    if (sessionStart.isAfter(scheduleStart)) {
                         errors.dates = 'From-date cannot be after Event start time';    
                     }
-                    if (isAfter(v.till, allValues.start)) {
+                    if (sessionEnd.isAfter(scheduleStart)) {
                         errors.till = 'By-date time cannot be after Event start time';
                     }
+                    
                     // Only do the range validation, if other validations have passed
                     if (isEmpty(errors)) {
                         for (let i = 0; i < index; i++) {

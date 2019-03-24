@@ -26,6 +26,7 @@ class PricingForm extends Component {
             'questions',
             'sessions',
             'price',
+            'start',
         ]);
 
         const isValid = () => {
@@ -98,12 +99,14 @@ PricingForm = connect(state => {
     const questions = selector(state, 'questions');
     const sessions = selector(state, 'sessions');
     const price = selector(state, 'price');
+    const start = selector(state, 'start');
 
     return {
         pricesByDate,
         questions,
         sessions,
         price,
+        start,
     }
 })(PricingForm)
 
