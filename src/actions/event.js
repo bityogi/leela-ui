@@ -1,10 +1,12 @@
 import { submit, getFormValues } from 'redux-form';
 import { isEmpty } from 'lodash';
+import { client } from 'util/axiosClient';
 
 import {
     FETCH_START,
     FETCH_END,
     SUBMIT_EVENT,
+    FETCH_CANCEL,
 } from './types';
 
 import {
@@ -30,21 +32,23 @@ export const submitEvent = (values) => {
         dispatch({
             type: SUBMIT_EVENT
         });
-        
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                console.log('mocking sumbission of event to server ...');
-                
-                dispatch({
-                    type: FETCH_END
-                })
 
-                dispatch(showNotification('Event successfully created', 'success'));
-                
-                resolve();
-            }, 3000);
-        })
-        
+        return client.post('/event/add', eventData)
+                .then(res => {
+                    console.log('response from event POST: ', res);
+                    dispatch({
+                        type: FETCH_END
+                    });
+                    dispatch(showNotification('Event successfully created', 'success'));
+                })
+                .catch(err => {
+                    console.error('error from event POST:', err);
+                    dispatch({
+                        type: FETCH_CANCEL
+                    });
+                    dispatch(showNotification('Error occured while creating event', 'error'));
+                });
+      
     }
 } 
 
