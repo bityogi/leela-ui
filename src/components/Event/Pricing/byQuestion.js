@@ -7,6 +7,18 @@ import store from 'store';
 
 import RenderPriceByQuestion from './renderPriceByQuestion';
 
+const validatePreReqPrice = (values, allValues) => {
+    console.log('validating pre-req price')
+    const errors = {};
+    if (!values.price) {
+        errors.price = 'Required';
+    } else if (values.price < 1) {
+        errors.price = 'Price should be a positive integer';
+    }
+
+    return errors;
+}
+
 class PriceByQuestion extends Component {
 
     addPriceForQuestion = (questionIndex, price) => {
@@ -39,6 +51,7 @@ class PriceByQuestion extends Component {
                         addPriceForQuestion={this.addPriceForQuestion}
                         key={q.index}
                         initialValues={initialValues}
+                        validate={validatePreReqPrice}
                     />
                 )
             })

@@ -39,6 +39,8 @@ class RenderPriceByQuestion extends Component {
                                 component={TextField} 
                                 label="Add Price (if Yes)" 
                                 onBlur={e => this.setPriceForQuestion(index, e)}
+                                type="number"
+                                parse={value => Number(value)}
                             />
                         </Typography>
                     </Grid>
