@@ -74,7 +74,30 @@ function normalizeEventData(data) {
         })
     }
 
-    if (data.hasSessions) {
+    if (data.isRecurring === true) {
+        eventData.recurrence = { 
+            frequencyType: data.frequency.toLowerCase(), //TODO: Use enums for frequency
+            interval: data.interval,
+            repeatUntil: data.repeatUntil
+        }
+
+        if (data.frequency === 'Weekly') {
+            eventData.recurrence.weekDays = data.weekDays;
+        }
+
+        if (data.frequency === 'Monthly') {
+            eventData.recurrence.monthlyRecurrenceType = data.monthDaySelectionType; //TODO: Use enums for monthDaySelectionType
+            if (data.monthDaySelectionType === 0) {
+                eventData.recurrence.monthDays = data.daysOfMonth;
+            } else if (data.monthDaySelectionType === 1) {
+                eventData.recurrence.number = data.dayOfWeek_number;
+                eventData.recurrence.dayOfWeek = data.dayOfWeek_day; 
+            }
+            
+        }
+    }
+
+    if (data.hasSessions === true) {
         eventData.sessions = data.sessions;
     }
 
