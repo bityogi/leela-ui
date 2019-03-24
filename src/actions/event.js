@@ -23,7 +23,7 @@ export const submitEvent = (values) => {
         const eventValues = getFormValues('event')(getState());
         console.log('ACTION: received form-values: ', eventValues);
         
-        dispatch(submit('event'));
+        
         const eventData = normalizeEventData(eventValues);
         console.log('submitting event with data: ', eventData);        
         dispatch({
@@ -36,6 +36,7 @@ export const submitEvent = (values) => {
         return client.post('/event/add', eventData)
                 .then(res => {
                     console.log('response from event POST: ', res);
+                    dispatch(submit('event'));
                     dispatch({
                         type: FETCH_END
                     });

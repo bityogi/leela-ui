@@ -21,8 +21,8 @@ const Menu = [
   },
   {
     id: 5,
-    label: "Cards",
-    pathname: "/cards"
+    label: "Login",
+    pathname: "/login"
   }
 
 ];
