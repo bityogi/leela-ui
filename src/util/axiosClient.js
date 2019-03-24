@@ -7,7 +7,8 @@ const api_url = process.env.REACT_APP_API_URL;
 
 const authClient = () => {
     const defaultOptions = {
-        baseURL: api_url,
+        // baseURL: api_url,
+        withCredentials: true,
         headers: {
             'Content-Type': 'application/json'
         }
@@ -30,13 +31,16 @@ const authClient = () => {
 }
 
 let client = axios.create({
-    baseURL: api_url
+    // baseURL: api_url,
+    withCredentials: true,
+    crossdomain: true,
   });
   
 client.defaults.headers.common['Content-Type'] = 'application/json';
 
 let uploadClient = axios.create({
-    baseURL: api_url
+    // baseURL: api_url,
+    withCredentials: true,
 })
 uploadClient.defaults.headers.common['Content-Type'] = 'multipart/form-data';
   

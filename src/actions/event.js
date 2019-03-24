@@ -69,7 +69,7 @@ function normalizeEventData(data) {
     if (!isEmpty(data.eventImage)) {
         eventData.media.push({
             mediaType: MEDIATYPE.EVENT_IMAGE,
-            path: data.EventImage.NewFileName
+            path: data.eventImage.NewFileName
         })
     }
     if (!isEmpty(data.altImage)) {
