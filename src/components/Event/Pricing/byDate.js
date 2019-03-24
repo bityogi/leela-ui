@@ -45,6 +45,8 @@ export default ({ fields, meta: { error, submitFailed }, classes }) => (
                         <Field 
                             component={TextField} 
                             name={`${byDate}.price`}
+                            type="number"
+                            parse={value => Number(value)}
                         />
                     </Typography>
                 </Grid>

@@ -82,8 +82,8 @@ function normalizeEventData(data) {
         eventData.questions = data.questions
     }
 
-    if (data.datePrices && data.datePrices.length > 0) {
-        eventData.dataPrices = data.datePrices;
+    if (data.pricesByDate && data.pricesByDate.length > 0) {
+        eventData.pricesByDate = data.pricesByDate;
     }
 
     return eventData;

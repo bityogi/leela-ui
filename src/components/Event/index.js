@@ -42,10 +42,9 @@ class Wizard extends Component {
   }
 
   handleNext = () => {
-    //Leave the form submittable by default for these steps (Media, Schedule, Pre-Reqs, Summary and Done)
     this.setState(state => ({
       activeStep: state.activeStep + 1,
-      enableFormSubmission: ([0, 1, 2, 4, 5].includes(state.activeStep)) ? true : false, 
+      enableFormSubmission: true,
     }));
   };
 

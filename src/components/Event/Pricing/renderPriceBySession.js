@@ -39,6 +39,8 @@ class RenderPriceBySession extends Component {
                                 component={TextField} 
                                 label="Add Price (for session)" 
                                 onBlur={e => this.setPriceForSession(index, e)}
+                                type="number"
+                                parse={value => Number(value)}
                             />
                         </Typography>
                     </Grid>

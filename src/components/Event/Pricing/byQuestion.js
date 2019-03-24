@@ -37,7 +37,7 @@ class PriceByQuestion extends Component {
         const { boolQuestions } = this.props;
         
         return map(boolQuestions, q => {
-            const exists = q.preReqPrice
+            const exists = q.preReqPrice;
             
             let initialValues = {};
             if (exists) {
@@ -73,10 +73,8 @@ PriceByQuestion = reduxForm({
 
 const selector = formValueSelector('event')
 PriceByQuestion = connect(state => {
-    const pricesByQuestion = selector(state, 'pricesByQuestion');
     const questions = selector(state, 'questions');
     return {
-        pricesByQuestion,
         questions,
     }
 })(PriceByQuestion)

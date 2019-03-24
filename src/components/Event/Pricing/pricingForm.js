@@ -63,6 +63,8 @@ class PricingForm extends Component {
                                     name="price" 
                                     component={TextField} 
                                     label="General Price" 
+                                    type="number"
+                                    parse={value => Number(value)}
                                 />
                             </Typography>
                             <Divider />

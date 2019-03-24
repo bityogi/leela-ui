@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, change, formValueSelector } from 'redux-form';
-import { map, find, filter } from 'lodash';
+import { map, forEach } from 'lodash';
 
 import store from 'store';
 
@@ -10,26 +10,25 @@ import RenderPriceBySession from './renderPriceBySession';
 class PriceBySession extends Component {
 
     addPriceForSession = (sessionIndex, price) => {
-        const { pricesBySession } = this.props;
-        const exists = find(pricesBySession, { sessionIndex });
-        if (exists) {
-            if (exists.price !== price) {
-                const newPricesBySession = filter(pricesBySession, (p) => p.sessionIndex !== sessionIndex);
-                store.dispatch(change('event', 'pricesBySession', [ ...newPricesBySession, { sessionIndex, price }]));
-            } 
-        } else {
-            store.dispatch(change('event', 'pricesBySession', [ ...pricesBySession, { sessionIndex, price }]));
-        }
+        const { sessions } = this.props;
+        forEach(sessions, (s) => {
+            if (s.index === sessionIndex) {
+                s.sessionPrice = { amount: price };
+            }
+        });
+        store.dispatch(change('event', 'sessions', sessions));
+
+        
     }
 
     renderSessions = () => {
-        const { sessions, pricesBySession } = this.props;
+        const { sessions } = this.props;
         return map(sessions, s => {
-            const exists = find(pricesBySession, { sessionIndex : s.index });
+            const exists = s.sessionPrice;
             
             let initialValues = {};
             if (exists) {
-                initialValues.price = exists.price 
+                initialValues.price = exists.amount 
             }
 
             return (
@@ -60,9 +59,9 @@ PriceBySession = reduxForm({
 
 const selector = formValueSelector('event')
 PriceBySession = connect(state => {
-    const pricesBySession = selector(state, 'pricesBySession');
+    const sessions = selector(state, 'sessions');
     return {
-        pricesBySession,
+        sessions,
     }
 })(PriceBySession)
 
