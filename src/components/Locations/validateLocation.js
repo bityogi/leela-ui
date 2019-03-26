@@ -1,5 +1,6 @@
 import { LOCATION_TYPE } from 'util/enums';
 import { isValidURL } from 'util/validate';
+import { client } from 'util/axiosClient';
 
 export default (values) => {
     let errors = {};
@@ -42,4 +43,21 @@ export default (values) => {
     
 
     return errors;
+}
+
+export const validateName = ({ name }) => {
+   
+
+    return client.get(`/location/check/${name}`)
+        .then(res => {
+            console.log('response from location POST: ', res);
+            
+            return true
+        })
+        .catch(err => {
+            console.log('error from location POST: ', err);
+            // eslint-disable-next-line no-throw-literal
+            throw { name: 'This name is not valid' }
+        })
+    
 }

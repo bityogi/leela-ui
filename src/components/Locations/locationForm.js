@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { TextField, Select } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
@@ -10,13 +12,14 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { LOCATION_TYPE } from 'util/enums';
 import styles from 'styles';
-import validateLocation from './validateLocation';
-
+import validateLocation, { validateName } from './validateLocation';
+import { addLocation } from 'actions';
 
 class LocationForm extends Component {
 
     handleFormSubmit = (values) => {
-        console.log('Form values for event info: ', values);
+        const { addLocation } = this.props;
+        addLocation(values);
     }
 
     render() {
@@ -179,7 +182,8 @@ class LocationForm extends Component {
 LocationForm = reduxForm({
     form: 'location',
     validate: validateLocation,
-    
+    asyncValidate: validateName,
+    asyncBlurFields: ['name'],
 })(LocationForm)
 
 const selector = formValueSelector('location')
@@ -192,4 +196,13 @@ LocationForm = connect(state => {
     }
 })(LocationForm)
 
-export default withStyles(styles)(LocationForm);
+const mapDispatchToProps = dispatch => bindActionCreators({
+    addLocation,
+}, dispatch)
+  
+const enhance = compose(
+    connect(null, mapDispatchToProps),
+    withStyles(styles),
+)
+
+export default enhance(LocationForm);

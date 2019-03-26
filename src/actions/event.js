@@ -40,7 +40,7 @@ export const submitEvent = (values) => {
                     dispatch({
                         type: FETCH_END
                     });
-                    dispatch(showNotification('Event successfully created', 'success'));
+                    dispatch(showNotification('Event created', 'success'));
                 })
                 .catch(err => {
                     console.error('error from event POST:', err);
