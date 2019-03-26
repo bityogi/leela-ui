@@ -5,6 +5,7 @@ import { TextField, Select } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { LOCATION_TYPE } from 'util/enums';
@@ -19,9 +20,8 @@ class LocationForm extends Component {
     }
 
     render() {
-        const { handleSubmit, locationType } = this.props;
-        console.log('locationType: ', locationType)
-        console.log('Physical locationType value: ', LOCATION_TYPE.Physical)
+        const { handleSubmit, locationType, classes, pristine, reset, submitting, invalid } = this.props;
+        
 
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -58,12 +58,17 @@ class LocationForm extends Component {
                     {
                         (locationType === LOCATION_TYPE.Physical.ordinal) && (
                             <Grid>
-                                <Grid item xs={12}>
+                                 <Grid item xs={12}>
                                     <Typography style={{textTransform: 'uppercase'}} color='secondary' gutterBottom>
-                                        Address1
+                                        Capacity
                                     </Typography>
                                     <Typography variant="h5" gutterBottom>
-                                        <Field name="address1" component={TextField}  />
+                                        <Field 
+                                            name="capacity" 
+                                            component={TextField} 
+                                            type="number"
+                                            parse={value => Number(value)}
+                                        />
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -141,6 +146,27 @@ class LocationForm extends Component {
                         )
                     }
 
+                    <div className={classes.flexBar}>
+                        <Button 
+                            variant="contained"
+                            color="primary"
+                            size='large'
+                            type="submit"
+                            disabled={invalid || pristine || submitting}
+                        >
+                            Submit
+                        </Button>
+                        <Button
+                            onClick={reset}
+                            className={classes.backButton}
+                            size='large'
+                            disabled={pristine || submitting}
+                        >
+                            Clear 
+                        </Button>
+                    
+                       
+                    </div>
                     
                 </Grid>
 

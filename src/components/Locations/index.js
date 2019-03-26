@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+
 
 import Back from 'components/common/Back';
 import styles from 'styles';
@@ -41,24 +41,7 @@ class Locations extends Component {
                         
                         <LocationForm />
                         
-                        <div className={classes.flexBar}>
-                          <Button
-                          onClick={this.handleBack}
-                          className={classes.backButton}
-                          size='large'
-                          >
-                              Back
-                          </Button>
-                      
-                          <Button 
-                            variant="contained"
-                            color="primary"
-                            onClick={this.goToDashboard}
-                            size='large'
-                          >
-                            Done
-                          </Button>
-                        </div>
+                        
                       </div>
                     </Paper>
                   </div>
