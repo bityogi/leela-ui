@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 
 import store from 'store';
 
-const api_url = process.env.REACT_APP_API_URL;
+// const api_url = process.env.REACT_APP_API_URL;
 
 const authClient = () => {
     const defaultOptions = {
