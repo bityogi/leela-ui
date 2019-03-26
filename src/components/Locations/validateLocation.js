@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import { LOCATION_TYPE } from 'util/enums';
 import { isValidURL } from 'util/validate';
 import { client } from 'util/axiosClient';
@@ -56,7 +57,10 @@ export const validateName = ({ name }) => {
         })
         .catch(err => {
             console.log('error from location POST: ', err);
-            // eslint-disable-next-line no-throw-literal
+            if (err.status === 302) {
+                throw { name: err.data.Message }
+            }
+            
             throw { name: 'This name is not valid' }
         })
     
