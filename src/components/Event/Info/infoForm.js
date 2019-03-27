@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { TextField, Select } from 'redux-form-material-ui';
@@ -10,7 +11,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { isEmpty } from 'lodash';
 
 import styles from 'styles';
-import { history } from 'store';
 import validate from '../validate';
 import initialValues from '../initialValues';
 
@@ -48,7 +48,7 @@ class InfoForm extends Component {
     }
 
     render() {
-        const { classes, handleSubmit } = this.props;
+        const { classes, history, handleSubmit } = this.props;
 
         return (
             <form>
@@ -77,7 +77,17 @@ class InfoForm extends Component {
                                 <MenuItem key={'Location 2'} value={2}>Location 2</MenuItem>
                             
                             </Field>
-                            <Button variant="outlined" size="large" className={classes.inlineButton} onClick={() => history.push('/location')}>
+                            <Button 
+                                variant="outlined" 
+                                size="large" 
+                                className={classes.inlineButton} 
+                                onClick={() => history.push({
+                                    pathname: '/location',
+                                    state: {
+                                        from: history.location.pathname
+                                    }
+                                })}
+                            >
                                 Add
                             </Button>
                         </Typography>
@@ -123,4 +133,4 @@ InfoForm = connect(state => {
     }
 })(InfoForm)
 
-export default withStyles(styles)(InfoForm);
+export default withRouter(withStyles(styles)(InfoForm));
