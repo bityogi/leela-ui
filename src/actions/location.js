@@ -52,14 +52,14 @@ export const getMyLocations = () => {
                     type: MY_LOCATIONS,
                     payload: res.data
                 })
-                dispatch(showNotification('Location created', 'success'));
+                
             })
             .catch(err => {
                 console.log('error from location POST: ', err);
                 dispatch({
                     type: FETCH_CANCEL
                 });
-                dispatch(showNotification('Error occured while creating location', 'error'));
+                dispatch(showNotification('Error occured while loading user-locations', 'error'));
             })
     }
 }

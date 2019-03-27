@@ -9,12 +9,14 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { map } from 'lodash';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { LOCATION_TYPE } from 'util/enums';
 import styles from 'styles';
 import validateLocation, { validateName } from './validateLocation';
 import { addLocation } from 'actions';
+import { states } from 'util/lookups/us_states';
 
 class LocationForm extends Component {
 
@@ -33,6 +35,12 @@ class LocationForm extends Component {
                     })
                 }
             })
+    }
+
+    renderStates = () => {
+        return map(states, (s) => {
+            return (<MenuItem key={s.id} value={s.code}>{s.name}</MenuItem>)
+        })
     }
 
     render() {
@@ -122,8 +130,8 @@ class LocationForm extends Component {
                                             component={Select}
                                             autoWidth={true}
                                             >
-                                            <MenuItem key={'CA'} value={1}>CA</MenuItem>
-                                            <MenuItem key={'NC'} value={2}>NC</MenuItem>
+                                            
+                                           {this.renderStates()}
                                         
                                         </Field>
                                     </Typography>
