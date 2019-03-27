@@ -3,6 +3,7 @@ import {
     FETCH_START,
     FETCH_END,
     FETCH_CANCEL,
+    MY_LOCATIONS,
 } from './types';
 
 import {
@@ -35,3 +36,30 @@ export const addLocation = (values) => {
     }
 }
 
+export const getMyLocations = () => {
+    return dispatch => {
+        dispatch({
+            type: FETCH_START
+        })
+
+        return client.get('/my/locations')
+            .then(res => {
+                console.log('response from myLocations GET: ', res);
+                dispatch({
+                    type: FETCH_END
+                });
+                dispatch({
+                    type: MY_LOCATIONS,
+                    payload: res.data
+                })
+                dispatch(showNotification('Location created', 'success'));
+            })
+            .catch(err => {
+                console.log('error from location POST: ', err);
+                dispatch({
+                    type: FETCH_CANCEL
+                });
+                dispatch(showNotification('Error occured while creating location', 'error'));
+            })
+    }
+}

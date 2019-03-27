@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { TextField, Select } from 'redux-form-material-ui';
 import Grid from '@material-ui/core/Grid';
@@ -8,18 +10,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { isEmpty } from 'lodash';
+import { isEmpty, map } from 'lodash';
 
 import styles from 'styles';
 import validate from '../validate';
 import initialValues from '../initialValues';
-
+import { getMyLocations } from 'actions';
 
 class InfoForm extends Component {
 
-    // handleFormSubmit = (values) => {
-    //     console.log('Form values for event info: ', values);
-    // }
+    componentDidMount() {
+        this.props.getMyLocations();
+    }
 
     componentDidUpdate(prevProps) {
         const { submitting, enableSubmission, title, location, description } = this.props;
@@ -47,8 +49,19 @@ class InfoForm extends Component {
         }
     }
 
+    renderUserLocations = () => {
+        
+        const { userLocations } = this.props;
+        console.log('userLocations: ', userLocations);
+        
+        return map(userLocations, l => {
+            return <MenuItem key={l.ID} value={l.ID}>{l.name}</MenuItem>
+        })
+
+    }
+
     render() {
-        const { classes, history, handleSubmit } = this.props;
+        const { classes, history } = this.props;
 
         return (
             <form>
@@ -73,8 +86,7 @@ class InfoForm extends Component {
                                 component={Select}
                                 autoWidth={true}
                                 >
-                                <MenuItem key={'Location 1'} value={1}>Location 1</MenuItem>
-                                <MenuItem key={'Location 2'} value={2}>Location 2</MenuItem>
+                                {this.renderUserLocations()}
                             
                             </Field>
                             <Button 
@@ -133,4 +145,18 @@ InfoForm = connect(state => {
     }
 })(InfoForm)
 
-export default withRouter(withStyles(styles)(InfoForm));
+const mapStateToProps = (state) => ({
+    userLocations: state.user.locations
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    getMyLocations,
+  }, dispatch)
+  
+  const enhance = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withStyles(styles),
+    withRouter,
+  )
+  
+export default enhance(InfoForm);
