@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,14 +19,26 @@ import { addLocation } from 'actions';
 class LocationForm extends Component {
 
     handleFormSubmit = (values) => {
-        const { addLocation } = this.props;
-        addLocation(values);
+        const { addLocation, location, history } = this.props;
+
+        addLocation(values)
+            .then(() => {
+                if (location.state && location.state.from) {
+                    history.push({
+                        pathname: location.state.from
+                      })
+                } else {
+                    history.push({
+                        pathname: '/'
+                    })
+                }
+            })
     }
 
     render() {
-        const { handleSubmit, locationType, classes, pristine, reset, submitting, invalid } = this.props;
+        const { handleSubmit, locationType, classes, pristine, reset, submitting, invalid, location } = this.props;
         
-
+        console.log('location prop: ', location)
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
                 <Grid item container xs={12}>
@@ -203,6 +216,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 const enhance = compose(
     connect(null, mapDispatchToProps),
     withStyles(styles),
+    withRouter,
 )
 
 export default enhance(LocationForm);
